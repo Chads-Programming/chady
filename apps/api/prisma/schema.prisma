@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id     String @id @default(cuid())
+  email  String @unique
+  name   String
+  avatar String
+
+  userRoles     UserRole[]
+  EventCreators EventCreators[]
+}
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  userRoles UserRole[]
+}
+
+model UserRole {
+  id     Int    @id @default(autoincrement())
+  userId String
+  roleId Int
+
+  user User @relation(fields: [userId], references: [id])
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@unique([userId, roleId])
+}
+
+enum EventType {
+  COURSE
+}
+
+enum Periodicity {
+  DAILY
+  WEEKLY
+  MONTHY
+  ONCE_TIME
+}
+
+model EventSchedule {
+  id         Int         @id @default(autoincrement())
+  uniqueDate DateTime
+  periocity  Periodicity
+
+  monday    Boolean @default(false)
+  tuesday   Boolean @default(false)
+  wednesday Boolean @default(false)
+  thursday  Boolean @default(false)
+  friday    Boolean @default(false)
+  saturday  Boolean @default(false)
+  sunday    Boolean @default(false)
+
+  startTime DateTime
+  endTime   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  event     Event?
+}
+
+model Event {
+  id              String          @id @default(uuid())
+  type            EventType
+  name            String
+  description     String
+  link            String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  schedule        EventSchedule   @relation(fields: [eventScheduleId], references: [id])
+  eventScheduleId Int             @unique
+  EventCreators   EventCreators[]
+}
+
+model EventCreators {
+  id      Int    @id @default(autoincrement())
+  eventId String
+  userId  String
+
+  event Event @relation(fields: [eventId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+}

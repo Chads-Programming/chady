@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  name: String!
+  avatar: String!
+  email: String!
+  roles: [String!]!
+}
+
+type Event {
+  id: String!
+  name: String!
+  description: String!
+  creators: [User!]!
+}
+
+type Query {
+  events: [Event!]!
+}
