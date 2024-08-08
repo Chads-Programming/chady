@@ -1,0 +1,6 @@
+{
+	"files": {
+		"ignore": ["dist/**"]
+	},
+	"extends": ["../../biome.json"]
+}

@@ -1,0 +1,28 @@
+{
+	"name": "@repo/validation-schemas",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsup ./src --dts",
+		"dev": "tsup ./src --dts --watch",
+		"type-check": "tsc --noEmit",
+		"lint:format": "pnpm biome format --write .",
+		"lint:fix": "pnpm biome check --apply .",
+		"lint:check": "pnpm biome check ."
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@repo/shared-types": "workspace:*",
+		"@biomejs/biome": "1.7.3",
+		"tsup": "^8.0.1",
+		"typescript": "^5.5.2",
+		"@repo/typescript-config": "workspace:*"
+	}
+}
