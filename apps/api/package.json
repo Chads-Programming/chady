@@ -32,9 +32,11 @@
     "@prisma/client": "5.18.0",
     "@repo/shared-types": "workspace:*",
     "@repo/validation-schemas": "workspace:*",
+    "class-validator": "^0.14.1",
     "graphql": "^16.9.0",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

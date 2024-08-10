@@ -52,6 +52,12 @@ enum Periodicity {
   ONCE_TIME
 }
 
+enum Status {
+  PENDING
+  READY
+  REJECTED
+}
+
 model EventSchedule {
   id         Int         @id @default(autoincrement())
   uniqueDate DateTime
@@ -76,6 +82,7 @@ model EventSchedule {
 model Event {
   id              String          @id @default(uuid())
   type            EventType
+  status          Status
   name            String
   description     String
   link            String?

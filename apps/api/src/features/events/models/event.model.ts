@@ -1,5 +1,7 @@
 import { User } from '@/features/users/models/user.model';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { EventSchedule } from './schedule.model';
+import { Paginated } from '@/common/dto/page-info';
 
 @ObjectType()
 export class Event {
@@ -13,5 +15,11 @@ export class Event {
   description: string;
 
   @Field(() => [User])
-  creators: User[];
+  creators?: User[];
+
+  @Field(() => EventSchedule)
+  schedule: EventSchedule;
 }
+
+@ObjectType()
+export class PaginatedEvents extends Paginated(Event) {}
