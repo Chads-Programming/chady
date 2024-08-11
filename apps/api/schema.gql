@@ -69,6 +69,7 @@ enum Status {
 type Mutation {
   registerEvent(newEvent: RegisterEventInput!): Event!
   updateEvent(event: UpdateEventInput!): Event!
+  updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
 }
 
 input RegisterEventInput {
@@ -109,4 +110,18 @@ input UpdateEventInput {
   type: EventType
   id: String!
   status: Status!
+}
+
+input UpdateEventScheduleInput {
+  uniqueDate: DateTime
+  periocity: Periodicity
+  monday: Boolean = false
+  tuesday: Boolean = false
+  wednesday: Boolean = false
+  thursday: Boolean = false
+  friday: Boolean = false
+  saturday: Boolean = false
+  sunday: Boolean = false
+  startTime: DateTime
+  endTime: DateTime
 }

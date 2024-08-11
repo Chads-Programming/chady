@@ -1,6 +1,6 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, PartialType, Int } from '@nestjs/graphql';
 import { Periodicity } from '@prisma/client';
-import { IsBoolean, IsOptional } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsUUID, Min } from 'class-validator';
 
 @InputType()
 export class CreateEventScheduleInput {
@@ -45,3 +45,8 @@ export class CreateEventScheduleInput {
   @IsOptional()
   endTime?: Date;
 }
+
+@InputType()
+export class UpdateEventScheduleInput extends PartialType(
+  CreateEventScheduleInput,
+) {}
