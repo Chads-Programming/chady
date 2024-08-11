@@ -6,6 +6,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UsersModule } from './features/users/users.module';
 import { EventsModule } from './features/events/events.module';
+import { AuthModule } from './features/auth/auth.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -15,8 +17,10 @@ import { EventsModule } from './features/events/events.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,
-      autoSchemaFile: 'schema.gql',
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      context: ({ req, res }) => ({ req, res }),
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
