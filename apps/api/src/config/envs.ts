@@ -15,6 +15,7 @@ const envSchema = z.object({
   DISCORD_CLIENT_SECRET: z.string(),
   DISCORD_CALLBACK_URL: z.string(),
   AUTH_REDIRECT_URL: z.string().url(),
+  COOKIE_SECRET: z.string(),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;
@@ -34,4 +35,5 @@ export const envs = {
   DISCORD_CLIENT_SECRET: envVars.DISCORD_CLIENT_SECRET,
   DISCORD_CALLBACK_URL: envVars.DISCORD_CALLBACK_URL,
   AUTH_REDIRECT_URL: envVars.AUTH_REDIRECT_URL,
+  COOKIE_SECRET: envVars.COOKIE_SECRET,
 } as EnvVars;

@@ -1,0 +1,127 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: String!
+  name: String!
+  avatar: String!
+  email: String!
+  roles: [String!]!
+}
+
+type EventSchedule {
+  uniqueDate: DateTime!
+  periocity: Periodicity!
+  monday: Boolean!
+  tuesday: Boolean!
+  wednesday: Boolean!
+  thursday: Boolean!
+  friday: Boolean!
+  saturday: Boolean!
+  sunday: Boolean!
+  startTime: DateTime!
+  endTime: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum Periodicity {
+  DAILY
+  WEEKLY
+  MONTHY
+  ONCE_TIME
+}
+
+type PageInfo {
+  currentPage: Float!
+  totalPages: Float!
+  total: Float!
+  hasNextPage: Boolean!
+}
+
+type Event {
+  id: String!
+  name: String!
+  description: String!
+  creators: [User!]!
+  schedule: EventSchedule!
+}
+
+type PaginatedEvents {
+  data: [Event!]!
+  pageInfo: PageInfo
+}
+
+type Query {
+  events(search: String!, status: Status!, page: Int!, perPage: Int!): PaginatedEvents!
+}
+
+enum Status {
+  PENDING
+  READY
+  REJECTED
+}
+
+type Mutation {
+  registerEvent(newEvent: RegisterEventInput!): Event!
+  updateEvent(event: UpdateEventInput!): Event!
+  updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
+}
+
+input RegisterEventInput {
+  event: CreateEventInput!
+  schedule: CreateEventScheduleInput!
+  creators: [String!]!
+}
+
+input CreateEventInput {
+  name: String!
+  description: String
+  link: String!
+  type: EventType!
+}
+
+enum EventType {
+  COURSE
+}
+
+input CreateEventScheduleInput {
+  uniqueDate: DateTime!
+  periocity: Periodicity!
+  monday: Boolean! = false
+  tuesday: Boolean! = false
+  wednesday: Boolean! = false
+  thursday: Boolean! = false
+  friday: Boolean! = false
+  saturday: Boolean! = false
+  sunday: Boolean! = false
+  startTime: DateTime!
+  endTime: DateTime
+}
+
+input UpdateEventInput {
+  name: String
+  description: String
+  link: String
+  type: EventType
+  id: String!
+  status: Status!
+}
+
+input UpdateEventScheduleInput {
+  uniqueDate: DateTime
+  periocity: Periodicity
+  monday: Boolean = false
+  tuesday: Boolean = false
+  wednesday: Boolean = false
+  thursday: Boolean = false
+  friday: Boolean = false
+  saturday: Boolean = false
+  sunday: Boolean = false
+  startTime: DateTime
+  endTime: DateTime
+}

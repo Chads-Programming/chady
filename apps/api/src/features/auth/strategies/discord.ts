@@ -25,6 +25,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy) {
       accessToken,
       refreshToken,
     };
-    //return this.authService.validateUser(details);
+
+    return this.authService.validateUser(details);
   }
 }

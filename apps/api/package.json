@@ -34,6 +34,7 @@
     "@repo/shared-types": "workspace:*",
     "@repo/validation-schemas": "workspace:*",
     "class-validator": "^0.14.1",
+    "express-session": "^1.18.0",
     "graphql": "^16.9.0",
     "passport": "^0.7.0",
     "passport-discord": "^0.1.4",
