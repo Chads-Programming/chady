@@ -14,6 +14,8 @@ import { UpdateEventInput } from '../dtos/event.input';
 import { EventArgs } from '../dtos/event.args';
 import { User } from '@/features/users/models/user.model';
 import { PageInfo } from '@/common/dto/page-info';
+import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
+import { DISCORD_ROLES } from '@/features/auth/consts';
 
 @Resolver(() => Event)
 export class EventsResolver {
@@ -43,11 +45,21 @@ export class EventsResolver {
     return this.eventService.findCreators(event.id);
   }
 
+  @AllowedDiscordRoles(
+    DISCORD_ROLES.ULTRA_CHAD,
+    DISCORD_ROLES.LEGACY_ADMIN,
+    DISCORD_ROLES.GIGA_CHAD,
+  )
   @Mutation(() => Event)
   async registerEvent(@Args('newEvent') newEvent: RegisterEventInput) {
     return this.eventService.registerEvent(newEvent);
   }
 
+  @AllowedDiscordRoles(
+    DISCORD_ROLES.ULTRA_CHAD,
+    DISCORD_ROLES.LEGACY_ADMIN,
+    DISCORD_ROLES.GIGA_CHAD,
+  )
   @Mutation(() => Event)
   async updateEvent(@Args('event') event: UpdateEventInput) {
     return this.eventService.updateEvent(event);

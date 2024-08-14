@@ -4,9 +4,10 @@
 
 type User {
   id: String!
-  name: String!
+  discordId: String!
+  username: String!
   avatar: String!
-  email: String!
+  discriminator: String!
   roles: [String!]!
 }
 

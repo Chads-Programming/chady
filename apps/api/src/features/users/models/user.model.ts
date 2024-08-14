@@ -6,13 +6,16 @@ export class User {
   id: string;
 
   @Field()
-  name: string;
+  discordId: string;
+
+  @Field()
+  username: string;
 
   @Field()
   avatar: string;
 
   @Field()
-  email: string;
+  discriminator: string;
 
   @Field(() => [String])
   roles: string[];

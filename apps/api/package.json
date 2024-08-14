@@ -25,6 +25,7 @@
   "dependencies": {
     "@apollo/server": "^4.11.0",
     "@nestjs/apollo": "^12.2.0",
+    "@nestjs/axios": "^3.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/graphql": "^12.2.0",
@@ -33,6 +34,7 @@
     "@prisma/client": "5.18.0",
     "@repo/shared-types": "workspace:*",
     "@repo/validation-schemas": "workspace:*",
+    "axios": "^1.7.3",
     "class-validator": "^0.14.1",
     "express-session": "^1.18.0",
     "graphql": "^16.9.0",

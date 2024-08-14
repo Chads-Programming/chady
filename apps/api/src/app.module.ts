@@ -8,12 +8,14 @@ import { UsersModule } from './features/users/users.module';
 import { EventsModule } from './features/events/events.module';
 import { AuthModule } from './features/auth/auth.module';
 import { join } from 'path';
+import { DiscordModule } from '@/discord/discord.module';
 
 @Module({
   imports: [
     DatabaseModule,
     UsersModule,
     EventsModule,
+    DiscordModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,

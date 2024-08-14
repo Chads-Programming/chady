@@ -23,28 +23,10 @@ model User {
   accessToken  String
   refreshToken String
 
-  userRoles     UserRole[]
+  roles         String[]
   EventCreators EventCreators[]
 
   @@unique([discordId, username])
-}
-
-model Role {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  userRoles UserRole[]
-}
-
-model UserRole {
-  id     Int    @id @default(autoincrement())
-  userId String
-  roleId Int
-
-  user User @relation(fields: [userId], references: [id])
-  role Role @relation(fields: [roleId], references: [id])
-
-  @@unique([userId, roleId])
 }
 
 enum EventType {
