@@ -16,7 +16,7 @@
     "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "@repo/tailwind-config": "workspace:^",
+    "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "tailwindcss": "^3.4.8"
   }
