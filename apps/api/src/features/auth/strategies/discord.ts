@@ -30,10 +30,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy) {
       refreshToken,
     };
 
-    const member = await this.discordService.findGuildMember(
-      envs.DISCORD_SERVER_ID,
-      accessToken,
-    );
+    const member = await this.discordService.findGuildMember(accessToken);
 
     if (!member) {
       throw new UnauthorizedException('User is not part of discord server');

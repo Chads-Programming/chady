@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { DiscordService } from '@/discord/discord.service';
 import { HttpModule } from '@nestjs/axios';
+import { envs } from '@/config';
+import * as consts from './consts';
 
 @Module({
   imports: [
@@ -9,7 +11,17 @@ import { HttpModule } from '@nestjs/axios';
       maxRedirects: 5,
     }),
   ],
-  providers: [DiscordService],
+  providers: [
+    DiscordService,
+    {
+      provide: consts.GUILD_ID_PROVIDER,
+      useValue: envs.DISCORD_SERVER_ID,
+    },
+    {
+      provide: consts.DISCORD_API_KEY_PROVIDER,
+      useValue: envs.DISCORD_API_KEY,
+    },
+  ],
   exports: [DiscordService],
 })
 export class DiscordModule {}
