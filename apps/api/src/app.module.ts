@@ -9,6 +9,7 @@ import { EventsModule } from './features/events/events.module';
 import { AuthModule } from './features/auth/auth.module';
 import { join } from 'path';
 import { DiscordModule } from '@/discord/discord.module';
+import { ChallengesModule } from './features/challenges/challenges.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DiscordModule } from '@/discord/discord.module';
     UsersModule,
     EventsModule,
     DiscordModule,
+    ChallengesModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

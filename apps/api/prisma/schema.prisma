@@ -23,8 +23,9 @@ model User {
   accessToken  String
   refreshToken String
 
-  roles         String[]
-  EventCreators EventCreators[]
+  roles             String[]
+  EventCreators     EventCreators[]
+  UserCodeChallenge UserCodeChallenge[]
 
   @@unique([discordId, username])
 }
@@ -88,4 +89,50 @@ model EventCreators {
 
   event Event @relation(fields: [eventId], references: [id])
   user  User  @relation(fields: [userId], references: [id])
+}
+
+enum ProgrammingLang {
+  Javascript
+  Typescript
+}
+
+model CodeChallenge {
+  id          String          @id @default(uuid())
+  title       String
+  description String
+  startedCode String
+  lang        ProgrammingLang
+  TestCase    TestCase[]
+
+  deletedAt         DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now()) @updatedAt
+  UserCodeChallenge UserCodeChallenge[]
+}
+
+model TestCase {
+  id              Int     @id @default(autoincrement())
+  args            Json
+  expectedOutput  String
+  codeChallengeId String
+  isSecret        Boolean @default(false)
+
+  CodeChallenge CodeChallenge @relation(fields: [codeChallengeId], references: [id])
+
+  deletedAt DateTime?
+}
+
+model UserCodeChallenge {
+  id           String  @id @default(uuid())
+  solutionCode String
+  runTime      Decimal
+
+  codeChallengeId String
+  codeChallenge   CodeChallenge @relation(fields: [codeChallengeId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
