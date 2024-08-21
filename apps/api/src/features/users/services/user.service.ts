@@ -1,12 +1,17 @@
-import { Prisma } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
 import { CreateUserDto } from '@/features/users/dto/create-user.dto';
 import { UpdateUserDto } from '@/features/users/dto/update-user.dto';
+import { DiscordService } from '@/discord/discord.service';
+import { RoleDetail } from '../models/role-detail.model';
+import roleMappings from '../mappings/role-detail.mapped';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly discordService: DiscordService,
+  ) {}
 
   findUserByDiscordId(discordId: string) {
     return this.prisma.user.findFirst({
@@ -39,5 +44,13 @@ export class UserService {
         roles: user.roles,
       },
     });
+  }
+
+  async findUserRolesDetails(roleIds: string[]): Promise<RoleDetail[]> {
+    const requests = roleIds.map((id) => this.discordService.getGuildRole(id));
+
+    const roles = await Promise.all(requests);
+
+    return roles.map((role) => roleMappings.fromDiscordRole(role));
   }
 }

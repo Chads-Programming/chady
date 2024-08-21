@@ -9,5 +9,8 @@ export class RoleDetail {
   name: string;
 
   @Field()
+  color: number;
+
+  @Field()
   imageUrl: string;
 }

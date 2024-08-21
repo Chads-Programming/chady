@@ -7,13 +7,16 @@ import * as passport from 'passport';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: ['*'],
+    origin: ['*', 'https://studio.apollographql.com'],
     credentials: true,
   });
   app.use(
     session({
       cookie: {
+        httpOnly: true,
         maxAge: 86400000,
+        secure: false,
+        sameSite: 'lax',
       },
       secret: envs.COOKIE_SECRET,
       resave: false,

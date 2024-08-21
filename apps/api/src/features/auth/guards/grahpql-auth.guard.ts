@@ -5,6 +5,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 export class GraphQLAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
+
     return ctx.getContext().req.user;
   }
 }

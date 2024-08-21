@@ -21,6 +21,6 @@ export class AuthController {
   @Get('logout')
   @UseGuards(AuthenticatedGuard)
   logout(@Req() req: Request) {
-    req.logOut({ keepSessionInfo: false }, null);
+    req.logOut({ keepSessionInfo: false }, () => null);
   }
 }

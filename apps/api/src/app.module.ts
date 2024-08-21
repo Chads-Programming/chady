@@ -18,9 +18,13 @@ import { DiscordModule } from '@/discord/discord.module';
     DiscordModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      playground: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      context: ({ req, res }) => ({ req, res }),
+      context: ({ req }) => ({ req }),
+      playground: {
+        settings: {
+          'request.credentials': 'include',
+        },
+      },
     }),
     AuthModule,
   ],

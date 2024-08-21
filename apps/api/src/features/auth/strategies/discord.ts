@@ -6,11 +6,8 @@ import { envs } from '@/config';
 import { DiscordService } from '@/discord/discord.service';
 
 @Injectable()
-export class DiscordStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly discordService: DiscordService,
-  ) {
+export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
+  constructor(private readonly authService: AuthService) {
     super({
       clientID: envs.DISCORD_CLIENT_ID,
       clientSecret: envs.DISCORD_CLIENT_SECRET,
@@ -30,11 +27,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy) {
       refreshToken,
     };
 
-    const member = await this.discordService.findGuildMember(accessToken);
-
-    if (!member) {
-      throw new UnauthorizedException('User is not part of discord server');
-    }
+    const member = await this.authService.validateUser(accessToken);
 
     return this.authService.createUpdateAccount({
       ...details,

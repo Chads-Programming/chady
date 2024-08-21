@@ -10,6 +10,6 @@ export class UserDetail extends OmitType(User, ['roles']) {
   @Field(() => [RoleDetail])
   roles: RoleDetail[];
 
-  @Field()
   avatar: string;
+  rolesIds: string[];
 }

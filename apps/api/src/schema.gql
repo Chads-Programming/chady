@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type RoleDetail {
+  id: String!
+  name: String!
+  color: Float!
+  imageUrl: String!
+}
+
 type User {
   id: String!
   discordId: String!
@@ -9,6 +16,16 @@ type User {
   avatar: String!
   discriminator: String!
   roles: [String!]!
+}
+
+type UserDetail {
+  id: String!
+  discordId: String!
+  username: String!
+  avatar: String!
+  discriminator: String!
+  avatarUrl: String!
+  roles: [RoleDetail!]!
 }
 
 type EventSchedule {
@@ -58,6 +75,7 @@ type PaginatedEvents {
 }
 
 type Query {
+  findProfile: UserDetail!
   events(search: String!, status: Status!, page: Int!, perPage: Int!): PaginatedEvents!
 }
 
@@ -71,6 +89,7 @@ type Mutation {
   registerEvent(newEvent: RegisterEventInput!): Event!
   updateEvent(event: UpdateEventInput!): Event!
   updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
+  discordLogin: String!
 }
 
 input RegisterEventInput {
