@@ -74,9 +74,56 @@ type PaginatedEvents {
   pageInfo: PageInfo
 }
 
+type TestCase {
+  id: Float!
+  args: JSON!
+  expectedOutput: String!
+  isSecret: Boolean!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type CodeChallenge {
+  id: String!
+  title: String!
+  startedCode: String!
+  lang: ProgrammingLang!
+  testCases: [TestCase!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum ProgrammingLang {
+  Javascript
+  Typescript
+}
+
+type PaginatedChallenges {
+  data: [CodeChallenge!]!
+  pageInfo: PageInfo
+}
+
+type Submission {
+  id: String!
+  solutionCode: String!
+  runtime: Float!
+  status: String!
+  codeChallenge: CodeChallenge!
+  user: UserDetail!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   findProfile: UserDetail!
   events(search: String!, status: Status!, page: Int!, perPage: Int!): PaginatedEvents!
+  getCodeChallenge(id: String!): CodeChallenge!
+  findCodeChallenges(search: String!, lang: ProgrammingLang!, page: Int!, perPage: Int!): PaginatedChallenges!
+  getUserSubmission(submissionId: String!): Submission!
+  getUserSubmissions: [Submission!]!
 }
 
 enum Status {
@@ -89,7 +136,10 @@ type Mutation {
   registerEvent(newEvent: RegisterEventInput!): Event!
   updateEvent(event: UpdateEventInput!): Event!
   updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
-  discordLogin: String!
+  createCodeChallenge(newCodeChallenge: CreateCodeChallengeInput!): CodeChallenge!
+  createTestCase(testCase: CreateTestCaseInput!): CodeChallenge!
+  createUserSubmission(submission: CreateSubmissionInput!): Submission!
+  updateUserSubmission(submissionId: String!, submission: UpdateSubmissionInput!): Submission!
 }
 
 input RegisterEventInput {
@@ -144,4 +194,28 @@ input UpdateEventScheduleInput {
   sunday: Boolean = false
   startTime: DateTime
   endTime: DateTime
+}
+
+input CreateCodeChallengeInput {
+  title: String!
+  description: String!
+  solutionCode: String!
+  startedCode: String!
+  lang: ProgrammingLang!
+}
+
+input CreateTestCaseInput {
+  args: JSON!
+  expectedOutput: String!
+  codeChallengeId: String!
+  isSecret: Boolean!
+}
+
+input CreateSubmissionInput {
+  solutionCode: String!
+  challengeId: String!
+}
+
+input UpdateSubmissionInput {
+  solutionCode: String!
 }

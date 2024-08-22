@@ -10,6 +10,7 @@ import { AuthModule } from './features/auth/auth.module';
 import { join } from 'path';
 import { DiscordModule } from '@/discord/discord.module';
 import { ChallengesModule } from './features/challenges/challenges.module';
+import { GraphQLJSON } from 'graphql-type-json';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ChallengesModule } from './features/challenges/challenges.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       context: ({ req }) => ({ req }),
+      resolvers: { JSON: GraphQLJSON },
       playground: {
         settings: {
           'request.credentials': 'include',

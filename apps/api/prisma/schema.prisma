@@ -23,9 +23,9 @@ model User {
   accessToken  String
   refreshToken String
 
-  roles             String[]
-  EventCreators     EventCreators[]
-  UserCodeChallenge UserCodeChallenge[]
+  roles         String[]
+  EventCreators EventCreators[]
+  submissions   Submission[]
 
   @@unique([discordId, username])
 }
@@ -96,6 +96,12 @@ enum ProgrammingLang {
   Typescript
 }
 
+enum SubmissionStatus {
+  Success
+  Pending
+  Failed
+}
+
 model CodeChallenge {
   id          String          @id @default(uuid())
   title       String
@@ -104,10 +110,10 @@ model CodeChallenge {
   lang        ProgrammingLang
   TestCase    TestCase[]
 
-  deletedAt         DateTime?
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @default(now()) @updatedAt
-  UserCodeChallenge UserCodeChallenge[]
+  deletedAt   DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  submissions Submission[]
 }
 
 model TestCase {
@@ -117,15 +123,16 @@ model TestCase {
   codeChallengeId String
   isSecret        Boolean @default(false)
 
-  CodeChallenge CodeChallenge @relation(fields: [codeChallengeId], references: [id])
+  codeChallenge CodeChallenge @relation(fields: [codeChallengeId], references: [id])
 
   deletedAt DateTime?
 }
 
-model UserCodeChallenge {
-  id           String  @id @default(uuid())
+model Submission {
+  id           String           @id @default(uuid())
   solutionCode String
-  runTime      Decimal
+  runtime      Decimal
+  status       SubmissionStatus
 
   codeChallengeId String
   codeChallenge   CodeChallenge @relation(fields: [codeChallengeId], references: [id])
@@ -135,4 +142,6 @@ model UserCodeChallenge {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([userId, codeChallengeId])
 }

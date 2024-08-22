@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCodeChallengeInput } from '../dtos/code-challenge.input';
 import { SeachChallengeArgs } from '../dtos/search-challenge.args';
 import { Prisma } from '@prisma/client';
+import { CreateTestCaseInput } from '../dtos/test-case.input';
 
 @Injectable()
 export class ChallengeService {
@@ -21,6 +22,14 @@ export class ChallengeService {
       },
       data: {
         deletedAt: new Date(),
+      },
+    });
+  }
+
+  async findCodeChallengeTestCases(codeChallengeId: string) {
+    return this.prisma.testCase.findMany({
+      where: {
+        codeChallengeId,
       },
     });
   }
@@ -74,5 +83,36 @@ export class ChallengeService {
       hasNextPage: page < totalPages,
       total: count,
     };
+  }
+
+  async createTestCase(createTestCaseDto: CreateTestCaseInput) {
+    return this.prisma.testCase.create({
+      data: {
+        args: createTestCaseDto.args as Prisma.JsonValue,
+        isSecret: createTestCaseDto.isSecret,
+        expectedOutput: createTestCaseDto.expectedOutput,
+        codeChallengeId: createTestCaseDto.codeChallengeId,
+      },
+    });
+  }
+
+  async findTestCases(codeChallengeId: string) {
+    return this.prisma.testCase.findMany({
+      where: {
+        codeChallengeId,
+        deletedAt: null,
+      },
+    });
+  }
+
+  async softDeleteTestCase(testCaseId: number) {
+    return this.prisma.testCase.update({
+      where: {
+        id: testCaseId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
   }
 }

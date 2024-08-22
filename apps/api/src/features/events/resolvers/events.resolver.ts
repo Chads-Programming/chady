@@ -13,9 +13,9 @@ import { RegisterEventInput } from '../dtos/register-event.input';
 import { UpdateEventInput } from '../dtos/event.input';
 import { EventArgs } from '../dtos/event.args';
 import { User } from '@/features/users/models/user.model';
-import { PageInfo } from '@/common/dto/page-info';
 import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
 import { DISCORD_ROLES } from '@/features/auth/consts';
+import { paginate } from '@/common/utils/paginate';
 
 @Resolver(() => Event)
 export class EventsResolver {
@@ -23,21 +23,9 @@ export class EventsResolver {
 
   @Query(() => PaginatedEvents)
   async events(@Args() eventArgs: EventArgs) {
-    const { data, currentPage, hasNextPage, total, totalPages } =
-      await this.eventService.findAll(eventArgs);
+    const response = await this.eventService.findAll(eventArgs);
 
-    const pageInfo = new PageInfo();
-    const paginated = new PaginatedEvents();
-
-    pageInfo.currentPage = currentPage;
-    pageInfo.hasNextPage = hasNextPage;
-    pageInfo.total = total;
-    pageInfo.totalPages = totalPages;
-
-    paginated.data = data;
-    paginated.pageInfo = pageInfo;
-
-    return paginated;
+    return paginate(response);
   }
 
   @ResolveField(() => [User])

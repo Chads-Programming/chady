@@ -1,12 +1,14 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsBoolean, IsNotEmpty, IsObject, IsString } from 'class-validator';
+// import GraphQLJSON from 'graphql-type-json';
+import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
 export class CreateTestCaseInput {
-  @Field()
+  @Field(() => GraphQLJSON)
   @IsNotEmpty()
   @IsObject()
-  args: Record<string, unknown>;
+  args: object;
 
   @Field()
   @IsNotEmpty()
