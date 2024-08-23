@@ -43,13 +43,17 @@ export class ChallengeService {
   }
 
   async findChallenges(searchArgs: SeachChallengeArgs) {
-    const { search, lang, page = 1, perPage = 10 } = searchArgs;
+    const { search, lang, page = 1, perPage = 10, difficult } = searchArgs;
     const query: Prisma.CodeChallengeWhereInput = {
       deletedAt: null,
     };
 
     if (lang) {
       query.lang = lang;
+    }
+
+    if (difficult) {
+      query.difficult = difficult;
     }
 
     if (search) {

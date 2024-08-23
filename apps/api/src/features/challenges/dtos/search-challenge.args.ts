@@ -1,5 +1,5 @@
 import { ArgsType, Field, Int } from '@nestjs/graphql';
-import { ProgrammingLang } from '@prisma/client';
+import { Difficult, ProgrammingLang } from '@prisma/client';
 import { IsIn, IsNumber, IsOptional, Min } from 'class-validator';
 
 @ArgsType()
@@ -24,4 +24,9 @@ export class SeachChallengeArgs {
   @IsNumber()
   @Min(1)
   perPage?: number;
+
+  @Field((type) => Difficult)
+  @IsOptional()
+  @IsIn(Object.values(Difficult))
+  difficult?: Difficult;
 }

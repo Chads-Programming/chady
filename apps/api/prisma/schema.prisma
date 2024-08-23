@@ -47,6 +47,12 @@ enum Status {
   REJECTED
 }
 
+enum Difficult {
+  Easy
+  Medium
+  Hard
+}
+
 model EventSchedule {
   id         Int         @id @default(autoincrement())
   uniqueDate DateTime
@@ -103,12 +109,14 @@ enum SubmissionStatus {
 }
 
 model CodeChallenge {
-  id          String          @id @default(uuid())
-  title       String
-  description String
-  startedCode String
-  lang        ProgrammingLang
-  TestCase    TestCase[]
+  id               String          @id @default(uuid())
+  title            String
+  description      String
+  startedCode      String
+  mainFunctionName String
+  lang             ProgrammingLang
+  difficult        Difficult
+  TestCase         TestCase[]
 
   deletedAt   DateTime?
   createdAt   DateTime     @default(now())

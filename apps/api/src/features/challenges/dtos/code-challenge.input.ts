@@ -1,6 +1,13 @@
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
-import { ProgrammingLang } from '@prisma/client';
-import { IsIn, IsOptional, MaxLength, MinLength } from 'class-validator';
+import { Difficult, ProgrammingLang } from '@prisma/client';
+import {
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 registerEnumType(ProgrammingLang, {
   name: 'ProgrammingLang',
@@ -26,7 +33,15 @@ export class CreateCodeChallengeInput {
   startedCode: string;
 
   @Field()
+  @IsString()
+  @IsNotEmpty()
+  mainFunctionName: string;
+
   @Field((type) => ProgrammingLang)
   @IsIn(Object.values(ProgrammingLang))
   lang: ProgrammingLang;
+
+  @Field((type) => Difficult)
+  @IsIn(Object.values(Difficult))
+  difficult: Difficult;
 }
