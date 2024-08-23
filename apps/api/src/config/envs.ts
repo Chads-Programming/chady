@@ -18,6 +18,8 @@ const envSchema = z.object({
   COOKIE_SECRET: z.string(),
   DISCORD_SERVER_ID: z.string(),
   DISCORD_API_KEY: z.string(),
+  CODE_RUNNER_API_HOST: z.string().url(),
+  CODE_RUNNER_API_KEY: z.string(),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;
@@ -40,4 +42,6 @@ export const envs = {
   COOKIE_SECRET: envVars.COOKIE_SECRET,
   DISCORD_SERVER_ID: envVars.DISCORD_SERVER_ID,
   DISCORD_API_KEY: envVars.DISCORD_API_KEY,
+  CODE_RUNNER_API_HOST: envVars.CODE_RUNNER_API_HOST,
+  CODE_RUNNER_API_KEY: envVars.CODE_RUNNER_API_KEY,
 } as EnvVars;

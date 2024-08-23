@@ -16,7 +16,11 @@ export class PageInfo {
   hasNextPage: boolean;
 }
 
-abstract class AbtractPaginated<T> {
+export interface PlainPagination<Data> extends PageInfo {
+  data: Data[];
+}
+
+export abstract class AbtractPaginated<T> {
   data: T[];
   pageInfo: PageInfo;
 }

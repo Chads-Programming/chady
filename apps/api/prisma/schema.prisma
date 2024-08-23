@@ -25,6 +25,7 @@ model User {
 
   roles         String[]
   EventCreators EventCreators[]
+  submissions   Submission[]
 
   @@unique([discordId, username])
 }
@@ -44,6 +45,12 @@ enum Status {
   PENDING
   READY
   REJECTED
+}
+
+enum Difficult {
+  Easy
+  Medium
+  Hard
 }
 
 model EventSchedule {
@@ -88,4 +95,61 @@ model EventCreators {
 
   event Event @relation(fields: [eventId], references: [id])
   user  User  @relation(fields: [userId], references: [id])
+}
+
+enum ProgrammingLang {
+  Javascript
+  Typescript
+}
+
+enum SubmissionStatus {
+  Success
+  Pending
+  Failed
+}
+
+model CodeChallenge {
+  id               String          @id @default(uuid())
+  title            String
+  description      String
+  startedCode      String
+  mainFunctionName String
+  lang             ProgrammingLang
+  difficult        Difficult
+  TestCase         TestCase[]
+
+  deletedAt   DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  submissions Submission[]
+}
+
+model TestCase {
+  id              Int     @id @default(autoincrement())
+  args            Json
+  expectedOutput  String
+  codeChallengeId String
+  isSecret        Boolean @default(false)
+
+  codeChallenge CodeChallenge @relation(fields: [codeChallengeId], references: [id])
+
+  deletedAt DateTime?
+}
+
+model Submission {
+  id           String           @id @default(uuid())
+  solutionCode String
+  runtime      Decimal
+  status       SubmissionStatus
+
+  codeChallengeId String
+  codeChallenge   CodeChallenge @relation(fields: [codeChallengeId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([userId, codeChallengeId])
 }
