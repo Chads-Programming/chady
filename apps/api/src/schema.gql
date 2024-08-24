@@ -91,6 +91,7 @@ type CodeChallenge {
   title: String!
   startedCode: String!
   lang: ProgrammingLang!
+  difficult: Difficult!
   testCases: [TestCase!]!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -99,6 +100,12 @@ type CodeChallenge {
 enum ProgrammingLang {
   Javascript
   Typescript
+}
+
+enum Difficult {
+  Easy
+  Medium
+  Hard
 }
 
 type PaginatedChallenges {
@@ -121,7 +128,7 @@ type Query {
   findProfile: UserDetail!
   events(search: String!, status: Status!, page: Int!, perPage: Int!): PaginatedEvents!
   getCodeChallenge(id: String!): CodeChallenge!
-  findCodeChallenges(search: String!, lang: ProgrammingLang!, page: Int!, perPage: Int!): PaginatedChallenges!
+  findCodeChallenges(search: String!, lang: ProgrammingLang!, page: Int!, perPage: Int!, difficult: Difficult!): PaginatedChallenges!
   getUserSubmission(submissionId: String!): Submission!
   getUserSubmissions: [Submission!]!
 }
@@ -201,7 +208,9 @@ input CreateCodeChallengeInput {
   description: String!
   solutionCode: String!
   startedCode: String!
+  mainFunctionName: String!
   lang: ProgrammingLang!
+  difficult: Difficult!
 }
 
 input CreateTestCaseInput {

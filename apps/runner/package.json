@@ -1,0 +1,7 @@
+{
+    "name": "runner",
+    "scripts": {
+      "build": "cargo build --release",
+      "dev": "cargo shuttle run"
+    }
+  }
