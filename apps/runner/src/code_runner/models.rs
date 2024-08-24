@@ -30,7 +30,7 @@ pub struct Input {
 pub struct InputResult {
     pub input: String,
     pub output: String,
-    pub expected_result: String,
+    pub execution_time: String,
 }
 
 #[derive(Deserialize, Debug, Serialize)]

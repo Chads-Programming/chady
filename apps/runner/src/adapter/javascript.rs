@@ -55,10 +55,12 @@ impl LangAdapter for JavascriptAdapter {
         let solution_file_path_str: String = format!("{relative_path}/{solution_filename}");
         let main_file_path_str = format!("{relative_path}/{main_filename}");
         let package_file_path_srt = format!("{relative_path}/package.json");
+        let writter_file_path_str = format!("{relative_path}/write.js");
 
         let solution_file_path = Path::new(&solution_file_path_str);
         let main_file_path = Path::new(&main_file_path_str);
         let package_file_path = Path::new(&package_file_path_srt);
+        let writter_file_path = Path::new(&writter_file_path_str);
 
         if solution_file_path.parent().is_none() {
             return Err(ExecutionError::ExecutionEnvironmentError(
@@ -90,12 +92,16 @@ impl LangAdapter for JavascriptAdapter {
             )));
         }
 
-        match fs::read_to_string("./code-templates/javascript/package.json") {
-            Ok(content) => {
-                let package_content = content.replace("{{id}}", &code_info.id);
+        let writter_content = fs::read_to_string("./code-templates/javascript/write.js");
+        let package_json_content = fs::read_to_string("./code-templates/javascript/package.json")
+            .map(|content| content.replace("{{id}}", &code_info.id));
 
+        match (writter_content, package_json_content) {
+            (Ok(writter_content), Ok(package_content)) => {
                 match File::create(package_file_path)
                     .and_then(|mut file| file.write_all(package_content.as_bytes()))
+                    .and_then(|_| File::create(writter_file_path))
+                    .and_then(|mut file| file.write_all(writter_content.as_bytes()))
                 {
                     Ok(_) => Ok(()),
                     Err(err) => Err(ExecutionError::ExecutionEnvironmentError(format!(
@@ -103,9 +109,12 @@ impl LangAdapter for JavascriptAdapter {
                     ))),
                 }
             }
-            Err(err) => Err(ExecutionError::ExecutionEnvironmentError(format!(
-                "Error creating solution directory: {err}"
-            ))),
+            (Err(writter_err), Err(package_err)) => Err(ExecutionError::ExecutionEnvironmentError(
+                format!("Error creating solution directory: {writter_err}-{package_err}"),
+            )),
+            _ => Err(ExecutionError::ExecutionEnvironmentError(
+                "Error creating solution directory".to_string(),
+            )),
         }
     }
 }

@@ -96,18 +96,24 @@ impl Executer {
                 .output()
                 .map(|output| {
                     let result = String::from_utf8_lossy(&output.stdout).trim().to_string();
+                    // t: 0.103ms\n4
+                    let cleaned_output = result.clone().trim().replace("t: ", "");
+                    let mut tokens = cleaned_output.lines();
+
+                    let execution_time = tokens.next().unwrap().to_string();
+                    let result = tokens.next().unwrap().to_string();
 
                     if !result.is_empty() {
                         results.push(InputResult {
                             input: input.args.clone(),
+                            execution_time,
                             output: result,
-                            expected_result: input.expected_result.clone(),
                         });
                     } else {
                         results.push(InputResult {
                             input: input.args.clone(),
                             output: String::from_utf8_lossy(&output.stderr).trim().to_string(),
-                            expected_result: input.expected_result.clone(),
+                            execution_time: "-1".to_string(),
                         });
                     }
                 });
