@@ -18,19 +18,20 @@ fn validate_supported_lang(supported_lang: &str) -> Result<(), ValidationError> 
     }
 }
 
-#[derive(Deserialize, Debug, Serialize, Validate)]
+#[derive(Deserialize, Debug, Serialize, Validate, Clone)]
 pub struct Input {
+    #[validate(length(min = 1))]
+    pub id: String,
     #[validate(length(min = 1, message = "args must be greater or equal than 1 chars"))]
     pub args: String,
-    #[validate(length(min = 1))]
-    pub expected_result: String,
 }
 
 #[derive(Deserialize, Debug, Serialize)]
 pub struct InputResult {
-    pub input: String,
+    pub input: Input,
     pub output: String,
-    pub execution_time: String,
+    pub execution_time: f64,
+    pub time_format: String,
 }
 
 #[derive(Deserialize, Debug, Serialize)]

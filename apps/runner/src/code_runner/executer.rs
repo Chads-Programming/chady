@@ -1,5 +1,6 @@
 use crate::adapter::lang_adapter::{CodeInfo, LangAdapter, RunArgs};
 use crate::code_runner::errors::ExecutionError;
+use crate::utils;
 
 use super::models::Submission;
 use super::models::{InputResult, SupportedLangs};
@@ -94,29 +95,7 @@ impl Executer {
                 .stdout(Stdio::piped())
                 .stderr(Stdio::piped())
                 .output()
-                .map(|output| {
-                    let result = String::from_utf8_lossy(&output.stdout).trim().to_string();
-                    // t: 0.103ms\n4
-                    let cleaned_output = result.clone().trim().replace("t: ", "");
-                    let mut tokens = cleaned_output.lines();
-
-                    let execution_time = tokens.next().unwrap().to_string();
-                    let result = tokens.next().unwrap().to_string();
-
-                    if !result.is_empty() {
-                        results.push(InputResult {
-                            input: input.args.clone(),
-                            execution_time,
-                            output: result,
-                        });
-                    } else {
-                        results.push(InputResult {
-                            input: input.args.clone(),
-                            output: String::from_utf8_lossy(&output.stderr).trim().to_string(),
-                            execution_time: "-1".to_string(),
-                        });
-                    }
-                });
+                .map(|output| results.push(utils::parse_output(&output, input)));
 
             if let Err(err) = output_result {
                 return Err(ExecutionError::ExecutionError(format!(
