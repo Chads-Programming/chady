@@ -5,9 +5,10 @@ import { ChallengeService } from './services/challenge.service';
 import { SubmissionService } from './services/submission.service';
 import { CodeChallengeResolver } from './resolvers/code-challenge.resolver';
 import { SubmissionResolver } from './resolvers/submission.resolver';
+import { RunnerModule } from '@/runner/runner.module';
 
 @Module({
-  imports: [AuthModule, DatabaseModule],
+  imports: [AuthModule, DatabaseModule, RunnerModule],
   providers: [
     ChallengeService,
     SubmissionService,

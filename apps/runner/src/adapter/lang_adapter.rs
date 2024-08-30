@@ -10,7 +10,6 @@ pub struct RunArgs {
 
 pub struct CodeInfo {
     pub id: String,
-    pub solution_code: String,
     pub main_code: String,
 }
 

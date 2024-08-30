@@ -15,7 +15,7 @@ import {
 } from '@nestjs/graphql';
 import { User } from '@/features/users/models/user.model';
 import { SubmissionService } from '../services/submission.service';
-import { Submission } from '../models/submission.model';
+import { Submission, SubmissionResult } from '../models/submission.model';
 import { CodeChallenge } from '../models/code-challenge.model';
 
 @UseGuards(GraphQLAuthGuard)
@@ -43,7 +43,7 @@ export class SubmissionResolver {
     );
   }
 
-  @Mutation(() => Submission)
+  @Mutation(() => SubmissionResult)
   createUserSubmission(
     @CurrentUser() user: User,
     @Args('submission') submission: CreateSubmissionInput,
@@ -51,7 +51,7 @@ export class SubmissionResolver {
     return this.submissionService.createUserSubmission(user.id, submission);
   }
 
-  @Mutation(() => Submission)
+  @Mutation(() => SubmissionResult)
   updateUserSubmission(
     @CurrentUser() user: User,
     @Args('submissionId') submissionId: string,

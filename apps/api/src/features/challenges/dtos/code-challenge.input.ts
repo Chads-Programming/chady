@@ -29,6 +29,11 @@ export class CreateCodeChallengeInput {
   solutionCode?: string;
 
   @Field()
+  @IsString()
+  @MinLength(10)
+  mainCode: string;
+
+  @Field()
   @MinLength(10)
   startedCode: string;
 

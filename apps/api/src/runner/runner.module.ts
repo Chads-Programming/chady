@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ExectutionContext } from './builders/execution.context';
+import { HttpModule } from '@nestjs/axios';
+import { RunnerService } from './runner.service';
+import { JavascriptExecutionStrategy } from './strategies/javascript.strategy';
 
 @Module({
-  imports: [],
-  providers: [ExectutionContext],
-  exports: [],
+  imports: [HttpModule],
+  providers: [RunnerService, JavascriptExecutionStrategy],
+  exports: [JavascriptExecutionStrategy],
 })
 export class RunnerModule {}

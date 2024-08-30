@@ -45,8 +45,6 @@ pub struct Submission {
     #[validate(length(min = 5, message = "id must be greater than 5 chars"))]
     pub id: String,
     #[validate(length(min = 10, message = "code must be greater than 10 chars"))]
-    pub solution_code: String,
-    #[validate(length(min = 10, message = "main_code must be greater than 10 chars"))]
     pub main_code: String,
     #[validate(nested)]
     pub inputs: Vec<Input>,

@@ -49,34 +49,16 @@ impl LangAdapter for PythonAdapter {
         code_info: &CodeInfo,
     ) -> Result<(), ExecutionError> {
         let relative_path = path_info.relative_path.clone();
-        let solution_filename = path_info.solution_filename.clone();
         let main_filename = path_info.main_filename.clone();
 
-        let solution_file_path_str: String = format!("{relative_path}/{solution_filename}");
         let main_file_path_str = format!("{relative_path}/{main_filename}");
-
-        let solution_file_path = Path::new(&solution_file_path_str);
         let main_file_path = Path::new(&main_file_path_str);
 
-        if solution_file_path.parent().is_none() {
-            return Err(ExecutionError::ExecutionEnvironmentError(
-                "Path empty".to_string(),
-            ));
-        }
-
-        let parent_path = solution_file_path.parent().unwrap();
+        let parent_path = main_file_path.parent().unwrap();
 
         if let Err(err) = fs::create_dir_all(parent_path) {
             return Err(ExecutionError::ExecutionEnvironmentError(format!(
                 "Error creating folder: {err}"
-            )));
-        }
-
-        if let Err(err) = fs::File::create(solution_file_path)
-            .and_then(|mut file| file.write_all(code_info.solution_code.as_bytes()))
-        {
-            return Err(ExecutionError::ExecutionEnvironmentError(format!(
-                "Error creating solution directory: {err}"
             )));
         }
 

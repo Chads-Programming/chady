@@ -3,5 +3,6 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "editor.fontFamily": "'MesloLGL Nerd Font','Menlo', 'Monaspace Neon', monospace, Cascadia Code PL"
 }

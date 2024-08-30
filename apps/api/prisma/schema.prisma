@@ -112,6 +112,7 @@ model CodeChallenge {
   id               String          @id @default(uuid())
   title            String
   description      String
+  mainCode         String
   startedCode      String
   mainFunctionName String
   lang             ProgrammingLang
