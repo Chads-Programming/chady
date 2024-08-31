@@ -1,6 +1,7 @@
 import sys
 import json
 
+from write import write
 from solution import sum
 
 def main():
@@ -11,8 +12,8 @@ def main():
     arg = sys.argv[1]
     try:
         arr = json.loads(arg)
-        result = sum(arr[0], arr[1])
-        print(result)
+
+        write(lambda arr: sum(arr[0], arr[1]), arr)
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON: {e}")
 

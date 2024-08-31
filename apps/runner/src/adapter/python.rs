@@ -15,7 +15,7 @@ impl LangAdapter for PythonAdapter {
         let path = args.path;
         let params = args.params;
 
-        let main_file = format!("python main.py {params}");
+        let main_file = format!("python3 main.py '{params}'");
         let code_path = format!("{path}:/code");
 
         let args = vec![
@@ -53,8 +53,12 @@ impl LangAdapter for PythonAdapter {
 
         let main_file_path_str = format!("{relative_path}/{main_filename}");
         let main_file_path = Path::new(&main_file_path_str);
+        let writter_file_path_str = format!("{relative_path}/write.py");
 
         let parent_path = main_file_path.parent().unwrap();
+        let writter_file_path = Path::new(&writter_file_path_str);
+
+        let writter_content = fs::read_to_string("./code-templates/python/write.py");
 
         if let Err(err) = fs::create_dir_all(parent_path) {
             return Err(ExecutionError::ExecutionEnvironmentError(format!(
@@ -70,6 +74,21 @@ impl LangAdapter for PythonAdapter {
             )));
         }
 
-        Ok(())
+        match writter_content {
+            Ok(content) => {
+                if let Err(err) = File::create(writter_file_path)
+                    .and_then(|mut file| file.write_all(content.as_bytes()))
+                {
+                    return Err(ExecutionError::ExecutionEnvironmentError(format!(
+                        "Error creating solution directory: {err}"
+                    )));
+                }
+
+                Ok(())
+            }
+            Err(err) => Err(ExecutionError::ExecutionEnvironmentError(format!(
+                "Error creating solution directory: {err}"
+            ))),
+        }
     }
 }

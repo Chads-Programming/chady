@@ -37,11 +37,6 @@ export class CreateCodeChallengeInput {
   @MinLength(10)
   startedCode: string;
 
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  mainFunctionName: string;
-
   @Field((type) => ProgrammingLang)
   @IsIn(Object.values(ProgrammingLang))
   lang: ProgrammingLang;

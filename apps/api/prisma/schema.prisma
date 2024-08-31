@@ -109,15 +109,14 @@ enum SubmissionStatus {
 }
 
 model CodeChallenge {
-  id               String          @id @default(uuid())
-  title            String
-  description      String
-  mainCode         String
-  startedCode      String
-  mainFunctionName String
-  lang             ProgrammingLang
-  difficult        Difficult
-  TestCase         TestCase[]
+  id          String          @id @default(uuid())
+  title       String
+  description String
+  mainCode    String
+  startedCode String
+  lang        ProgrammingLang
+  difficult   Difficult
+  TestCase    TestCase[]
 
   deletedAt   DateTime?
   createdAt   DateTime     @default(now())

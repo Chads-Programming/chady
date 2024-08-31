@@ -95,6 +95,8 @@ impl Executer {
                 .map(|output| results.push(utils::parse_output(&output, input)));
 
             if let Err(err) = output_result {
+                lang_adapter.clean_up(path_info)?;
+
                 return Err(ExecutionError::ExecutionError(format!(
                     "Error on execute code: {err}"
                 )));

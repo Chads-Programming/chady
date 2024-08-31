@@ -2,7 +2,7 @@ import { ExecutionInput, RunnerOutput } from '../types';
 
 export interface PrepareMainCodeArgs {
   baseCode: string;
-  mainFunctionName: string;
+  solutionCode: string;
 }
 
 export interface ExecuteCodeArgs {

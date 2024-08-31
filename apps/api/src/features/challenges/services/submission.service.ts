@@ -144,8 +144,8 @@ export class SubmissionService {
         args: JSON.stringify(testCase.args),
       })),
       mainCodeArgs: {
-        baseCode: solutionCode,
-        mainFunctionName: challenge.mainFunctionName,
+        baseCode: challenge.mainCode,
+        solutionCode: solutionCode,
       },
     });
 
