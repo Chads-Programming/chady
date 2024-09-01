@@ -101,6 +101,7 @@ type CodeChallenge {
 enum ProgrammingLang {
   Javascript
   Typescript
+  Python
 }
 
 enum Difficult {
@@ -125,6 +126,18 @@ type Submission {
   updatedAt: DateTime!
 }
 
+type InputExecutionResult {
+  testCase: TestCase!
+  output: String!
+  executionTime: Float!
+  timeFormat: String!
+}
+
+type SubmissionResult {
+  submission: Submission!
+  inputResults: [InputExecutionResult!]!
+}
+
 type Query {
   findProfile: UserDetail!
   events(search: String!, status: Status!, page: Int!, perPage: Int!): PaginatedEvents!
@@ -146,8 +159,8 @@ type Mutation {
   updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
   createCodeChallenge(newCodeChallenge: CreateCodeChallengeInput!): CodeChallenge!
   createTestCase(testCase: CreateTestCaseInput!): CodeChallenge!
-  createUserSubmission(submission: CreateSubmissionInput!): Submission!
-  updateUserSubmission(submissionId: String!, submission: UpdateSubmissionInput!): Submission!
+  createUserSubmission(submission: SubmissionInput!): SubmissionResult!
+  updateUserSubmission(submissionId: String!, submission: SubmissionInput!): SubmissionResult!
 }
 
 input RegisterEventInput {
@@ -207,11 +220,6 @@ input UpdateEventScheduleInput {
 input CreateCodeChallengeInput {
   title: String!
   description: String!
-  solutionCode: String!
-  mainCode: String!
-  startedCode: String!
-  mainFunctionName: String!
-  lang: ProgrammingLang!
   difficult: Difficult!
 }
 
@@ -222,11 +230,8 @@ input CreateTestCaseInput {
   isSecret: Boolean!
 }
 
-input CreateSubmissionInput {
+input SubmissionInput {
+  lang: ProgrammingLang!
   solutionCode: String!
   challengeId: String!
-}
-
-input UpdateSubmissionInput {
-  solutionCode: String!
 }

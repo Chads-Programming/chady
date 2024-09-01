@@ -1,19 +1,22 @@
 import { JavascriptExecutionStrategy } from './../../../runner/strategies/javascript.strategy';
 import { PrismaService } from '@/database/prisma.service';
-import { ForbiddenException, Injectable } from '@nestjs/common';
 import {
-  CreateSubmissionInput,
-  UpdateSubmissionInput,
-} from '../dtos/submission.input';
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { SubmissionInput } from '../dtos/submission.input';
 import { ProgrammingLang, SubmissionStatus, TestCase } from '@prisma/client';
 import { CodeExecutionContext } from '@/runner/strategies/execution.context';
 import { ChallengeService } from './challenge.service';
+import { PythonExecutionStrategy } from '@/runner/strategies/python.strategy';
 
 @Injectable()
 export class SubmissionService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly javascriptStrategy: JavascriptExecutionStrategy,
+    private readonly pythonStrategy: PythonExecutionStrategy,
     private readonly challengeService: ChallengeService,
   ) {}
 
@@ -46,19 +49,14 @@ export class SubmissionService {
     });
   }
 
-  async createUserSubmission(
-    userId: string,
-    submission: CreateSubmissionInput,
-  ) {
-    const { inputResults, runtime } = await this.executeSubmission(
-      submission.challengeId,
-      submission.solutionCode,
-    );
+  async createUserSubmission(userId: string, submission: SubmissionInput) {
+    const { inputResults, runtime } = await this.executeSubmission(submission);
 
     const createdSubmission = await this.prisma.submission.create({
       data: {
         solutionCode: submission.solutionCode,
         codeChallengeId: submission.challengeId,
+        lang: submission.lang,
         userId,
         runtime,
         status: SubmissionStatus.Pending,
@@ -85,7 +83,7 @@ export class SubmissionService {
   async updateUserSubmission(
     submissionId: string,
     userId: string,
-    submission: UpdateSubmissionInput,
+    submission: SubmissionInput,
   ) {
     const hasOwnership = await this.checkSubmissionOwnership(
       userId,
@@ -101,10 +99,8 @@ export class SubmissionService {
       submissionId,
     );
 
-    const { inputResults, runtime } = await this.executeSubmission(
-      userSubmission.codeChallengeId,
-      submission.solutionCode,
-    );
+    const { inputResults, runtime, status } =
+      await this.executeSubmission(submission);
 
     const updatedSubmission = await this.prisma.submission.update({
       where: {
@@ -113,7 +109,7 @@ export class SubmissionService {
       data: {
         solutionCode: submission.solutionCode,
         runtime,
-        status: SubmissionStatus.Pending,
+        status,
       },
     });
 
@@ -123,9 +119,21 @@ export class SubmissionService {
     };
   }
 
-  private async executeSubmission(challengeId: string, solutionCode: string) {
-    const challenge =
-      await this.challengeService.findCodeChallengeById(challengeId);
+  private async executeSubmission(submission: SubmissionInput) {
+    const { lang, solutionCode, challengeId } = submission;
+
+    const challengeLangDetail =
+      await this.challengeService.findChallengeLangDetailByChallengeId(
+        challengeId,
+        lang,
+      );
+
+    if (!challengeLangDetail) {
+      throw new NotFoundException(
+        'Challenge was not configured for this lang: ',
+        lang,
+      );
+    }
 
     const testCases = await this.challengeService.findTestCases(challengeId);
     const mappedTestCases = new Map(
@@ -134,8 +142,8 @@ export class SubmissionService {
 
     const executionContext = new CodeExecutionContext(this.javascriptStrategy);
 
-    if (challenge.lang === ProgrammingLang.Javascript) {
-      executionContext.setStrategy(this.javascriptStrategy);
+    if (lang === ProgrammingLang.Python) {
+      executionContext.setStrategy(this.pythonStrategy);
     }
 
     const executionResult = await executionContext.executeCode({
@@ -144,7 +152,7 @@ export class SubmissionService {
         args: JSON.stringify(testCase.args),
       })),
       mainCodeArgs: {
-        baseCode: challenge.mainCode,
+        baseCode: challengeLangDetail.mainCode,
         solutionCode: solutionCode,
       },
     });
@@ -185,6 +193,7 @@ export class SubmissionService {
         ...testCase,
         id: 'secret',
         args: '****',
+        expectedOutput: '****',
       };
     }
     return testCase;
