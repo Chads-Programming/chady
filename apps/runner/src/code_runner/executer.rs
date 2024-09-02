@@ -11,7 +11,6 @@ use std::process::{Command, Stdio};
 pub struct CodePathInfo {
     pub absolute_path: String,
     pub relative_path: String,
-    pub solution_filename: String,
     pub main_filename: String,
     pub extension: String,
 }
@@ -39,7 +38,6 @@ impl CodePathInfo {
         Self {
             absolute_path,
             relative_path,
-            solution_filename: format!("solution.{extension}"),
             main_filename: format!("main.{extension}"),
             extension: extension.to_string(),
         }
@@ -74,7 +72,6 @@ impl Executer {
             &path_info,
             &CodeInfo {
                 id: self.submission.id.clone(),
-                solution_code: self.submission.solution_code.clone(),
                 main_code: self.submission.main_code.clone(),
             },
         )?;
@@ -98,6 +95,8 @@ impl Executer {
                 .map(|output| results.push(utils::parse_output(&output, input)));
 
             if let Err(err) = output_result {
+                lang_adapter.clean_up(path_info)?;
+
                 return Err(ExecutionError::ExecutionError(format!(
                     "Error on execute code: {err}"
                 )));

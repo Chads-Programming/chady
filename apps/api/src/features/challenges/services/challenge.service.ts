@@ -2,7 +2,7 @@ import { PrismaService } from '@/database/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { CreateCodeChallengeInput } from '../dtos/code-challenge.input';
 import { SeachChallengeArgs } from '../dtos/search-challenge.args';
-import { Prisma } from '@prisma/client';
+import { Prisma, ProgrammingLang } from '@prisma/client';
 import { CreateTestCaseInput } from '../dtos/test-case.input';
 
 @Injectable()
@@ -42,6 +42,19 @@ export class ChallengeService {
     });
   }
 
+  async findChallengeLangDetailByChallengeId(
+    id: string,
+    lang: ProgrammingLang,
+  ) {
+    return this.prisma.codeChallengeLangDetail.findFirst({
+      where: {
+        codeChallengeId: id,
+        lang,
+        deletedAt: null,
+      },
+    });
+  }
+
   async findChallenges(searchArgs: SeachChallengeArgs) {
     const { search, lang, page = 1, perPage = 10, difficult } = searchArgs;
     const query: Prisma.CodeChallengeWhereInput = {
@@ -49,7 +62,11 @@ export class ChallengeService {
     };
 
     if (lang) {
-      query.lang = lang;
+      query.codeChallengeLangDetails = {
+        some: {
+          lang,
+        },
+      };
     }
 
     if (difficult) {

@@ -1,8 +1,5 @@
 import { CurrentUser } from '@/features/auth/decorators/current-user';
-import {
-  CreateSubmissionInput,
-  UpdateSubmissionInput,
-} from './../dtos/submission.input';
+import { SubmissionInput } from './../dtos/submission.input';
 import { GraphQLAuthGuard } from '@/features/auth/guards/grahpql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import {
@@ -15,7 +12,7 @@ import {
 } from '@nestjs/graphql';
 import { User } from '@/features/users/models/user.model';
 import { SubmissionService } from '../services/submission.service';
-import { Submission } from '../models/submission.model';
+import { Submission, SubmissionResult } from '../models/submission.model';
 import { CodeChallenge } from '../models/code-challenge.model';
 
 @UseGuards(GraphQLAuthGuard)
@@ -43,19 +40,19 @@ export class SubmissionResolver {
     );
   }
 
-  @Mutation(() => Submission)
+  @Mutation(() => SubmissionResult)
   createUserSubmission(
     @CurrentUser() user: User,
-    @Args('submission') submission: CreateSubmissionInput,
+    @Args('submission') submission: SubmissionInput,
   ) {
     return this.submissionService.createUserSubmission(user.id, submission);
   }
 
-  @Mutation(() => Submission)
+  @Mutation(() => SubmissionResult)
   updateUserSubmission(
     @CurrentUser() user: User,
     @Args('submissionId') submissionId: string,
-    @Args('submission') submission: UpdateSubmissionInput,
+    @Args('submission') submission: SubmissionInput,
   ) {
     return this.submissionService.updateUserSubmission(
       submissionId,

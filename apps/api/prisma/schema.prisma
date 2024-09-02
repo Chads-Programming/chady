@@ -100,6 +100,7 @@ model EventCreators {
 enum ProgrammingLang {
   Javascript
   Typescript
+  Python
 }
 
 enum SubmissionStatus {
@@ -109,19 +110,34 @@ enum SubmissionStatus {
 }
 
 model CodeChallenge {
-  id               String          @id @default(uuid())
-  title            String
-  description      String
-  startedCode      String
-  mainFunctionName String
-  lang             ProgrammingLang
-  difficult        Difficult
-  TestCase         TestCase[]
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  difficult   Difficult
+  TestCase    TestCase[]
 
-  deletedAt   DateTime?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now()) @updatedAt
-  submissions Submission[]
+  deletedAt                DateTime?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @default(now()) @updatedAt
+  submissions              Submission[]
+  codeChallengeLangDetails CodeChallengeLangDetail[]
+}
+
+model CodeChallengeLangDetail {
+  id   Int             @id @default(autoincrement())
+  lang ProgrammingLang
+
+  codeChallengeId String
+  solutionCode    String?
+  mainCode        String
+  startedCode     String
+  codeChallenge   CodeChallenge @relation(fields: [codeChallengeId], references: [id])
+
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+
+  @@unique([codeChallengeId, lang])
 }
 
 model TestCase {
@@ -139,8 +155,9 @@ model TestCase {
 model Submission {
   id           String           @id @default(uuid())
   solutionCode String
-  runtime      Decimal
+  runtime      Decimal?
   status       SubmissionStatus
+  lang         ProgrammingLang
 
   codeChallengeId String
   codeChallenge   CodeChallenge @relation(fields: [codeChallengeId], references: [id])

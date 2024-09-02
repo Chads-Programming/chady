@@ -21,6 +21,9 @@ export class CodeChallenge {
   title: string;
 
   @Field()
+  mainCode: string;
+
+  @Field()
   startedCode: string;
 
   @Field(() => ProgrammingLang)
