@@ -81,8 +81,8 @@ const challenges = [
 
 export default function Home() {
   return (
-    <main className="w-full flex flex-row flex-wrap justify-start py-4 px-8 gap-8 flex-1 mt-12">
-      <aside className="rounded-md bg-secondary shadow-md p-2 h-fit sticky">
+    <main className="w-full flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 mt-12">
+      <aside className="border border-border rounded-md bg-secondary/45 shadow-lg p-2 h-fit sticky">
         <Leaderboard
           title="Top Performers"
           data={leaderboard}
@@ -114,7 +114,7 @@ export default function Home() {
         />
       </aside>
 
-      <section className="flex flex-col items-start gap-2 w-2/3">
+      <section className="flex flex-col items-start gap-2  w-full md:w-2/3">
         <h2 className="text-2xl text-primary text-pretty font-medium">
           Coding Challenges
         </h2>

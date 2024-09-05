@@ -7,15 +7,14 @@ export const Header = () => {
   return (
     <header className="main-header fixed top-0 z-10 w-full mx-auto p-2 px-4 box-border flex flex-row gap-2 justify-between items-center">
       <div className="font-medium text-3xl text-pretty text-primary italic">
-        Challenger
-        <span className="font-bold text-blue-500 ml-2">Chad</span>
+        Chady
       </div>
       <div className="list-none">
         <a
           href={LOGIN_PATH}
           className="hover:underline text-pretty text-secondary-foreground px-8 py-2 rounded-md inline-flex items-center gap-2"
         >
-          <span className="text-sm">Continue with discord</span> <Discord />
+          <span className="text-sm">Continue</span> <Discord />
         </a>
       </div>
     </header>

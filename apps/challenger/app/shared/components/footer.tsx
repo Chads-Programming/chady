@@ -1,5 +1,20 @@
 import React from "react";
 
+const DISCORD_INVITATION = "https://discord.gg/FSKeeDhMNN";
+
 export const Footer = () => {
-  return <footer className="bg-green-300 p-4">Footer content</footer>;
+  return (
+    <footer className="bg-background/70 w-full py-4 flex flex-col items-center justify-center gap-4">
+      <small className="font-semibold">
+        Copyright &copy;
+        <a
+          target="_blank"
+          href={DISCORD_INVITATION}
+          className="ml-2 text-primary"
+        >
+          Chads programming
+        </a>
+      </small>
+    </footer>
+  );
 };

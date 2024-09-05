@@ -18,7 +18,7 @@
   @apply font-bold;
 
   p {
-    @apply text-sm text-pretty text-gray-600 dark:text-gray-400;
+    @apply text-sm text-pretty font-normal;
   }
 
   h2,

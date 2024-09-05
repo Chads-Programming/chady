@@ -24,17 +24,15 @@ export const ChallengeCard = ({ title, description, difficulty }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className="bg-secondary">
+    <Card className="bg-secondary/45 shadow-lg">
       <CardHeader>
-        <CardTitle className="text-gray-500">{title}</CardTitle>
+        <CardTitle className="text-gray-300 text-xl">{title}</CardTitle>
         <Badge
-          variant="outline"
-          className={cn("w-fit text-white", {
-            ["bg-primary text-secondary"]:
-              difficulty === ChallengeDifficult.Easy,
-            ["bg-amber-400 text-secondary"]:
-              difficulty === ChallengeDifficult.Medium,
-            ["bg-destructive"]: difficulty === ChallengeDifficult.Hard,
+          variant="secondary"
+          className={cn("w-fit text-white bg-neutral-700 select-none", {
+            ["text-primary"]: difficulty === ChallengeDifficult.Easy,
+            ["text-amber-400"]: difficulty === ChallengeDifficult.Medium,
+            ["text-red-400"]: difficulty === ChallengeDifficult.Hard,
           })}
         >
           {difficulty}
@@ -46,7 +44,9 @@ export const ChallengeCard = ({ title, description, difficulty }: Props) => {
             ["line-clamp-2"]: !isExpanded,
           })}
         >
-          <Markdown>{description}</Markdown>
+          <Markdown className="border border-border text-gray-300 p-6 rounded-md shadow-md">
+            {description}
+          </Markdown>
         </div>
         <Button
           variant="ghost"
