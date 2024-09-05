@@ -1,18 +1,23 @@
 import React from "react";
+import Discord from "../icons/discord";
 
 const LOGIN_PATH = "http://localhost:3200/auth/discord/login";
 
 export const Header = () => {
   return (
-    <header className="w-full mx-auto p-2 box-border flex flex-row gap-2 justify-between items-center">
+    <header className="main-header fixed top-0 z-10 w-full mx-auto p-2 px-4 box-border flex flex-row gap-2 justify-between items-center">
       <div className="font-medium text-3xl text-pretty text-primary italic">
-        Challenger <span className="font-bold not-italic">Chad</span>
+        Challenger
+        <span className="font-bold text-blue-500 ml-2">Chad</span>
       </div>
-      <ul className="list-none">
-        <li className="bg-blue-950 text-white px-4 py-2 rounded-md">
-          <a href={LOGIN_PATH}>Login</a>
-        </li>
-      </ul>
+      <div className="list-none">
+        <a
+          href={LOGIN_PATH}
+          className="hover:underline text-pretty text-secondary-foreground px-8 py-2 rounded-md inline-flex items-center gap-2"
+        >
+          <span className="text-sm">Continue with discord</span> <Discord />
+        </a>
+      </div>
     </header>
   );
 };

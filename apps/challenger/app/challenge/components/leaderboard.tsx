@@ -15,9 +15,7 @@ export const Leaderboard = <Data,>({
 }: Props<Data>) => {
   return (
     <article className="px-2 py-4">
-      <h2 className="font-bold text-lg text-pretty mb-2 text-secondary-foreground dark:text-gray-300">
-        {title}
-      </h2>
+      <h2 className="font-bold text-lg text-pretty mb-2">{title}</h2>
       <ul className="list-none box-border flex flex-col">
         {data.map((data, index) => (
           <li

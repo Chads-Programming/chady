@@ -13,3 +13,37 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-secondary rounded-2xl;
 }
+
+.challenge-description {
+  @apply font-bold;
+
+  p {
+    @apply text-sm text-pretty text-gray-600 dark:text-gray-400;
+  }
+
+  h2,
+  h3,
+  h4 {
+    @apply my-2;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+}
+
+.main-header {
+  animation: nav-header-shadown 1s linear both;
+  animation-timeline: scroll();
+  animation-range: 0 25px;
+}
+
+@keyframes nav-header-shadown {
+  to {
+    @apply shadow-lg backdrop-blur-md bg-background/40;
+  }
+}

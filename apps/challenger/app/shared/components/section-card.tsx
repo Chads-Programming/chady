@@ -8,12 +8,7 @@ interface Props {
 
 export const SectionCard = ({ children, className }: Props) => {
   return (
-    <section
-      className={cn(
-        "rounded-md bg-primary dark:bg-gray-800 shadow-md p-2",
-        className
-      )}
-    >
+    <section className={cn("rounded-md bg-secondary shadow-md p-2", className)}>
       {children}
     </section>
   );
