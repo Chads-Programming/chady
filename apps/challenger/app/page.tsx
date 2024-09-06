@@ -4,6 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage, cn } from "@repo/ui";
 import { Leaderboard } from "./challenge/components/leaderboard";
 import { ChallengeCard } from "./challenge/components/challenge-card";
 import { ChallengeDifficult } from "./challenge/types";
+import { SearchBox } from "./shared/components/search-box";
+import { ChallengeFilters } from "./challenge/components/challenge-filters";
 
 const testAvatar =
   "https://cdn.discordapp.com/avatars/526081797952634901/3838b7f65f82c7c0a99521230b1fcf8e.webp?size=128";
@@ -81,8 +83,8 @@ const challenges = [
 
 export default function Home() {
   return (
-    <main className="w-full flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 mt-12">
-      <aside className="border border-border rounded-md bg-secondary/45 shadow-lg p-2 h-fit sticky">
+    <main className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 mt-16">
+      <aside className="border border-border rounded-md backdrop-blur-md bg-background/10 shadow-lg p-2 h-fit sticky">
         <Leaderboard
           title="Top Performers"
           data={leaderboard}
@@ -114,10 +116,16 @@ export default function Home() {
         />
       </aside>
 
-      <section className="flex flex-col items-start gap-2  w-full md:w-2/3">
+      <section className="flex flex-col items-start gap-2  w-full md:w-1/2">
         <h2 className="text-2xl text-primary text-pretty font-medium">
           Coding Challenges
         </h2>
+
+        <div className="flex flex-col items-start w-full shadow-md backdrop-blur-md bg-background/10 px-2 py-4 rounded-md border border-border">
+          <ChallengeFilters />
+          <SearchBox onSearch={() => null} placeholder="Search challenges" />
+        </div>
+
         <div className="flex flex-col gap-2 w-full">
           {challenges.map(({ id, title, description, difficulty }) => (
             <ChallengeCard

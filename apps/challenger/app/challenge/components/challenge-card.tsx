@@ -9,7 +9,7 @@ import {
   CardTitle,
   cn,
 } from "@repo/ui";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import Markdown from "react-markdown";
 import { ChallengeDifficult } from "../types";
@@ -24,7 +24,7 @@ export const ChallengeCard = ({ title, description, difficulty }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Card className="bg-secondary/45 shadow-lg">
+    <Card className="backdrop-blur-md bg-background/10 shadow-lg">
       <CardHeader>
         <CardTitle className="text-gray-300 text-xl">{title}</CardTitle>
         <Badge
