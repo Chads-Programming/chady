@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  overscroll-behavior: none;
+  min-height: 100vh;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+::-webkit-scrollbar {
+  @apply bg-transparent w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-secondary rounded-2xl;
+}
+
+.challenge-description {
+  @apply font-bold;
+
+  p {
+    @apply text-sm text-pretty font-normal;
+  }
+
+  h2,
+  h3,
+  h4 {
+    @apply my-2;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+}
+
+.main-header {
+  animation: nav-header-shadown 1s linear both;
+  animation-timeline: scroll();
+  animation-range: 0 25px;
+}
+
+@keyframes nav-header-shadown {
+  to {
+    @apply shadow-lg backdrop-blur-md bg-background/40;
+  }
+}
+
+.search-header {
+  animation: search-header-shadown 1s linear both;
+  animation-timeline: scroll();
+  animation-range: 0 25px;
+}
+
+@keyframes search-header-shadown {
+  to {
+    @apply shadow-lg backdrop-blur-md bg-background/60;
+  }
+}
