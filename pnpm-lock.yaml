@@ -354,6 +354,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      react-resizable-panels:
+        specifier: ^2.1.2
+        version: 2.1.2(react-dom@19.0.0-rc-f994737d14-20240522(react@18.2.0))(react@18.2.0)
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.5.2
@@ -5561,6 +5564,12 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  react-resizable-panels@2.1.2:
+    resolution: {integrity: sha512-Ku2Bo7JvE8RpHhl4X1uhkdeT9auPBoxAOlGTqomDUUrBAX2mVGuHYZTcWvlnJSgx0QyHIxHECgGB5XVPUbUOkQ==}
+    peerDependencies:
+      react: ^16.14.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0
 
   react-style-singleton@2.2.1:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
@@ -13071,6 +13080,11 @@ snapshots:
       use-sidecar: 1.1.2(@types/react@18.2.61)(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.2.61
+
+  react-resizable-panels@2.1.2(react-dom@19.0.0-rc-f994737d14-20240522(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-dom: 19.0.0-rc-f994737d14-20240522(react@18.2.0)
 
   react-style-singleton@2.2.1(@types/react@18.2.61)(react@18.2.0):
     dependencies:

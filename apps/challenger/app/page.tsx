@@ -1,11 +1,11 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage, cn } from "@repo/ui";
-import { Leaderboard } from "./challenge/components/leaderboard";
-import { ChallengeCard } from "./challenge/components/challenge-card";
-import { ChallengeDifficult } from "./challenge/types";
+import { Leaderboard } from "./(submission)/components/leaderboard";
+import { ChallengeCard } from "./(submission)/components/challenge-card";
+import { ChallengeDifficult } from "./(submission)/types";
 import { SearchBox } from "./shared/components/search-box";
-import { ChallengeFilters } from "./challenge/components/challenge-filters";
+import { ChallengeFilters } from "./(submission)/components/challenge-filters";
 
 const testAvatar =
   "https://cdn.discordapp.com/avatars/526081797952634901/3838b7f65f82c7c0a99521230b1fcf8e.webp?size=128";
