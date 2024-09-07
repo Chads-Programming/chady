@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overscroll-behavior: none;
+  min-height: 100vh;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
 ::-webkit-scrollbar {
   @apply bg-transparent w-2;
 }
@@ -45,5 +54,17 @@
 @keyframes nav-header-shadown {
   to {
     @apply shadow-lg backdrop-blur-md bg-background/40;
+  }
+}
+
+.search-header {
+  animation: search-header-shadown 1s linear both;
+  animation-timeline: scroll();
+  animation-range: 0 25px;
+}
+
+@keyframes search-header-shadown {
+  to {
+    @apply shadow-lg backdrop-blur-md bg-background/60;
   }
 }

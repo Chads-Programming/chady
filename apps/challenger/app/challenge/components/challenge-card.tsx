@@ -3,13 +3,12 @@ import {
   Button,
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
   cn,
 } from "@repo/ui";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import Markdown from "react-markdown";
 import { ChallengeDifficult } from "../types";
@@ -23,8 +22,13 @@ interface Props {
 export const ChallengeCard = ({ title, description, difficulty }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const miniDescription = useMemo(
+    () => description.substring(0, 120).concat("..."),
+    [description]
+  );
+
   return (
-    <Card className="backdrop-blur-md bg-background/10 shadow-lg">
+    <Card className="backdrop-blur-md bg-background/10 shadow-lg border-border border-x-0 border-t-0 rounded-none">
       <CardHeader>
         <CardTitle className="text-gray-300 text-xl">{title}</CardTitle>
         <Badge
@@ -45,7 +49,7 @@ export const ChallengeCard = ({ title, description, difficulty }: Props) => {
           })}
         >
           <Markdown className="border border-border text-gray-300 p-6 rounded-md shadow-md">
-            {description}
+            {isExpanded ? description : miniDescription}
           </Markdown>
         </div>
         <Button

@@ -84,7 +84,7 @@ const challenges = [
 export default function Home() {
   return (
     <main className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 mt-16">
-      <aside className="border border-border rounded-md backdrop-blur-md bg-background/10 shadow-lg p-2 h-fit sticky">
+      <aside className="border border-border rounded-md backdrop-blur-md bg-background/10 shadow-lg p-2 h-fit sticky top-12">
         <Leaderboard
           title="Top Performers"
           data={leaderboard}
@@ -116,17 +116,17 @@ export default function Home() {
         />
       </aside>
 
-      <section className="flex flex-col items-start gap-2  w-full md:w-1/2">
-        <h2 className="text-2xl text-primary text-pretty font-medium">
-          Coding Challenges
-        </h2>
+      <section className="flex flex-col items-start w-full md:w-1/2">
+        <header className="search-header flex flex-col items-start w-full gap-2 shadow-md backdrop-blur-md bg-background/10 px-2 py-4 rounded-t-md border border-border sticky top-12 z-10">
+          <h2 className="text-2xl text-primary text-pretty font-medium">
+            Chad Challenges
+          </h2>
 
-        <div className="flex flex-col items-start w-full shadow-md backdrop-blur-md bg-background/10 px-2 py-4 rounded-md border border-border">
           <ChallengeFilters />
           <SearchBox onSearch={() => null} placeholder="Search challenges" />
-        </div>
+        </header>
 
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-2 w-full border border-border border-t-0">
           {challenges.map(({ id, title, description, difficulty }) => (
             <ChallengeCard
               key={id}
