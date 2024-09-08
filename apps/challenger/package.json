@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
     "@repo/shared-types": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/validation-schemas": "workspace:*",
