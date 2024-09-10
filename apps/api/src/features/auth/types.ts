@@ -1,5 +1,4 @@
 import { User } from '@prisma/client';
-
 export interface UserDetail extends User {
   roles: string[];
 }
@@ -11,4 +10,8 @@ export interface DiscordUserProfile {
   avatar: string;
   accessToken: string;
   refreshToken: string;
+}
+
+export interface JwtPayload {
+  id: string;
 }

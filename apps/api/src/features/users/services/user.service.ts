@@ -19,6 +19,12 @@ export class UserService {
     });
   }
 
+  findUserById(id: string) {
+    return this.prisma.user.findFirst({
+      where: { id },
+    });
+  }
+
   createUser(user: CreateUserDto) {
     return this.prisma.user.create({
       data: {
@@ -48,9 +54,12 @@ export class UserService {
 
   async findUserRolesDetails(roleIds: string[]): Promise<RoleDetail[]> {
     const requests = roleIds.map((id) => this.discordService.getGuildRole(id));
+    try {
+      const roles = await Promise.all(requests);
 
-    const roles = await Promise.all(requests);
-
-    return roles.map((role) => roleMappings.fromDiscordRole(role));
+      return roles.map((role) => roleMappings.fromDiscordRole(role));
+    } catch (err) {
+      throw err;
+    }
   }
 }
