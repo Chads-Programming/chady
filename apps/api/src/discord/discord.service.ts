@@ -33,7 +33,7 @@ export class DiscordService {
   }
 
   async getGuildRole(roleId: string): Promise<DiscordRole> {
-    const url = `${consts.DISCORD_BASE_API}/guilds/${this.guildId}/${roleId}`;
+    const url = `${consts.DISCORD_BASE_API}/guilds/${this.guildId}/roles/${roleId}`;
 
     const { data } = await firstValueFrom(
       this.http.get(url, {

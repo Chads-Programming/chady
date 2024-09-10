@@ -1,11 +1,16 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import { Response } from 'express';
 import { DiscordAuthGuard } from '@/auth/guards/discord-auth.guard';
-import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { envs } from '@/config';
+import { AuthService } from './auth.service';
+import { CurrentUser } from './decorators/current-user';
+import { User } from '@prisma/client';
+import { JwtHelper } from './utils';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
   @Get('discord/login')
   @UseGuards(DiscordAuthGuard)
   login() {
@@ -14,13 +19,11 @@ export class AuthController {
 
   @Get('discord/redirect')
   @UseGuards(DiscordAuthGuard)
-  redirect(@Res() res: Response) {
-    res.redirect(envs.AUTH_REDIRECT_URL);
-  }
+  async redirect(@CurrentUser() user: User, @Res() res: Response) {
+    const { accessToken, refreshToken } =
+      await this.authService.generateJwt(user);
 
-  @Get('logout')
-  @UseGuards(AuthenticatedGuard)
-  logout(@Req() req: Request) {
-    req.logOut({ keepSessionInfo: false }, () => null);
+    JwtHelper.saveJwtInCookie(res, { accessToken, refreshToken });
+    res.redirect(envs.AUTH_REDIRECT_URL);
   }
 }

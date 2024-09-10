@@ -3,3 +3,6 @@ export enum DISCORD_ROLES {
   GIGA_CHAD = '1244177447210057770',
   LEGACY_ADMIN = '1265182249330937908',
 }
+
+export const JWT_ACCESS_SERVICE = 'JwtAccessService';
+export const JWT_REFRESH_SERVICE = 'JwtRefreshService';

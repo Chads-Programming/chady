@@ -74,6 +74,11 @@ type PaginatedEvents {
   pageInfo: PageInfo
 }
 
+type JwtModel {
+  accessToken: String!
+  refreshToken: String!
+}
+
 type TestCase {
   id: Float!
   args: JSON!
@@ -161,6 +166,7 @@ type Mutation {
   createTestCase(testCase: CreateTestCaseInput!): CodeChallenge!
   createUserSubmission(submission: SubmissionInput!): SubmissionResult!
   updateUserSubmission(submissionId: String!, submission: SubmissionInput!): SubmissionResult!
+  refreshToken: JwtModel!
 }
 
 input RegisterEventInput {
