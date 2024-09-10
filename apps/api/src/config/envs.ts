@@ -20,8 +20,10 @@ const envSchema = z.object({
   DISCORD_API_KEY: z.string(),
   CODE_RUNNER_API_HOST: z.string().url(),
   CODE_RUNNER_API_KEY: z.string(),
-  JWT_SECRET: z.string(),
-  JWT_EXPIRATION: z.string(),
+  JWT_ACCESS_SECRET: z.string(),
+  JWT_ACCESS_EXPIRATION: z.string(),
+  JWT_REFRESH_SECRET: z.string(),
+  JWT_REFRESH_EXPIRATION: z.string(),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;
@@ -46,6 +48,8 @@ export const envs = {
   DISCORD_API_KEY: envVars.DISCORD_API_KEY,
   CODE_RUNNER_API_HOST: envVars.CODE_RUNNER_API_HOST,
   CODE_RUNNER_API_KEY: envVars.CODE_RUNNER_API_KEY,
-  JWT_SECRET: envVars.JWT_SECRET,
-  JWT_EXPIRATION: envVars.JWT_EXPIRATION,
+  JWT_ACCESS_SECRET: envVars.JWT_ACCESS_SECRET,
+  JWT_ACCESS_EXPIRATION: envVars.JWT_ACCESS_EXPIRATION,
+  JWT_REFRESH_SECRET: envVars.JWT_REFRESH_SECRET,
+  JWT_REFRESH_EXPIRATION: envVars.JWT_REFRESH_EXPIRATION,
 } as EnvVars;

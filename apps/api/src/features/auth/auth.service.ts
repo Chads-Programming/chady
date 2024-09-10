@@ -1,17 +1,20 @@
 import { DiscordService } from '@/discord/discord.service';
 import { UserService } from '@/features/users/services/user.service';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Profile } from 'passport-discord';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from './types';
 import { User } from '../users/models/user.model';
+import { JWT_ACCESS_SERVICE, JWT_REFRESH_SERVICE } from './consts';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly discordService: DiscordService,
-    private readonly jwtService: JwtService,
+    @Inject(JWT_ACCESS_SERVICE)
+    private readonly jwtAccessService: JwtService,
+    @Inject(JWT_REFRESH_SERVICE)
+    private readonly jwtRefreshService: JwtService,
   ) {}
 
   async createUpdateAccount(discordUser: Profile) {
@@ -42,8 +45,8 @@ export class AuthService {
 
   async generateJwt(user: User) {
     return {
-      accessToken: this.jwtService.sign(user),
-      refreshToken: this.jwtService.sign({ id: user.id }),
+      accessToken: this.jwtAccessService.sign(user),
+      refreshToken: this.jwtRefreshService.sign({ id: user.id }),
     };
   }
 }
