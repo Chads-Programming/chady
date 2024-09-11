@@ -23,6 +23,7 @@ interface CustomResizableHandleProps {
 
 const CustomResizableHandle = ({ horizontal }: CustomResizableHandleProps) => (
   <ResizableHandle
+    withHandle={false}
     className={cn("w-5 bg-transparent group", {
       ["!h-5 border border-x-0 border-y-border"]: horizontal,
     })}
@@ -41,15 +42,17 @@ const CustomResizableHandle = ({ horizontal }: CustomResizableHandleProps) => (
 
 const ChallengePage = () => {
   return (
-    <div className="w-full flex flex-col h-fit sticky top-14">
+    <>
       <ResizablePanelGroup
         direction="horizontal"
-        className="w-full"
+        className="w-full h-fit mt-4"
         tagName="div"
       >
         <ResizablePanel
           defaultSize={25}
-          className="rounded-md border border-border backdrop-blur-md shadow-md bg-background/60"
+          minSize={25}
+          collapsible
+          className="rounded-md border border-border backdrop-blur-md shadow-md bg-background"
         >
           <div className="flex flex-col px-6 py-2 gap-2">
             <h2 className="font-semibold text-xl text-primary">
@@ -64,7 +67,7 @@ const ChallengePage = () => {
         <ResizablePanel defaultSize={75}>
           <ResizablePanelGroup
             direction="vertical"
-            className="rounded-md border border-border backdrop-blur-md shadow-md bg-background/60"
+            className="rounded-md border border-border backdrop-blur-md shadow-md bg-background"
           >
             <ResizablePanel defaultSize={75}>
               <div className="flex flex-col h-full px-2 pt-2 gap-2">
@@ -93,7 +96,7 @@ const ChallengePage = () => {
           </ResizablePanelGroup>
         </ResizablePanel>
       </ResizablePanelGroup>
-    </div>
+    </>
   );
 };
 

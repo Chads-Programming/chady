@@ -8,24 +8,34 @@ import {
   CardTitle,
   cn,
 } from "@repo/ui";
-import React, { useMemo, useState } from "react";
-import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+import React, { useMemo } from "react";
+import { ArrowRight } from "lucide-react";
 import Markdown from "react-markdown";
 import { ChallengeDifficult } from "../types";
+import { useRouter } from "next/navigation";
 
 interface Props {
+  id: string;
   title: string;
   description: string;
   difficulty: ChallengeDifficult;
 }
 
-export const ChallengeCard = ({ title, description, difficulty }: Props) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+export const ChallengeCard = ({
+  id,
+  title,
+  description,
+  difficulty,
+}: Props) => {
+  const router = useRouter();
   const miniDescription = useMemo(
     () => description.substring(0, 120).concat("..."),
     [description]
   );
+
+  const goToChallenge = (id: string) => () => {
+    void router.push(`/challenges/${id}`);
+  };
 
   return (
     <Card className="backdrop-blur-md bg-background/10 shadow-lg border-border border-x-0 border-t-0 rounded-none">
@@ -43,38 +53,17 @@ export const ChallengeCard = ({ title, description, difficulty }: Props) => {
         </Badge>
       </CardHeader>
       <CardContent>
-        <div
-          className={cn("text-pretty text-sm challenge-description", {
-            ["line-clamp-2"]: !isExpanded,
-          })}
-        >
-          <Markdown className="border border-border text-gray-300 p-6 rounded-md shadow-md">
-            {isExpanded ? description : miniDescription}
+        <div className="text-pretty text-sm challenge-description line-clamp-2 select-none">
+          <Markdown className="border border-border p-6 rounded-md shadow-md text-neutral-600">
+            {miniDescription}
           </Markdown>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="mt-2 p-0 h-auto font-normal"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          {isExpanded ? (
-            <>
-              <ChevronUp className="h-4 w-4 mr-1" />
-              Show less
-            </>
-          ) : (
-            <>
-              <ChevronDown className="h-4 w-4 mr-1" />
-              Show more
-            </>
-          )}
-        </Button>
       </CardContent>
       <CardFooter>
         <Button
-          variant="outline"
+          variant="secondary"
           className="group border border-transparent hover:border-primary transition ease-in"
+          onClick={goToChallenge(id)}
         >
           Solve
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-all ease-in" />

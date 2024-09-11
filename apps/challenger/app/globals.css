@@ -52,25 +52,25 @@ html {
 }
 
 .main-header {
-  animation: nav-header-shadown 1s linear both;
+  animation: nav-header-shadow 1s linear both;
   animation-timeline: scroll();
   animation-range: 0 25px;
 }
 
-@keyframes nav-header-shadown {
+@keyframes nav-header-shadow {
   to {
     @apply shadow-lg backdrop-blur-md bg-background/40;
   }
 }
 
 .search-header {
-  animation: search-header-shadown 1s linear both;
+  animation: search-header-shadow 1s linear both;
   animation-timeline: scroll();
-  animation-range: 0 25px;
+  animation-range: 0 100px;
 }
 
-@keyframes search-header-shadown {
+@keyframes search-header-shadow {
   to {
-    @apply shadow-lg backdrop-blur-md bg-background/60;
+    @apply shadow-lg backdrop-blur-md bg-background/80 rounded-t-none;
   }
 }
