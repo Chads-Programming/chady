@@ -6,6 +6,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
+  ScrollArea,
   Tabs,
   TabsContent,
   TabsList,
@@ -59,7 +60,7 @@ const ChallengePage = () => {
           minSize={20}
           className="rounded-md border border-border backdrop-blur-md shadow-md bg-secondary"
         >
-          <Tabs defaultValue="description" className="w-full">
+          <Tabs defaultValue="description" className="w-full h-[calc(100%_-_44px)]">
             <TabsList className="w-full rounded-none border-0 border-b border-b-border !py-6">
               <TabsTrigger
                 value="description"
@@ -80,13 +81,13 @@ const ChallengePage = () => {
                 </span>
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="description">
-              <ChallengeDescription
-                title={codeChallenge.title}
-                description={codeChallenge.description}
-              />
+            <TabsContent value="description" className="h-[calc(100%_-_44px)]">
+                <ChallengeDescription
+                    title={codeChallenge.title}
+                    description={codeChallenge.description}
+                />
             </TabsContent>
-            <TabsContent value="solutions" className="overflow-y-scroll h-fit">
+            <TabsContent value="solutions" className="h-[calc(100%_-_44px)]">
               <Solutions />
             </TabsContent>
           </Tabs>

@@ -20,7 +20,9 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-secondary rounded-2xl;
+  border-top-left-radius: .75rem;
+  border-bottom-left-radius: .75rem;
+  @apply bg-zinc-600;
 }
 
 .challenge-description {
