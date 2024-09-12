@@ -22,13 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${dm_sans.variable} bg-gradient-to-br from-secondary to-background`}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <Header/>
-        {children}
-      </ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`font-sans ${dm_sans.variable} bg-background`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <Header />
+          {children}
+        </ThemeProvider>
       </body>
-      </html>
+    </html>
   );
 }

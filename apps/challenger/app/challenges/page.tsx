@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <>
       <main className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1">
-        <aside className="search-header border border-border rounded-md backdrop-blur-md bg-background shadow-lg p-2 h-fit sticky top-0">
+        <aside className="search-header border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 h-fit sticky top-0">
           <Leaderboard
             title="Top Performers"
             data={leaderboard}
@@ -119,7 +119,7 @@ export default function Home() {
         </aside>
 
         <section className="flex flex-col items-start w-full md:w-1/2">
-          <header className="search-header px-5 flex flex-col items-start w-full gap-2 shadow-md backdrop-blur-md bg-background py-4 rounded-t-md border border-border sticky top-0 z-10">
+          <header className="search-header px-5 flex flex-col items-start w-full gap-2 shadow-md backdrop-blur-md bg-secondary py-4 rounded-t-md border border-border sticky top-0 z-10">
             <h2 className="text-4xl text-foreground text-pretty font-bold">
               Explore our Challenges
             </h2>
@@ -128,7 +128,7 @@ export default function Home() {
             <SearchBox onSearch={() => null} placeholder="Search challenges" />
           </header>
 
-          <div className="flex flex-col gap-2 w-full border border-border border-t-0 bg-background">
+          <div className="flex flex-col gap-2 w-full border border-border border-t-0 bg-secondary">
             {challenges.map(({ id, title, description, difficulty }) => (
               <ChallengeCard
                 key={id}

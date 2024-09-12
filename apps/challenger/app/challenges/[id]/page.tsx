@@ -6,9 +6,15 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from "@repo/ui";
 import React from "react";
-import Markdown from "react-markdown";
+import { ChallengeDescription } from "../components/challenge-description";
+import { ListCollapse, Lightbulb } from "lucide-react";
+import { Solutions } from "../components/solutions";
 
 const codeChallenge = {
   title: "Regular Expression Matching",
@@ -50,24 +56,46 @@ const ChallengePage = () => {
       >
         <ResizablePanel
           defaultSize={25}
-          minSize={25}
-          collapsible
-          className="rounded-md border border-border backdrop-blur-md shadow-md bg-background"
+          minSize={20}
+          className="rounded-md border border-border backdrop-blur-md shadow-md bg-secondary"
         >
-          <div className="flex flex-col px-6 py-2 gap-2">
-            <h2 className="font-semibold text-xl text-primary">
-              {codeChallenge.title.toUpperCase()}
-            </h2>
-            <Markdown className="text-gray-300 text-sm challenge-description">
-              {codeChallenge.description}
-            </Markdown>
-          </div>
+          <Tabs defaultValue="description" className="w-full">
+            <TabsList className="w-full rounded-none border-0 border-b border-b-border !py-6">
+              <TabsTrigger
+                value="description"
+                className="text-sm font-medium group data-[state=active]:bg-background/40 inline-flex items-center gap-2 py-2"
+              >
+                <ListCollapse className="group-data-[state=active]:text-primary" />
+                <span className="group-data-[state=active]:text-primary">
+                  Description
+                </span>
+              </TabsTrigger>
+              <TabsTrigger
+                className="text-sm font-medium group data-[state=active]:bg-background/40 inline-flex items-center gap-2 py-2"
+                value="solutions"
+              >
+                <Lightbulb className="group-data-[state=active]:text-primary" />
+                <span className="group-data-[state=active]:text-primary">
+                  Solutions
+                </span>
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="description">
+              <ChallengeDescription
+                title={codeChallenge.title}
+                description={codeChallenge.description}
+              />
+            </TabsContent>
+            <TabsContent value="solutions" className="overflow-y-scroll h-fit">
+              <Solutions />
+            </TabsContent>
+          </Tabs>
         </ResizablePanel>
         <CustomResizableHandle />
         <ResizablePanel defaultSize={75}>
           <ResizablePanelGroup
             direction="vertical"
-            className="rounded-md border border-border backdrop-blur-md shadow-md bg-background"
+            className="rounded-md border border-border backdrop-blur-md shadow-md bg-secondary"
           >
             <ResizablePanel defaultSize={75}>
               <div className="flex flex-col h-full px-2 pt-2 gap-2">

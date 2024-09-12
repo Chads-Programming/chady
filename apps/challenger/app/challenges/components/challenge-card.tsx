@@ -54,7 +54,7 @@ export const ChallengeCard = ({
       </CardHeader>
       <CardContent>
         <div className="text-pretty text-sm challenge-description line-clamp-2 select-none">
-          <Markdown className="border border-border p-6 rounded-md shadow-md text-neutral-600">
+          <Markdown className="border border-border p-6 rounded-md shadow-md text-muted-foreground">
             {miniDescription}
           </Markdown>
         </div>

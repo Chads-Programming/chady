@@ -10,5 +10,6 @@ export * from "./components/ui/badge";
 export * from "./components/ui/input";
 export * from "./components/ui/toggle-group";
 export * from "./components/ui/resizable";
+export * from "./components/ui/tabs";
 // lib
 export * from "./lib/utils";
