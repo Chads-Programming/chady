@@ -1,6 +1,6 @@
 import React from "react";
 import { Calendar, Timer } from "lucide-react";
-import {getDiffTime} from "../../../helpers/get-diff-time";
+import { getDiffTime } from "@/helpers/get-diff-time";
 
 const solutions = [
   {
@@ -62,26 +62,30 @@ const solutions = [
 
 export const Solutions = () => {
   return (
-        <section className="w-full h-full overflow-y-auto px-2">
-          <div className="flex flex-col items-start justify-center gap-2 w-full">
-            {solutions.map(({owner, date, executionTime}) => (
-                <article
-                    className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-700 rounded-md">
-                  <header>
-                    <h2 className="font-bold text-pretty">{owner.toLowerCase()}'s solution</h2>
-                  </header>
-                  <footer className="inline-flex items-center gap-2 w-full justify-between">
-                    <div className="inline-flex items-center gap-2 text-muted-foreground">
-                      <Calendar className="w-4"/>
-                      <time className="text-xs mt-0.5">{getDiffTime(new Date(date))}</time>
-                    </div>
-                    <div className="inline-flex items-center gap-2 text-primary">
-                      <Timer className="w-4"/><span className="text-sm mt-0.5">{executionTime} ms</span>
-                    </div>
-                  </footer>
-                </article>
-            ))}
-          </div>
-        </section>
+    <section className="w-full h-full overflow-y-auto px-2">
+      <div className="flex flex-col items-start justify-center gap-2 w-full">
+        {solutions.map(({ owner, date, executionTime }) => (
+          <article className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-700 rounded-md">
+            <header>
+              <h2 className="font-bold text-pretty">
+                {owner.toLowerCase()}'s solution
+              </h2>
+            </header>
+            <footer className="inline-flex items-center gap-2 w-full justify-between">
+              <div className="inline-flex items-center gap-2 text-muted-foreground">
+                <Calendar className="w-4" />
+                <time className="text-xs mt-0.5">
+                  {getDiffTime(new Date(date))}
+                </time>
+              </div>
+              <div className="inline-flex items-center gap-2 text-primary">
+                <Timer className="w-4" />
+                <span className="text-sm mt-0.5">{executionTime} ms</span>
+              </div>
+            </footer>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 };

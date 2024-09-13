@@ -6,16 +6,17 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-  ScrollArea,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@repo/ui";
-import React from "react";
+import React, { useState } from "react";
 import { ChallengeDescription } from "../components/challenge-description";
 import { ListCollapse, Lightbulb } from "lucide-react";
 import { Solutions } from "../components/solutions";
+import { ProgramingLang } from "@repo/shared-types";
+import { LangDropdown } from "@/app/shared/components/lang-dropdown";
 
 const codeChallenge = {
   title: "Regular Expression Matching",
@@ -48,6 +49,11 @@ const CustomResizableHandle = ({ horizontal }: CustomResizableHandleProps) => (
 );
 
 const ChallengePage = () => {
+  const [lang, setSelectedLang] = useState(ProgramingLang.Javascript);
+
+  const handleLangChange = (selectedLang: ProgramingLang) =>
+    setSelectedLang(selectedLang);
+
   return (
     <>
       <ResizablePanelGroup
@@ -60,7 +66,10 @@ const ChallengePage = () => {
           minSize={20}
           className="rounded-md border border-border backdrop-blur-md shadow-md bg-secondary"
         >
-          <Tabs defaultValue="description" className="w-full h-[calc(100%_-_44px)]">
+          <Tabs
+            defaultValue="description"
+            className="w-full h-[calc(100%_-_44px)]"
+          >
             <TabsList className="w-full rounded-none border-0 border-b border-b-border !py-6">
               <TabsTrigger
                 value="description"
@@ -82,10 +91,10 @@ const ChallengePage = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="description" className="h-[calc(100%_-_44px)]">
-                <ChallengeDescription
-                    title={codeChallenge.title}
-                    description={codeChallenge.description}
-                />
+              <ChallengeDescription
+                title={codeChallenge.title}
+                description={codeChallenge.description}
+              />
             </TabsContent>
             <TabsContent value="solutions" className="h-[calc(100%_-_44px)]">
               <Solutions />
@@ -101,9 +110,10 @@ const ChallengePage = () => {
             <ResizablePanel defaultSize={75}>
               <div className="flex flex-col h-full px-2 pt-2 gap-2">
                 <h2 className="text-pretty text-ls font-medium ml-2">Code</h2>
+                <LangDropdown lang={lang} onSelect={handleLangChange} />
                 <Editor
                   height="100%"
-                  defaultLanguage="javascript"
+                  defaultLanguage={lang}
                   theme="vs-dark"
                   defaultValue={codeChallenge.startedCode}
                   options={{
