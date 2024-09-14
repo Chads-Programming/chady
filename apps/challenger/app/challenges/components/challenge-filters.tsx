@@ -1,4 +1,4 @@
-import { Badge, ToggleGroup, ToggleGroupItem } from "@repo/ui";
+import { ToggleGroup, ToggleGroupItem } from "@repo/ui";
 import React from "react";
 
 export const ChallengeFilters = () => {
