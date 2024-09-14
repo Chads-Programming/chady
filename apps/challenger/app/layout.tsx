@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "./shared/components/theme-provider";
 import { Header } from "./shared/components/header";
-import { DM_Sans } from "next/font/google";
+import { Onest } from "next/font/google";
 import "./globals.css";
 
 import "@repo/ui/globals.css";
 
-const dm_sans = DM_Sans({
+const onest = Onest({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${dm_sans.variable} bg-background`}>
+      <body className={`font-sans ${onest.variable} bg-background`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <Header />
           {children}

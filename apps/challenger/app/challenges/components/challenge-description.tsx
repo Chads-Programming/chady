@@ -1,20 +1,28 @@
 import React from "react";
 import Markdown from "react-markdown";
+import { DifficultBadge } from "./difficult-badge";
+import { ChallengeDifficult } from "../types";
 
 interface Props {
   title: string;
   description: string;
+  difficulty: ChallengeDifficult;
 }
 
-export const ChallengeDescription = ({ title, description }: Props) => {
+export const ChallengeDescription = ({
+  title,
+  description,
+  difficulty,
+}: Props) => {
   return (
-      <section className="flex flex-col gap-2 h-full overflow-y-auto px-2">
-          <h2 className="font-semibold text-xl text-primary">
-              {title.toUpperCase()}
-          </h2>
-          <Markdown className="text-gray-300 text-sm challenge-description">
-              {description}
-          </Markdown>
-      </section>
+    <article className="flex flex-col gap-2 h-full overflow-y-auto px-2">
+      <header className="flex flex-col gap-2 mb-4">
+        <h2 className="font-bold text-xl text-foreground">{title}</h2>
+        <DifficultBadge difficulty={difficulty} />
+      </header>
+      <Markdown className="text-gray-300 text-sm challenge-description">
+        {description}
+      </Markdown>
+    </article>
   );
 };

@@ -13,8 +13,6 @@ import {
   CommandList,
 } from "./command";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import { Separator } from "./separator";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export interface DropdownItem<Data, Value = string | number> {
   value: Value;
@@ -40,7 +38,7 @@ export const TemplateDropdown = <Data, Value extends string | number>({
   title,
   items,
   value,
-  searchLabel = "Search",
+  searchLabel,
   placeholder = "Select an option",
   emptyState = "No option found.",
   onSelect,
@@ -83,13 +81,16 @@ export const TemplateDropdown = <Data, Value extends string | number>({
       </PopoverTrigger>
       <PopoverContent className="w-[180px] p-0">
         <Command>
-          <CommandInput placeholder={searchLabel} />
+          {searchLabel && <CommandInput placeholder={searchLabel} />}
           <CommandEmpty>{emptyState}</CommandEmpty>
-          <CommandGroup>
-            <h3 className="text-sm text-primary/65 font-medium text-pretty mx-2 my-1">
-              {title}
-            </h3>
-          </CommandGroup>
+          {title && (
+            <CommandGroup>
+              <h3 className="text-sm text-primary/65 font-medium text-pretty mx-2 my-1">
+                {title}
+              </h3>{" "}
+            </CommandGroup>
+          )}
+
           <CommandList>
             <CommandGroup>
               {items.map((item) => (

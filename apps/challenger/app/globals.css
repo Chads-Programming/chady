@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  overscroll-behavior: none;
   min-height: 100vh;
 }
 
@@ -20,8 +19,8 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-top-left-radius: .75rem;
-  border-bottom-left-radius: .75rem;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
   @apply bg-zinc-600;
 }
 
@@ -75,4 +74,8 @@ html {
   to {
     @apply shadow-lg backdrop-blur-md bg-background/80 rounded-t-none;
   }
+}
+
+.text-gradient-primary {
+  @apply bg-gradient-to-r from-primary to-green-500 bg-clip-text text-transparent;
 }

@@ -10,7 +10,7 @@ export const Footer = () => {
         <a
           target="_blank"
           href={DISCORD_INVITATION}
-          className="ml-2 text-primary"
+          className="ml-2 text-gradient-primary"
         >
           Chads programming
         </a>

@@ -43,9 +43,9 @@ const getLangIcon = (lang: ProgramingLang) => {
     case ProgramingLang.Typescript:
       return <Typescript />;
     case ProgramingLang.Python:
-      return <Python className="w-4 h-4" />;
+      return <Python />;
     case ProgramingLang.Php:
-      return <Php className="w-4 h-4" />;
+      return <Php />;
   }
 };
 
@@ -55,12 +55,7 @@ export const LangDropdown = ({ lang, onSelect }: Props) => {
   };
 
   return (
-    <TemplateDropdown
-      title="Select a lang"
-      value={lang}
-      items={LANGS}
-      onSelect={handleOnSelect}
-    >
+    <TemplateDropdown value={lang} items={LANGS} onSelect={handleOnSelect}>
       {(item: DropdownItem<ProgramingLang>) => (
         <div className="inline-flex gap-2 justify-start items-center">
           {getLangIcon(item.data)}

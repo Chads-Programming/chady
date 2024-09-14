@@ -13,6 +13,7 @@ import { ArrowRight } from "lucide-react";
 import Markdown from "react-markdown";
 import { ChallengeDifficult } from "../types";
 import { useRouter } from "next/navigation";
+import { DifficultBadge } from "./difficult-badge";
 
 interface Props {
   id: string;
@@ -41,16 +42,7 @@ export const ChallengeCard = ({
     <Card className="backdrop-blur-md bg-background/10 shadow-lg border-border border-x-0 border-t-0 rounded-none">
       <CardHeader>
         <CardTitle className="text-gray-300 text-xl">{title}</CardTitle>
-        <Badge
-          variant="secondary"
-          className={cn("w-fit text-white bg-neutral-700 select-none", {
-            ["text-primary"]: difficulty === ChallengeDifficult.Easy,
-            ["text-amber-400"]: difficulty === ChallengeDifficult.Medium,
-            ["text-red-400"]: difficulty === ChallengeDifficult.Hard,
-          })}
-        >
-          {difficulty}
-        </Badge>
+        <DifficultBadge difficulty={difficulty} />
       </CardHeader>
       <CardContent>
         <div className="text-pretty text-sm challenge-description line-clamp-2 select-none">

@@ -2,6 +2,7 @@
 
 import { Editor } from "@monaco-editor/react";
 import {
+  Button,
   cn,
   ResizableHandle,
   ResizablePanel,
@@ -12,11 +13,13 @@ import {
   TabsTrigger,
 } from "@repo/ui";
 import React, { useState } from "react";
+import { Play } from "lucide-react";
 import { ChallengeDescription } from "../components/challenge-description";
-import { ListCollapse, Lightbulb } from "lucide-react";
+import { ListCollapse, Lightbulb, FileJson } from "lucide-react";
 import { Solutions } from "../components/solutions";
 import { ProgramingLang } from "@repo/shared-types";
 import { LangDropdown } from "@/app/shared/components/lang-dropdown";
+import { ChallengeDifficult } from "../types";
 
 const codeChallenge = {
   title: "Regular Expression Matching",
@@ -75,8 +78,8 @@ const ChallengePage = () => {
                 value="description"
                 className="text-sm font-medium group data-[state=active]:bg-background/40 inline-flex items-center gap-2 py-2"
               >
-                <ListCollapse className="group-data-[state=active]:text-primary" />
-                <span className="group-data-[state=active]:text-primary">
+                <ListCollapse className="group-data-[state=active]:text-foreground" />
+                <span className="group-data-[state=active]:text-foreground">
                   Description
                 </span>
               </TabsTrigger>
@@ -84,8 +87,8 @@ const ChallengePage = () => {
                 className="text-sm font-medium group data-[state=active]:bg-background/40 inline-flex items-center gap-2 py-2"
                 value="solutions"
               >
-                <Lightbulb className="group-data-[state=active]:text-primary" />
-                <span className="group-data-[state=active]:text-primary">
+                <Lightbulb className="group-data-[state=active]:text-foreground" />
+                <span className="group-data-[state=active]:text-foreground">
                   Solutions
                 </span>
               </TabsTrigger>
@@ -94,6 +97,7 @@ const ChallengePage = () => {
               <ChallengeDescription
                 title={codeChallenge.title}
                 description={codeChallenge.description}
+                difficulty={ChallengeDifficult.Hard}
               />
             </TabsContent>
             <TabsContent value="solutions" className="h-[calc(100%_-_44px)]">
@@ -109,11 +113,22 @@ const ChallengePage = () => {
           >
             <ResizablePanel defaultSize={75}>
               <div className="flex flex-col h-full px-2 pt-2 gap-2">
-                <h2 className="text-pretty text-ls font-medium ml-2">Code</h2>
-                <LangDropdown lang={lang} onSelect={handleLangChange} />
+                <header className="inline-flex gap-2 justify-start items-center">
+                  <FileJson className="w-4 h-4" />
+                  <h2 className="text-pretty text-ls font-medium">Code</h2>
+                </header>
+                <div className="inline-flex justify-start gap-2">
+                  <LangDropdown lang={lang} onSelect={handleLangChange} />
+                  <Button
+                    variant="default"
+                    className="inline-flex items-center gap-1 text-white"
+                  >
+                    <Play className="w-4 h-4" /> Submit
+                  </Button>
+                </div>
                 <Editor
                   height="100%"
-                  defaultLanguage={lang}
+                  language={lang}
                   theme="vs-dark"
                   defaultValue={codeChallenge.startedCode}
                   options={{

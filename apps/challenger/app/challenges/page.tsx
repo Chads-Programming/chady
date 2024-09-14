@@ -110,7 +110,7 @@ export default function Home() {
                 >
                   {name}
                 </span>
-                <span className="text-pretty text-sm text-gray-700 dark:text-gray-400 font-medium">
+                <span className="text-pretty text-xs text-gray-700 dark:text-gray-400 font-medium border border-border rounded-sm px-2 py-1 shadow-md">
                   {points} <span className="text-primary/65">pts.</span>
                 </span>
               </div>
@@ -120,7 +120,7 @@ export default function Home() {
 
         <section className="flex flex-col items-start w-full md:w-1/2">
           <header className="search-header px-5 flex flex-col items-start w-full gap-2 shadow-md backdrop-blur-md bg-secondary py-4 rounded-t-md border border-border sticky top-0 z-10">
-            <h2 className="text-4xl text-foreground text-pretty font-bold">
+            <h2 className="text-4xl text-gradient-primary text-pretty font-bold">
               Explore our Challenges
             </h2>
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <main className="w-full z-10 flex flex-col justify-center items-center py-4 px-8 gap-8 flex-1">
+      <main className="w-full z-10 flex flex-col justify-center items-center py-4 px-8 gap-8 flex-1 container">
         <h1>Chad challenger</h1>
         <p>Todo: here is the landing</p>
         <Link
