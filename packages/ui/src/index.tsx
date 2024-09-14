@@ -16,5 +16,6 @@ export * from "./components/ui/template-dropdown";
 export * from "./components/ui/popover";
 export * from "./components/ui/separator";
 export * from "./components/ui/command";
+export * from "./components/ui/accordion";
 // lib
 export * from "./lib/utils";
