@@ -4,5 +4,7 @@
       "mode": "auto"
     }
   ],
-  "editor.fontFamily": "'JetBrains Mono', 'MesloLGL Nerd Font','Menlo', 'Monaspace Neon', monospace, Cascadia Code PL"
+  "editor.fontFamily": "'JetBrains Mono', 'MesloLGL Nerd Font','Menlo', 'Monaspace Neon', monospace, Cascadia Code PL",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

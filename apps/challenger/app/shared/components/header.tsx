@@ -2,6 +2,7 @@ import React from "react";
 import Discord from "../icons/discord";
 import Image from "next/image";
 import Link from "next/link";
+import { ProfileBanner } from "@/app/auth/components/profile-banner";
 
 const LOGIN_PATH = "http://localhost:3200/auth/discord/login";
 
@@ -29,6 +30,7 @@ export const Header = () => {
             Explore
           </Link>
         </div>
+        <ProfileBanner />
         <a
           href={LOGIN_PATH}
           className="inline-flex gap-2 items-center text-sm font-medium hover:text-foreground text-foreground/80 transition-colors"

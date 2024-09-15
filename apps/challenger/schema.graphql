@@ -1,0 +1,244 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type CodeChallenge {
+  createdAt: DateTime!
+  difficult: Difficult!
+  id: String!
+  lang: ProgrammingLang!
+  mainCode: String!
+  startedCode: String!
+  testCases: [TestCase!]!
+  title: String!
+  updatedAt: DateTime!
+}
+
+input CreateCodeChallengeInput {
+  description: String!
+  difficult: Difficult!
+  title: String!
+}
+
+input CreateEventInput {
+  description: String
+  link: String!
+  name: String!
+  type: EventType!
+}
+
+input CreateEventScheduleInput {
+  endTime: DateTime
+  friday: Boolean! = false
+  monday: Boolean! = false
+  periocity: Periodicity!
+  saturday: Boolean! = false
+  startTime: DateTime!
+  sunday: Boolean! = false
+  thursday: Boolean! = false
+  tuesday: Boolean! = false
+  uniqueDate: DateTime!
+  wednesday: Boolean! = false
+}
+
+input CreateTestCaseInput {
+  args: JSON!
+  codeChallengeId: String!
+  expectedOutput: String!
+  isSecret: Boolean!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum Difficult {
+  Easy
+  Hard
+  Medium
+}
+
+type Event {
+  creators: [User!]!
+  description: String!
+  id: String!
+  name: String!
+  schedule: EventSchedule!
+}
+
+type EventSchedule {
+  endTime: DateTime
+  friday: Boolean!
+  monday: Boolean!
+  periocity: Periodicity!
+  saturday: Boolean!
+  startTime: DateTime!
+  sunday: Boolean!
+  thursday: Boolean!
+  tuesday: Boolean!
+  uniqueDate: DateTime!
+  wednesday: Boolean!
+}
+
+enum EventType {
+  COURSE
+}
+
+type InputExecutionResult {
+  executionTime: Float!
+  output: String!
+  testCase: TestCase!
+  timeFormat: String!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type JwtModel {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type Mutation {
+  createCodeChallenge(newCodeChallenge: CreateCodeChallengeInput!): CodeChallenge!
+  createTestCase(testCase: CreateTestCaseInput!): CodeChallenge!
+  createUserSubmission(submission: SubmissionInput!): SubmissionResult!
+  refreshToken: JwtModel!
+  registerEvent(newEvent: RegisterEventInput!): Event!
+  updateEvent(event: UpdateEventInput!): Event!
+  updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
+  updateUserSubmission(submission: SubmissionInput!, submissionId: String!): SubmissionResult!
+}
+
+type PageInfo {
+  currentPage: Float!
+  hasNextPage: Boolean!
+  total: Float!
+  totalPages: Float!
+}
+
+type PaginatedChallenges {
+  data: [CodeChallenge!]!
+  pageInfo: PageInfo
+}
+
+type PaginatedEvents {
+  data: [Event!]!
+  pageInfo: PageInfo
+}
+
+enum Periodicity {
+  DAILY
+  MONTHY
+  ONCE_TIME
+  WEEKLY
+}
+
+enum ProgrammingLang {
+  Javascript
+  Python
+  Typescript
+}
+
+type Query {
+  events(page: Int!, perPage: Int!, search: String!, status: Status!): PaginatedEvents!
+  findCodeChallenges(difficult: Difficult!, lang: ProgrammingLang!, page: Int!, perPage: Int!, search: String!): PaginatedChallenges!
+  findProfile: UserDetail!
+  getCodeChallenge(id: String!): CodeChallenge!
+  getUserSubmission(submissionId: String!): Submission!
+  getUserSubmissions: [Submission!]!
+}
+
+input RegisterEventInput {
+  creators: [String!]!
+  event: CreateEventInput!
+  schedule: CreateEventScheduleInput!
+}
+
+type RoleDetail {
+  color: Float!
+  id: String!
+  imageUrl: String!
+  name: String!
+}
+
+enum Status {
+  PENDING
+  READY
+  REJECTED
+}
+
+type Submission {
+  codeChallenge: CodeChallenge!
+  createdAt: DateTime!
+  id: String!
+  runtime: Float!
+  solutionCode: String!
+  status: String!
+  updatedAt: DateTime!
+  user: UserDetail!
+}
+
+input SubmissionInput {
+  challengeId: String!
+  lang: ProgrammingLang!
+  solutionCode: String!
+}
+
+type SubmissionResult {
+  inputResults: [InputExecutionResult!]!
+  submission: Submission!
+}
+
+type TestCase {
+  args: JSON!
+  expectedOutput: String!
+  id: Float!
+  isSecret: Boolean!
+}
+
+input UpdateEventInput {
+  description: String
+  id: String!
+  link: String
+  name: String
+  status: Status!
+  type: EventType
+}
+
+input UpdateEventScheduleInput {
+  endTime: DateTime
+  friday: Boolean = false
+  monday: Boolean = false
+  periocity: Periodicity
+  saturday: Boolean = false
+  startTime: DateTime
+  sunday: Boolean = false
+  thursday: Boolean = false
+  tuesday: Boolean = false
+  uniqueDate: DateTime
+  wednesday: Boolean = false
+}
+
+type User {
+  avatar: String!
+  discordId: String!
+  discriminator: String!
+  id: String!
+  roles: [String!]!
+  username: String!
+}
+
+type UserDetail {
+  avatar: String!
+  avatarUrl: String!
+  discordId: String!
+  discriminator: String!
+  id: String!
+  roles: [RoleDetail!]!
+  username: String!
+}

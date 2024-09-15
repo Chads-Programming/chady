@@ -24,6 +24,7 @@ export class AuthController {
       await this.authService.generateJwt(user);
 
     JwtHelper.saveJwtInCookie(res, { accessToken, refreshToken });
-    res.redirect(envs.AUTH_REDIRECT_URL);
+
+    return res.redirect(envs.AUTH_REDIRECT_URL);
   }
 }

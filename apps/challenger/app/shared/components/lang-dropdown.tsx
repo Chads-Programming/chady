@@ -6,7 +6,6 @@ import { TemplateDropdown, DropdownItem } from "@repo/ui";
 import JavaScript from "../icons/javascript";
 import Python from "../icons/python";
 import Typescript from "../icons/typescript";
-import Php from "../icons/php";
 
 interface Props {
   lang: ProgramingLang;
@@ -29,11 +28,6 @@ const LANGS: DropdownItem<ProgramingLang>[] = [
     data: ProgramingLang.Python,
     label: "Python",
   },
-  {
-    value: ProgramingLang.Php,
-    data: ProgramingLang.Php,
-    label: "PHP",
-  },
 ];
 
 const getLangIcon = (lang: ProgramingLang) => {
@@ -44,8 +38,6 @@ const getLangIcon = (lang: ProgramingLang) => {
       return <Typescript />;
     case ProgramingLang.Python:
       return <Python />;
-    case ProgramingLang.Php:
-      return <Php />;
   }
 };
 

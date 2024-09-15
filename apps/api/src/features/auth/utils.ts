@@ -5,11 +5,13 @@ export class JwtHelper {
   static saveJwtInCookie(res: Response, jwt: JwtModel) {
     res.cookie('access-token', jwt.accessToken, {
       httpOnly: true,
+      sameSite: 'lax',
       maxAge: 1.8e6,
     });
 
     res.cookie('refresh-token', jwt.refreshToken, {
       httpOnly: true,
+      sameSite: 'lax',
       maxAge: 1.8e6,
     });
   }
