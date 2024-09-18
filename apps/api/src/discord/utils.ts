@@ -1,7 +1,7 @@
 import * as consts from './consts';
 
 function getAvatarUrl(discordId: string, avatarHash: string) {
-  return `${consts.DISCORD_BASE_IMAGE_URL}/avatars/${discordId}/avatar/${avatarHash}.webp`;
+  return `${consts.DISCORD_BASE_IMAGE_URL}/avatars/${discordId}/${avatarHash}.webp`;
 }
 
 function getRoleIcon(roleId: string, roleHash: string) {

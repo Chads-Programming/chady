@@ -6,7 +6,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   return (
-    <main className="relative container w-full z-10 flex flex-row flex-wrap justify-start gap-8 flex-1 h-[calc(100dvh-8rem)]">
+    <main className="relative w-full z-10 flex flex-row flex-wrap justify-start gap-8 flex-1 h-[calc(100dvh-8rem)] px-6">
       {children}
     </main>
   );

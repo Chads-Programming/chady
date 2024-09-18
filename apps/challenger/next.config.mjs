@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: "cdn.discordapp.com",
+        protocol: "https",
+        port: "",
+      },
+    ],
+  },
+};
 
 export default nextConfig;
