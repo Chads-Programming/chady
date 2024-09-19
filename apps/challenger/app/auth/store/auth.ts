@@ -1,5 +1,6 @@
 import { ProfileQuery } from "@/graphql/graphql";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { devtools } from "zustand/middleware";
 
 interface AutState {
@@ -11,6 +12,7 @@ interface AutState {
 
 export const authStore = create<AutState>()(
   devtools(
+    persist(
     (setStore) => ({
       clearProfile: () => {
         setStore(() => {
@@ -19,15 +21,15 @@ export const authStore = create<AutState>()(
           };
         });
       },
-      setProfile: (payload) => {
+      setProfile: (profile) => {
         setStore((state) => {
           return {
             ...state,
-            profile: payload,
+            profile,
           };
         });
       },
     }),
     { name: "auth-storage" }
-  )
+  ))
 );

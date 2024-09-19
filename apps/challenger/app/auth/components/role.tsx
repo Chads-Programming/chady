@@ -23,7 +23,7 @@ export const Role = ({ name, imageUrl, color }: Props) => {
 
   return (
     <div
-      className="inline-flex justify-start gap-2 items-center rounded-md border px-2 py-1"
+      className="inline-flex justify-start gap-2 items-center rounded-md border py-1 px-2 select-none"
       style={{ borderColor: colorHex }}
     >
       <span className="text-xs font-medium" style={{ color: colorHex }}>
