@@ -15,8 +15,9 @@ import { Role } from "./role";
 import { useAuth } from "../hooks/use-auth";
 import Discord from "@/app/shared/icons/discord";
 import { ChevronRight, LogOut } from "lucide-react";
+import { ENVS } from "@/lib/envs";
 
-const LOGIN_PATH = "http://localhost:3200/auth/discord/login";
+const LOGIN_PATH = `${ENVS.NEXT_PUBLIC_API_HOST}/auth/discord/login`;
 
 export const ProfileBanner = () => {
   const { profile, isLoading, logout } = useAuth();

@@ -1,7 +1,8 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
+import { ENVS } from "@/lib/envs";
 
 const config: CodegenConfig = {
-  schema: "http://localhost:3200/graphql",
+  schema: `${ENVS.NEXT_PUBLIC_API_HOST}/graphql`,
   documents: ["app/**/*.tsx", "app/**/*.ts"],
   ignoreNoDocuments: true,
   generates: {
