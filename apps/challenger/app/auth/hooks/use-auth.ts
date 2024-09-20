@@ -3,8 +3,14 @@ import { useGetProfile } from "../queries/profile";
 import { authStore } from "../store/auth";
 
 export const useAuth = () => {
-  const { data, isLoading } = useGetProfile();
+  const { data, isLoading, error } = useGetProfile();
   const { setProfile, profile, clearProfile } = authStore();
+
+  useEffect(() => {
+    if (error && !isLoading) {
+      logout();
+    }
+  }, [error]);
 
   useEffect(() => {
     if (!data) {

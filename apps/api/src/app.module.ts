@@ -11,6 +11,7 @@ import { join } from 'path';
 import { DiscordModule } from '@/discord/discord.module';
 import { ChallengesModule } from './features/challenges/challenges.module';
 import { GraphQLJSON } from 'graphql-type-json';
+import { ClsModule } from 'nestjs-cls';
 
 @Module({
   imports: [
@@ -19,6 +20,11 @@ import { GraphQLJSON } from 'graphql-type-json';
     EventsModule,
     DiscordModule,
     ChallengesModule,
+    ClsModule.forRoot({
+      middleware: {
+        mount: true,
+      },
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

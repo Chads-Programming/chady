@@ -24,6 +24,7 @@ const envSchema = z.object({
   JWT_ACCESS_EXPIRATION: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   JWT_REFRESH_EXPIRATION: z.string(),
+  ALLOWED_ORIGIN_HOSTS: z.string(),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;
@@ -52,4 +53,5 @@ export const envs = {
   JWT_ACCESS_EXPIRATION: envVars.JWT_ACCESS_EXPIRATION,
   JWT_REFRESH_SECRET: envVars.JWT_REFRESH_SECRET,
   JWT_REFRESH_EXPIRATION: envVars.JWT_REFRESH_EXPIRATION,
+  ALLOWED_ORIGIN_HOSTS: envVars.ALLOWED_ORIGIN_HOSTS,
 } as EnvVars;

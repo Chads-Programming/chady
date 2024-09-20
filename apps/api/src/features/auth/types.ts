@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+import { ClsStore } from 'nestjs-cls';
 export interface UserDetail extends User {
   roles: string[];
 }
@@ -14,4 +15,8 @@ export interface DiscordUserProfile {
 
 export interface JwtPayload {
   id: string;
+}
+
+export interface AuthStore extends ClsStore {
+  redirectUrl?: string;
 }

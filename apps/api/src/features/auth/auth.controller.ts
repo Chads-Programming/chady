@@ -6,10 +6,15 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user';
 import { User } from '@prisma/client';
 import { JwtHelper } from './utils';
+import { ClsService } from 'nestjs-cls';
+import { AuthStore } from './types';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly cls: ClsService<AuthStore>,
+  ) {}
 
   @Get('discord/login')
   @UseGuards(DiscordAuthGuard)
@@ -25,6 +30,8 @@ export class AuthController {
 
     JwtHelper.saveJwtInCookie(res, { accessToken, refreshToken });
 
-    return res.redirect(envs.AUTH_REDIRECT_URL);
+    const redirectUrl = this.cls.get('redirectUrl') ?? envs.AUTH_REDIRECT_URL;
+
+    return res.redirect(redirectUrl);
   }
 }
