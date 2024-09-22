@@ -1,6 +1,5 @@
 import React from "react";
-
-const DISCORD_INVITATION = "https://discord.gg/FSKeeDhMNN";
+import { DISCORD_INVITATION_LINK } from "../consts";
 
 export const Footer = () => {
   return (
@@ -9,7 +8,7 @@ export const Footer = () => {
         Copyright &copy;
         <a
           target="_blank"
-          href={DISCORD_INVITATION}
+          href={DISCORD_INVITATION_LINK}
           className="ml-2 text-gradient-primary"
         >
           Chads programming

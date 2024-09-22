@@ -4,6 +4,8 @@ import { AllowedRolesGuard } from '../guards/allowed-roles.guard';
 import { GQLJwtAuthGuard } from '../guards/graphql-jwt-auth.guard';
 
 export const AllowedDiscordRoles = (...roles: DISCORD_ROLES[]) => {
-  SetMetadata('roles', roles);
-  return applyDecorators(UseGuards(GQLJwtAuthGuard, AllowedRolesGuard));
+  return applyDecorators(
+    SetMetadata('roles', roles),
+    UseGuards(GQLJwtAuthGuard, AllowedRolesGuard),
+  );
 };

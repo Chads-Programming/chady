@@ -1,14 +1,14 @@
+"use client";
+
 import React from "react";
-import Discord from "../icons/discord";
 import Image from "next/image";
 import Link from "next/link";
-
-const LOGIN_PATH = "http://localhost:3200/auth/discord/login";
+import { ProfileBanner } from "@/app/auth/components/profile-banner";
 
 export const Header = () => {
   return (
     <header className="w-full">
-      <nav className="bg-background flex flex-row gap-2 justify-between items-center h-14 container">
+      <nav className="bg-background flex flex-row gap-2 justify-between items-center h-14 px-8">
         <div className="flex gap-1 items-center text-sm font-medium ">
           <Link
             href="/"
@@ -29,12 +29,7 @@ export const Header = () => {
             Explore
           </Link>
         </div>
-        <a
-          href={LOGIN_PATH}
-          className="inline-flex gap-2 items-center text-sm font-medium hover:text-foreground text-foreground/80 transition-colors"
-        >
-          <Discord /> Login with Discord
-        </a>
+        <ProfileBanner />
       </nav>
     </header>
   );

@@ -15,6 +15,7 @@ const envSchema = z.object({
   DISCORD_CLIENT_SECRET: z.string(),
   DISCORD_CALLBACK_URL: z.string(),
   AUTH_REDIRECT_URL: z.string().url(),
+  MEMBER_NOT_FOUND_REDIRECT_URL: z.string().url(),
   COOKIE_SECRET: z.string(),
   DISCORD_SERVER_ID: z.string(),
   DISCORD_API_KEY: z.string(),
@@ -24,6 +25,7 @@ const envSchema = z.object({
   JWT_ACCESS_EXPIRATION: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   JWT_REFRESH_EXPIRATION: z.string(),
+  ALLOWED_ORIGIN_HOSTS: z.string(),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;
@@ -52,4 +54,6 @@ export const envs = {
   JWT_ACCESS_EXPIRATION: envVars.JWT_ACCESS_EXPIRATION,
   JWT_REFRESH_SECRET: envVars.JWT_REFRESH_SECRET,
   JWT_REFRESH_EXPIRATION: envVars.JWT_REFRESH_EXPIRATION,
+  ALLOWED_ORIGIN_HOSTS: envVars.ALLOWED_ORIGIN_HOSTS,
+  MEMBER_NOT_FOUND_REDIRECT_URL: envVars.MEMBER_NOT_FOUND_REDIRECT_URL,
 } as EnvVars;

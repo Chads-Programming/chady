@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { DiscordStrategy } from './strategies/discord';
+import { DiscordStrategy } from './strategies/discord.strategy';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { DiscordModule } from '@/discord/discord.module';

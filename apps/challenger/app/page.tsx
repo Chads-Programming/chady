@@ -1,10 +1,16 @@
+import { Metadata } from "next";
 import { Footer } from "./shared/components/footer";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Chady",
+  description: "The next challenger page",
+};
 
 export default function Home() {
   return (
     <>
-      <main className="w-full z-10 flex flex-col justify-center items-center py-4 px-8 gap-8 flex-1 container">
+      <main className="w-full z-10 flex flex-col justify-center items-center py-4 px-8 gap-8 flex-1">
         <h1>Chad challenger</h1>
         <p>Todo: here is the landing</p>
         <Link

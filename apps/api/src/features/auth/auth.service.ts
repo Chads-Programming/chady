@@ -5,6 +5,7 @@ import { Profile } from 'passport-discord';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../users/models/user.model';
 import { JWT_ACCESS_SERVICE, JWT_REFRESH_SERVICE } from './consts';
+import { MemberNotfoundError } from './errors';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +34,7 @@ export class AuthService {
     const member = await this.discordService.findGuildMember(accessToken);
 
     if (!member) {
-      throw new UnauthorizedException('User is not part of discord server');
+      throw new MemberNotfoundError('User is not part of discord server');
     }
 
     return member;
