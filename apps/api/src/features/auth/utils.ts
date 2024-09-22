@@ -15,4 +15,9 @@ export class JwtHelper {
       maxAge: 1.8e6,
     });
   }
+
+  static clearJwtCookies(res: Response) {
+    res.clearCookie('access-token');
+    res.clearCookie('refresh-token');
+  }
 }

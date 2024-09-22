@@ -3,15 +3,10 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from '../auth.service';
 import { envs } from '@/config';
-import { ClsService } from 'nestjs-cls';
-import { AuthStore } from '../types';
 
 @Injectable()
 export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly cls: ClsService<AuthStore>,
-  ) {
+  constructor(private readonly authService: AuthService) {
     super({
       clientID: envs.DISCORD_CLIENT_ID,
       clientSecret: envs.DISCORD_CLIENT_SECRET,
@@ -22,7 +17,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
   }
 
   async validate(
-    req: { query: Record<string, string> },
+    req: Request,
     accessToken: string,
     refreshToken: string,
     profile: Profile,
@@ -44,10 +39,11 @@ export class DiscordStrategy extends PassportStrategy(Strategy, 'discord') {
       roles: member.roles,
     });
 
-    const redirectUrl = req.query.redirectUrl;
-
-    this.cls.set('redirectUrl', redirectUrl);
-
     return user;
+  }
+
+  authenticate(req, options) {
+    options.state = req.query.redirectUrl;
+    super.authenticate(req, options);
   }
 }

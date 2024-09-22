@@ -1,4 +1,3 @@
-import { ClsModule } from 'nestjs-cls';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { DiscordStrategy } from './strategies/discord.strategy';
@@ -15,7 +14,7 @@ import { JWT_ACCESS_SERVICE, JWT_REFRESH_SERVICE } from './consts';
 
 @Module({
   controllers: [AuthController],
-  imports: [ClsModule, UsersModule, DiscordModule, PassportModule.register({})],
+  imports: [UsersModule, DiscordModule, PassportModule.register({})],
   providers: [
     AuthService,
     DiscordStrategy,

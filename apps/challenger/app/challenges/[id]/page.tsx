@@ -25,6 +25,7 @@ import {
   TestCases,
   TestResult,
 } from "../components/test-summary";
+import { ProtectedAction } from "@/app/auth/components/protected-action";
 
 const codeChallenge = {
   title: "Regular Expression Matching",
@@ -149,12 +150,14 @@ const ChallengePage = () => {
                 </header>
                 <div className="inline-flex justify-start gap-2">
                   <LangDropdown lang={lang} onSelect={handleLangChange} />
-                  <Button
-                    variant="default"
-                    className="inline-flex items-center gap-1 text-white"
-                  >
-                    <Play className="w-4 h-4" /> Submit
-                  </Button>
+                  <ProtectedAction label="Login to submit">
+                    <Button
+                      variant="default"
+                      className="inline-flex items-center gap-1 text-white"
+                    >
+                      <Play className="w-4 h-4" /> Submit
+                    </Button>
+                  </ProtectedAction>
                 </div>
                 <Editor
                   height="100%"

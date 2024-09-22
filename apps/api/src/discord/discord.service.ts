@@ -17,19 +17,19 @@ export class DiscordService {
   async findGuildMember(accessToken: string): Promise<DiscordMember | null> {
     const url = `${consts.DISCORD_BASE_API}/users/@me/guilds/${this.guildId}/member`;
 
-    const { data } = await firstValueFrom(
-      this.http.get(url, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }),
-    );
+    try {
+      const { data } = await firstValueFrom(
+        this.http.get(url, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }),
+      );
 
-    if (data.code === 404) {
+      return data as DiscordMember;
+    } catch (err) {
       return null;
     }
-
-    return data as DiscordMember;
   }
 
   async getGuildRole(roleId: string): Promise<DiscordRole> {

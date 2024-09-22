@@ -13,9 +13,9 @@ import {
 } from "@repo/ui";
 import { Role } from "./role";
 import { useAuth } from "../hooks/use-auth";
-import Discord from "@/app/shared/icons/discord";
-import { ChevronRight, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { ENVS } from "@/lib/envs";
+import { LoginButton } from "./login-button";
 
 const LOGIN_PATH = `${ENVS.NEXT_PUBLIC_API_HOST}/auth/discord/login`;
 
@@ -32,15 +32,7 @@ export const ProfileBanner = () => {
   }
 
   if (!profile) {
-    return (
-      <a
-        href={LOGIN_PATH}
-        className="group px-2 rounded-md border border-border inline-flex gap-1 items-center text-sm font-medium hover:text-foreground text-foreground/80 transition-colors"
-      >
-        <Discord className="w-5 h-5" /> Login with Discord
-        <ChevronRight className="w-0 opacity-0 group-hover:w-5 group-hover:opacity-100  group-hover:translate-x-2 transition-all ease-in duration-200" />
-      </a>
-    );
+    return <LoginButton />;
   }
 
   return (

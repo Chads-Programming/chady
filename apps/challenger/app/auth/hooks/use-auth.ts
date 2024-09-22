@@ -1,6 +1,9 @@
+"use client";
+
 import { useEffect } from "react";
 import { useGetProfile } from "../queries/profile";
 import { authStore } from "../store/auth";
+import { LOGOUT_PATH } from "../consts";
 
 export const useAuth = () => {
   const { data, isLoading, error } = useGetProfile();
@@ -22,6 +25,7 @@ export const useAuth = () => {
 
   const logout = () => {
     clearProfile();
+    window.location.href = LOGOUT_PATH;
   };
 
   return {
