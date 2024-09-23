@@ -1,6 +1,6 @@
 import { DiscordRole } from '@/discord/types';
-import { RoleDetail } from '../models/role-detail.model';
 import discordUtils from '@/discord/utils';
+import { RoleDetail } from '../models/role-detail.model';
 
 const fromDiscordRole = (discordRole: DiscordRole): RoleDetail => ({
   id: discordRole.id,

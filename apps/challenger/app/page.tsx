@@ -1,11 +1,11 @@
-import { Metadata } from "next";
-import { Footer } from "./shared/components/footer";
-import Link from "next/link";
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { Footer } from './shared/components/footer'
 
 export const metadata: Metadata = {
-  title: "Chady",
-  description: "The next challenger page",
-};
+  title: 'Chady',
+  description: 'The next challenger page',
+}
 
 export default function Home() {
   return (
@@ -22,5 +22,5 @@ export default function Home() {
       </main>
       <Footer />
     </>
-  );
+  )
 }

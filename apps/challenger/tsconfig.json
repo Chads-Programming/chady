@@ -3,9 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     },
     "plugins": [
       {
@@ -25,7 +23,5 @@
     ".next/types/**/*.ts",
     "postcss.config.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

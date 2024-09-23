@@ -1,36 +1,36 @@
-"use client";
+'use client'
 
-import { useEffect } from "react";
-import { useGetProfile } from "../queries/profile";
-import { authStore } from "../store/auth";
-import { LOGOUT_PATH } from "../consts";
+import { useEffect } from 'react'
+import { LOGOUT_PATH } from '../consts'
+import { useGetProfile } from '../queries/profile'
+import { authStore } from '../store/auth'
 
 export const useAuth = () => {
-  const { data, isLoading, error } = useGetProfile();
-  const { setProfile, profile, clearProfile } = authStore();
+  const { data, isLoading, error } = useGetProfile()
+  const { setProfile, profile, clearProfile } = authStore()
 
   useEffect(() => {
     if (error && !isLoading) {
-      logout();
+      logout()
     }
-  }, [error]);
+  }, [error, isLoading])
 
   useEffect(() => {
     if (!data) {
-      return;
+      return
     }
 
-    setProfile(data.findProfile);
-  }, [data]);
+    setProfile(data.findProfile)
+  }, [data, setProfile])
 
   const logout = () => {
-    clearProfile();
-    window.location.href = LOGOUT_PATH;
-  };
+    clearProfile()
+    window.location.href = LOGOUT_PATH
+  }
 
   return {
     profile,
     logout,
     isLoading,
-  };
-};
+  }
+}

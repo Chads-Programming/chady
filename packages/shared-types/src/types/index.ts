@@ -1,2 +1,2 @@
-export * from "./user.type";
-export * from "./programing-langs";
+export * from './user.type'
+export * from './programing-langs'

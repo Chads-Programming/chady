@@ -4,32 +4,32 @@ import {
   AccordionItem,
   AccordionTrigger,
   cn,
-} from "@repo/ui";
-import React from "react";
+} from '@repo/ui'
+import type React from 'react'
 
 interface TestSummaryProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 interface SecretTestCaseResultProps {
-  id: string;
-  isSuccess: boolean;
+  id: string
+  isSuccess: boolean
 }
 
-type BaseInput = number | boolean | string;
+type BaseInput = number | boolean | string
 
-type Inputs<T> = T | T[];
+type Inputs<T> = T | T[]
 
 interface TestCaseResultProps<
   Input extends Inputs<BaseInput>,
   ExpectedOutput extends Inputs<BaseInput>,
   CurrentOutput extends Inputs<BaseInput>,
 > {
-  id: string;
-  isSuccess: boolean;
-  input: Input;
-  currentOuput: ExpectedOutput;
-  expectedOutput: CurrentOutput;
+  id: string
+  isSuccess: boolean
+  input: Input
+  currentOuput: ExpectedOutput
+  expectedOutput: CurrentOutput
 }
 
 export const SecretTestResult = ({
@@ -41,21 +41,21 @@ export const SecretTestResult = ({
       <AccordionTrigger
         disabled
         className={cn(
-          "text-sm font-medium hover:bg-zinc-600 px-2 rounded-t-sm",
+          'text-sm font-medium hover:bg-zinc-600 px-2 rounded-t-sm',
           {
-            ["text-green-500"]: isSuccess,
-            ["text-red-500"]: !isSuccess,
-          }
+            'text-green-500': isSuccess,
+            'text-red-500': !isSuccess,
+          },
         )}
       >
         <header className="inline-flex gap-2">
-          <span className="font-bold">{isSuccess ? "✅" : "❌"}</span>
+          <span className="font-bold">{isSuccess ? '✅' : '❌'}</span>
           Secret test
         </header>
       </AccordionTrigger>
     </AccordionItem>
-  );
-};
+  )
+}
 
 export const TestResult = <
   Input extends Inputs<BaseInput>,
@@ -72,15 +72,15 @@ export const TestResult = <
     <AccordionItem value={id}>
       <AccordionTrigger
         className={cn(
-          "text-sm font-medium hover:no-underline hover:bg-zinc-600 px-2 rounded-t-sm",
+          'text-sm font-medium hover:no-underline hover:bg-zinc-600 px-2 rounded-t-sm',
           {
-            ["text-green-500"]: isSuccess,
-            ["text-red-500"]: !isSuccess,
-          }
+            'text-green-500': isSuccess,
+            'text-red-500': !isSuccess,
+          },
         )}
       >
         <header className="inline-flex gap-2">
-          <span className="font-bold">{isSuccess ? "✅" : "❌"}</span>
+          <span className="font-bold">{isSuccess ? '✅' : '❌'}</span>
           <span>Test: {JSON.stringify(input)}</span>
         </header>
       </AccordionTrigger>
@@ -98,13 +98,13 @@ export const TestResult = <
         </div>
       </AccordionContent>
     </AccordionItem>
-  );
-};
+  )
+}
 
 export const TestCases = ({ children }: TestSummaryProps) => {
   return (
     <Accordion type="single" className="w-full" collapsible>
       {children}
     </Accordion>
-  );
-};
+  )
+}

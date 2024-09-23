@@ -1,7 +1,7 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react'
 
 const TypeScript = (props: SVGProps<SVGSVGElement>) => (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
   <svg
     viewBox="0 0 256 256"
     width="1em"
@@ -19,5 +19,5 @@ const TypeScript = (props: SVGProps<SVGSVGElement>) => (
       fill="#FFF"
     />
   </svg>
-);
-export default TypeScript;
+)
+export default TypeScript

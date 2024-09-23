@@ -1,11 +1,11 @@
+import { DatabaseModule } from '@/database/database.module';
+import { RunnerModule } from '@/runner/runner.module';
 import { Module } from '@nestjs/common';
 import { AuthModule } from '../auth/auth.module';
-import { DatabaseModule } from '@/database/database.module';
-import { ChallengeService } from './services/challenge.service';
-import { SubmissionService } from './services/submission.service';
 import { CodeChallengeResolver } from './resolvers/code-challenge.resolver';
 import { SubmissionResolver } from './resolvers/submission.resolver';
-import { RunnerModule } from '@/runner/runner.module';
+import { ChallengeService } from './services/challenge.service';
+import { SubmissionService } from './services/submission.service';
 
 @Module({
   imports: [AuthModule, DatabaseModule, RunnerModule],

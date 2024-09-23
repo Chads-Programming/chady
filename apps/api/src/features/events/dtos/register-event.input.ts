@@ -1,5 +1,5 @@
 import { IsUUIDArray } from '@/common/decorators/is-uuid';
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import { ValidateNested } from 'class-validator';
 import { CreateEventInput } from './event.input';
 import { CreateEventScheduleInput } from './schedule.input';

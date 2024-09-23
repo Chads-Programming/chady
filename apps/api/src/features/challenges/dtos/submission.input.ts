@@ -1,4 +1,4 @@
-import { Field, InputType, OmitType, PartialType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import { ProgrammingLang } from '@prisma/client';
 import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 

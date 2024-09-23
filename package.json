@@ -5,13 +5,18 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint:check": "biome check .",
+    "lint:fix": "biome check --apply .",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.7.3",
+    "@repo/typescript-config": "workspace:*",
+    "husky": "^9.1.6",
     "prettier": "^3.2.5",
     "turbo": "^2.0.12",
-    "typescript": "^5.4.5",
-    "@repo/typescript-config": "workspace:*"
+    "typescript": "^5.4.5"
   },
   "packageManager": "pnpm@8.15.6",
   "engines": {

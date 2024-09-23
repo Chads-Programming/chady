@@ -1,5 +1,4 @@
-import { ToggleGroup, ToggleGroupItem } from "@repo/ui";
-import React from "react";
+import { ToggleGroup, ToggleGroupItem } from '@repo/ui'
 
 export const ChallengeFilters = () => {
   return (
@@ -26,5 +25,5 @@ export const ChallengeFilters = () => {
         Hard
       </ToggleGroupItem>
     </ToggleGroup>
-  );
-};
+  )
+}

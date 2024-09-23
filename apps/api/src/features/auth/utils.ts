@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { JwtModel } from './models/jwt.model';
 
+// biome-ignore lint/complexity/noStaticOnlyClass: just a simple helper
 export class JwtHelper {
   static saveJwtInCookie(res: Response, jwt: JwtModel) {
     res.cookie('access-token', jwt.accessToken, {

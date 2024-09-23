@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
+import { envs } from '@/config';
 import { DiscordService } from '@/discord/discord.service';
 import { HttpModule } from '@nestjs/axios';
-import { envs } from '@/config';
+import { Module } from '@nestjs/common';
 import * as consts from './consts';
 
 @Module({

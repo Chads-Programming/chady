@@ -1,6 +1,5 @@
-"use client";
-
-import React from "react";
+'use client'
+import { ENVS } from '@/lib/envs'
 import {
   Avatar,
   AvatarFallback,
@@ -10,17 +9,16 @@ import {
   PopoverContent,
   PopoverTrigger,
   Skeleton,
-} from "@repo/ui";
-import { Role } from "./role";
-import { useAuth } from "../hooks/use-auth";
-import { LogOut } from "lucide-react";
-import { ENVS } from "@/lib/envs";
-import { LoginButton } from "./login-button";
+} from '@repo/ui'
+import { LogOut } from 'lucide-react'
+import { useAuth } from '../hooks/use-auth'
+import { LoginButton } from './login-button'
+import { Role } from './role'
 
-const LOGIN_PATH = `${ENVS.NEXT_PUBLIC_API_HOST}/auth/discord/login`;
+const LOGIN_PATH = `${ENVS.NEXT_PUBLIC_API_HOST}/auth/discord/login`
 
 export const ProfileBanner = () => {
-  const { profile, isLoading, logout } = useAuth();
+  const { profile, isLoading, logout } = useAuth()
 
   if (isLoading) {
     return (
@@ -28,11 +26,11 @@ export const ProfileBanner = () => {
         <Skeleton className="h-12 w-12 rounded-full" />
         <Skeleton className="h-12 w-[100px] rounded-md" />
       </div>
-    );
+    )
   }
 
   if (!profile) {
-    return <LoginButton />;
+    return <LoginButton />
   }
 
   return (
@@ -65,5 +63,5 @@ export const ProfileBanner = () => {
         </ul>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}

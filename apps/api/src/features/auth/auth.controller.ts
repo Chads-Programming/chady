@@ -1,10 +1,10 @@
-import { Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
 import { DiscordAuthGuard } from '@/auth/guards/discord-auth.guard';
 import { envs } from '@/config';
+import { Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
+import { User } from '@prisma/client';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user';
-import { User } from '@prisma/client';
 import { JwtHelper } from './utils';
 
 @Controller('auth')

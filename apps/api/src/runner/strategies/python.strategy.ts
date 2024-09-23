@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { RunnerService } from '../runner.service';
 import { LangEnum, RunnerOutput } from '../types';
 import {
   CodeExecutionStrategy,
   ExecuteCodeArgs,
   PrepareMainCodeArgs,
 } from './code-execution.strategy';
-import { RunnerService } from '../runner.service';
 
 const LIBRARY_IMPORTS = 'from write import write';
 

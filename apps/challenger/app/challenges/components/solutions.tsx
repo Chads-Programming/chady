@@ -1,71 +1,73 @@
-import React from "react";
-import { Calendar, Timer } from "lucide-react";
-import { getDiffTime } from "@/helpers/get-diff-time";
+import { getDiffTime } from '@/helpers/get-diff-time'
+import { Calendar, Timer } from 'lucide-react'
 
 const solutions = [
   {
-    owner: "gatobros",
-    date: "2024-09-12",
+    owner: 'gatobros',
+    date: '2024-09-12',
     executionTime: 2231,
   },
   {
-    owner: "groundmind",
-    date: "2024-09-11/23:00:12z",
+    owner: 'groundmind',
+    date: '2024-09-11/23:00:12z',
     executionTime: 5131,
   },
   {
-    owner: "peperman",
-    date: "2024-09-04",
+    owner: 'peperman',
+    date: '2024-09-04',
     executionTime: 1322,
   },
   {
-    owner: "gatobros",
-    date: "2024-09-01",
+    owner: 'gatobros',
+    date: '2024-09-01',
     executionTime: 2231,
   },
   {
-    owner: "groundmind",
-    date: "2024-09-02",
+    owner: 'groundmind',
+    date: '2024-09-02',
     executionTime: 5131,
   },
   {
-    owner: "peperman",
-    date: "2024-09-04",
+    owner: 'peperman',
+    date: '2024-09-04',
     executionTime: 1322,
   },
   {
-    owner: "gatobros",
-    date: "2024-09-01",
+    owner: 'gatobros',
+    date: '2024-09-01',
     executionTime: 2231,
   },
   {
-    owner: "groundmind",
-    date: "2024-09-02",
+    owner: 'groundmind',
+    date: '2024-09-02',
     executionTime: 5131,
   },
   {
-    owner: "peperman",
-    date: "2024-09-12",
+    owner: 'peperman',
+    date: '2024-09-12',
     executionTime: 1322,
   },
   {
-    owner: "groundmind",
-    date: "2024-09-12",
+    owner: 'groundmind',
+    date: '2024-09-12',
     executionTime: 5131,
   },
   {
-    owner: "peperman",
-    date: "2024-09-11",
+    owner: 'peperman',
+    date: '2024-09-11',
     executionTime: 1322,
   },
-];
+]
 
 export const Solutions = () => {
   return (
     <section className="w-full h-full overflow-y-auto px-2">
       <div className="flex flex-col items-start justify-center gap-2 w-full">
         {solutions.map(({ owner, date, executionTime }) => (
-          <article className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-700 rounded-md">
+          <article
+            key={owner}
+            className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-700 rounded-md"
+          >
             <header>
               <h2 className="font-bold text-pretty">
                 {owner.toLowerCase()}'s solution
@@ -87,5 +89,5 @@ export const Solutions = () => {
         ))}
       </div>
     </section>
-  );
-};
+  )
+}

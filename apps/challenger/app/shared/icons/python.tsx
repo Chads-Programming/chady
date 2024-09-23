@@ -1,7 +1,7 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react'
 
 const Python = (props: SVGProps<SVGSVGElement>) => (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -43,5 +43,5 @@ const Python = (props: SVGProps<SVGSVGElement>) => (
       </linearGradient>
     </defs>
   </svg>
-);
-export default Python;
+)
+export default Python

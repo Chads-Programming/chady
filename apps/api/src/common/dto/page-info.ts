@@ -1,5 +1,5 @@
-import { ObjectType, Field } from '@nestjs/graphql';
-import { mixin, Type } from '@nestjs/common';
+import { Type, mixin } from '@nestjs/common';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class PageInfo {

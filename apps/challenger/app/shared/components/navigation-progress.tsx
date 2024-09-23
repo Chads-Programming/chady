@@ -1,7 +1,5 @@
-"use client";
-
-import React from "react";
-import { AppProgressBar as NProgressBar } from "next-nprogress-bar";
+'use client'
+import { AppProgressBar as NProgressBar } from 'next-nprogress-bar'
 
 export const NavigationProgress = () => {
   return (
@@ -10,5 +8,5 @@ export const NavigationProgress = () => {
       options={{ showSpinner: false }}
       shallowRouting
     />
-  );
-};
+  )
+}

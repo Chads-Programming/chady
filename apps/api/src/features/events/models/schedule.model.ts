@@ -10,25 +10,25 @@ export class EventSchedule {
   periocity: Periodicity;
 
   @Field(() => Boolean)
-  monday: boolean = false;
+  monday = false;
 
   @Field(() => Boolean)
-  tuesday: boolean = false;
+  tuesday = false;
 
   @Field(() => Boolean)
-  wednesday: boolean = false;
+  wednesday = false;
 
   @Field(() => Boolean)
-  thursday: boolean = false;
+  thursday = false;
 
   @Field(() => Boolean)
-  friday: boolean = false;
+  friday = false;
 
   @Field(() => Boolean)
-  saturday: boolean = false;
+  saturday = false;
 
   @Field(() => Boolean)
-  sunday: boolean = false;
+  sunday = false;
 
   @Field(() => Date)
   startTime: Date;

@@ -1,5 +1,4 @@
-import React from "react";
-import { DISCORD_INVITATION_LINK } from "../consts";
+import { DISCORD_INVITATION_LINK } from '../consts'
 
 export const Footer = () => {
   return (
@@ -10,10 +9,11 @@ export const Footer = () => {
           target="_blank"
           href={DISCORD_INVITATION_LINK}
           className="ml-2 text-gradient-primary"
+          rel="noreferrer"
         >
           Chads programming
         </a>
       </small>
     </footer>
-  );
-};
+  )
+}

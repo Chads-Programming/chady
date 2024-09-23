@@ -1,25 +1,25 @@
-import React, { useMemo, useState } from "react";
-import Image from "next/image";
+import Image from 'next/image'
+import { useMemo, useState } from 'react'
 
 interface Props {
-  name: string;
-  imageUrl: string;
-  color: number;
+  name: string
+  imageUrl: string
+  color: number
 }
 
 function intToHex(colorInt: number) {
   if (colorInt < 0 || colorInt > 0xffffff) {
-    return "#0000";
+    return '#0000'
   }
-  let hexColor = colorInt.toString(16).padStart(6, "0");
-  return `#${hexColor}`;
+  const hexColor = colorInt.toString(16).padStart(6, '0')
+  return `#${hexColor}`
 }
 
 export const Role = ({ name, imageUrl, color }: Props) => {
-  const [showImage, setShowImage] = useState(true);
-  const colorHex = useMemo(() => intToHex(color), [color]);
+  const [showImage, setShowImage] = useState(true)
+  const colorHex = useMemo(() => intToHex(color), [color])
 
-  const handleImageError = () => setShowImage(false);
+  const handleImageError = () => setShowImage(false)
 
   return (
     <div
@@ -39,5 +39,5 @@ export const Role = ({ name, imageUrl, color }: Props) => {
         />
       )}
     </div>
-  );
-};
+  )
+}

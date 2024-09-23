@@ -1,7 +1,7 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react'
 
 const JavaScript = (props: SVGProps<SVGSVGElement>) => (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -15,5 +15,5 @@ const JavaScript = (props: SVGProps<SVGSVGElement>) => (
       fill="#323330"
     />
   </svg>
-);
-export default JavaScript;
+)
+export default JavaScript

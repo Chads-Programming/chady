@@ -1,6 +1,6 @@
-import { InputType, Field, PartialType, Int } from '@nestjs/graphql';
+import { Field, InputType, PartialType } from '@nestjs/graphql';
 import { Periodicity } from '@prisma/client';
-import { IsBoolean, IsNumber, IsOptional, IsUUID, Min } from 'class-validator';
+import { IsBoolean, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateEventScheduleInput {
@@ -12,31 +12,31 @@ export class CreateEventScheduleInput {
 
   @Field(() => Boolean, { defaultValue: false })
   @IsBoolean()
-  monday: boolean = false;
+  monday = false;
 
   @Field(() => Boolean, { defaultValue: false })
   @IsBoolean()
-  tuesday: boolean = false;
+  tuesday = false;
 
   @Field(() => Boolean, { defaultValue: false })
   @IsBoolean()
-  wednesday: boolean = false;
+  wednesday = false;
 
   @Field(() => Boolean, { defaultValue: false })
   @IsBoolean()
-  thursday: boolean = false;
+  thursday = false;
 
   @Field(() => Boolean, { defaultValue: false })
   @IsBoolean()
-  friday: boolean = false;
+  friday = false;
 
   @Field(() => Boolean, { defaultValue: false })
   @IsBoolean()
-  saturday: boolean = false;
+  saturday = false;
 
   @Field(() => Boolean, { defaultValue: false })
   @IsBoolean()
-  sunday: boolean = false;
+  sunday = false;
 
   @Field(() => Date)
   startTime: Date;

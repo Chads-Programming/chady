@@ -1,23 +1,23 @@
-import { CreateTestCaseInput } from './../dtos/test-case.input';
+import { paginate } from '@/common/utils/paginate';
+import { DISCORD_ROLES } from '@/features/auth/consts';
+import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
 import {
   Args,
   Mutation,
-  Resolver,
-  Query,
   Parent,
+  Query,
   ResolveField,
+  Resolver,
 } from '@nestjs/graphql';
 import { CreateCodeChallengeInput } from '../dtos/code-challenge.input';
+import { SeachChallengeArgs } from '../dtos/search-challenge.args';
 import {
   CodeChallenge,
   PaginatedChallenges,
 } from '../models/code-challenge.model';
-import { ChallengeService } from '../services/challenge.service';
-import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
-import { DISCORD_ROLES } from '@/features/auth/consts';
-import { SeachChallengeArgs } from '../dtos/search-challenge.args';
-import { paginate } from '@/common/utils/paginate';
 import { TestCase } from '../models/test-case.model';
+import { ChallengeService } from '../services/challenge.service';
+import { CreateTestCaseInput } from './../dtos/test-case.input';
 
 @Resolver(() => CodeChallenge)
 export class CodeChallengeResolver {
