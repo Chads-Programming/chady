@@ -6,6 +6,7 @@ import {
 import { v4 as isUUID } from 'uuid';
 
 export function IsUUIDArray(validationOptions?: ValidationOptions) {
+  // biome-ignore lint/complexity/noBannedTypes: Object is a required tyoe for metadata
   return (object: Object, propertyName: string) => {
     registerDecorator({
       name: 'isUUIDArray',
@@ -13,6 +14,7 @@ export function IsUUIDArray(validationOptions?: ValidationOptions) {
       propertyName: propertyName,
       options: validationOptions,
       validator: {
+        // biome-ignore lint/suspicious/noExplicitAny: value is for metadata
         validate(value: any, args: ValidationArguments) {
           if (!Array.isArray(value)) {
             return false;

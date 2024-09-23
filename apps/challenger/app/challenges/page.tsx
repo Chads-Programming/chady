@@ -88,7 +88,7 @@ export default function Home() {
         <aside className="search-header border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 h-fit sticky top-0">
           <Leaderboard
             title="Top Performers"
-            data={leaderboard}
+            items={leaderboard}
             renderItem={(position, { name, avatar, points }) => (
               <div className="flex flex-row justify-start gap-2 w-full items-center content-start">
                 <span className="text-lg mr-2 text-primary font-medium">
@@ -103,7 +103,7 @@ export default function Home() {
                   className={cn(
                     'text-pretty text-sm text-foreground/75  flex-1 w-[100px]',
                     {
-                      ['!text-amber-400 animate-pulse']: position === 1,
+                      '!text-amber-400 animate-pulse': position === 1,
                     },
                   )}
                 >

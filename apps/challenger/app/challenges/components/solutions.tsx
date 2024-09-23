@@ -64,7 +64,10 @@ export const Solutions = () => {
     <section className="w-full h-full overflow-y-auto px-2">
       <div className="flex flex-col items-start justify-center gap-2 w-full">
         {solutions.map(({ owner, date, executionTime }) => (
-          <article className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-700 rounded-md">
+          <article
+            key={owner}
+            className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-700 rounded-md"
+          >
             <header>
               <h2 className="font-bold text-pretty">
                 {owner.toLowerCase()}'s solution

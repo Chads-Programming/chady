@@ -13,7 +13,7 @@ export const useAuth = () => {
     if (error && !isLoading) {
       logout()
     }
-  }, [error])
+  }, [error, isLoading])
 
   useEffect(() => {
     if (!data) {
@@ -21,7 +21,7 @@ export const useAuth = () => {
     }
 
     setProfile(data.findProfile)
-  }, [data])
+  }, [data, setProfile])
 
   const logout = () => {
     clearProfile()

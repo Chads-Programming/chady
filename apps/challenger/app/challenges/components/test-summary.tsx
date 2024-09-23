@@ -43,8 +43,8 @@ export const SecretTestResult = ({
         className={cn(
           'text-sm font-medium hover:bg-zinc-600 px-2 rounded-t-sm',
           {
-            ['text-green-500']: isSuccess,
-            ['text-red-500']: !isSuccess,
+            'text-green-500': isSuccess,
+            'text-red-500': !isSuccess,
           },
         )}
       >
@@ -74,8 +74,8 @@ export const TestResult = <
         className={cn(
           'text-sm font-medium hover:no-underline hover:bg-zinc-600 px-2 rounded-t-sm',
           {
-            ['text-green-500']: isSuccess,
-            ['text-red-500']: !isSuccess,
+            'text-green-500': isSuccess,
+            'text-red-500': !isSuccess,
           },
         )}
       >

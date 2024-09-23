@@ -1,6 +1,7 @@
 import type { SVGProps } from 'react'
 
 const Discord = (props: SVGProps<SVGSVGElement>) => (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
   <svg
     viewBox="0 0 256 199"
     width="1em"

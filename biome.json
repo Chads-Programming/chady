@@ -3,8 +3,15 @@
   "organizeImports": {
     "enabled": true
   },
+  "files": {
+    "ignore": [
+      "apps/challenger/.next",
+      "apps/challenger/graphql/*",
+      "./**/dist/*",
+      "./.vscode/*"
+    ]
+  },
   "formatter": {
-    "ignore": ["**/**/.next"],
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
@@ -26,7 +33,6 @@
     }
   },
   "linter": {
-    "ignore": ["**/**/.next"],
     "enabled": true,
     "rules": {
       "recommended": true,

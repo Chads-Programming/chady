@@ -24,6 +24,7 @@ export const useDebounceCallback = (delay?: number) => {
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: delay is mandotory to clear the timer
   useEffect(() => {
     return () => {
       cleanTimer()

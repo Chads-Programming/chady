@@ -1,14 +1,14 @@
 import type React from 'react'
 
-interface Props<Data> {
+interface Props<Data extends { id: string | number }> {
   title: string
-  data: Data[]
+  items: Data[]
   renderItem: (leaderboardPosition: number, data: Data) => React.ReactNode
 }
 
-export const Leaderboard = <Data,>({
+export const Leaderboard = <Data extends { id: string | number }>({
   title,
-  data,
+  items,
   renderItem,
 }: Props<Data>) => {
   return (
@@ -17,12 +17,12 @@ export const Leaderboard = <Data,>({
         {title}
       </h2>
       <ul className="list-none box-border flex flex-col">
-        {data.map((data, index) => (
+        {items.map((item, index) => (
           <li
-            key={index}
+            key={item.id}
             className="inline-flex text-sm items-center justify-start transition ease-in cursor-pointer rounded-md border border-transparent hover:border-primary p-2 px-3"
           >
-            {renderItem(index + 1, data)}
+            {renderItem(index + 1, item)}
           </li>
         ))}
       </ul>

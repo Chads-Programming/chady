@@ -73,7 +73,7 @@ export const TemplateDropdown = <Data, Value extends string | number>({
               className={cn(
                 'ml-2 h-4 w-4 shrink-0 opacity-50 transition-all ease-in rotate-0',
                 {
-                  ['rotate-180']: isOpen,
+                  'rotate-180': isOpen,
                 },
               )}
             />

@@ -54,12 +54,8 @@ export class UserService {
 
   async findUserRolesDetails(roleIds: string[]): Promise<RoleDetail[]> {
     const requests = roleIds.map((id) => this.discordService.getGuildRole(id));
-    try {
-      const roles = await Promise.all(requests);
+    const roles = await Promise.all(requests);
 
-      return roles.map((role) => roleMappings.fromDiscordRole(role));
-    } catch (err) {
-      throw err;
-    }
+    return roles.map((role) => roleMappings.fromDiscordRole(role));
   }
 }

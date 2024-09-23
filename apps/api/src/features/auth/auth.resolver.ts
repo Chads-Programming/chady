@@ -1,5 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Context, Mutation, Resolver } from '@nestjs/graphql';
+import { Response } from 'express';
+
 import { User } from '../users/models/user.model';
 import { AuthService } from './auth.service';
 import { GqlCurrentUser } from './decorators/current-user';
@@ -14,7 +16,7 @@ export class AuthResolver {
   @Mutation(() => JwtModel)
   @UseGuards(GqlRefreshAuthGuard)
   async refreshToken(
-    @Context() context: any,
+    @Context() context: { res: Response },
     @GqlCurrentUser() user: User,
   ): Promise<JwtModel> {
     const { res } = context;

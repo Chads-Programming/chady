@@ -10,9 +10,9 @@ export const DifficultBadge = ({ difficulty }: Props) => {
     <Badge
       variant="secondary"
       className={cn('w-fit text-white bg-neutral-700 select-none shadow-md', {
-        ['text-primary']: difficulty === ChallengeDifficult.Easy,
-        ['text-amber-400']: difficulty === ChallengeDifficult.Medium,
-        ['text-red-400']: difficulty === ChallengeDifficult.Hard,
+        'text-primary': difficulty === ChallengeDifficult.Easy,
+        'text-amber-400': difficulty === ChallengeDifficult.Medium,
+        'text-red-400': difficulty === ChallengeDifficult.Hard,
       })}
     >
       {difficulty}
