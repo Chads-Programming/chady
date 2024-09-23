@@ -7,7 +7,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint:check": "biome check .",
-    "lint:fix": "biome format --write .",
+    "lint:fix": "biome check --apply .",
     "prepare": "husky"
   },
   "devDependencies": {

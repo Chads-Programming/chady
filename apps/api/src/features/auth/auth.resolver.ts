@@ -1,7 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Context, Mutation, Resolver } from '@nestjs/graphql';
 import { Response } from 'express';
-
 import { User } from '../users/models/user.model';
 import { AuthService } from './auth.service';
 import { GqlCurrentUser } from './decorators/current-user';
