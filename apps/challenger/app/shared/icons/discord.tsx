@@ -1,5 +1,4 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react'
 
 const Discord = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -15,5 +14,5 @@ const Discord = (props: SVGProps<SVGSVGElement>) => (
       fill="#5865F2"
     />
   </svg>
-);
-export default Discord;
+)
+export default Discord

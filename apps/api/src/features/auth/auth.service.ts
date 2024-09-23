@@ -1,8 +1,8 @@
 import { DiscordService } from '@/discord/discord.service';
 import { UserService } from '@/features/users/services/user.service';
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { Profile } from 'passport-discord';
+import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Profile } from 'passport-discord';
 import { User } from '../users/models/user.model';
 import { JWT_ACCESS_SERVICE, JWT_REFRESH_SERVICE } from './consts';
 import { MemberNotfoundError } from './errors';

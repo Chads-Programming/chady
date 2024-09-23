@@ -7,15 +7,15 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 
-import { EventService } from './../services/event.service';
-import { Event, PaginatedEvents } from '../models/event.model';
-import { RegisterEventInput } from '../dtos/register-event.input';
-import { UpdateEventInput } from '../dtos/event.input';
-import { EventArgs } from '../dtos/event.args';
-import { User } from '@/features/users/models/user.model';
-import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
-import { DISCORD_ROLES } from '@/features/auth/consts';
 import { paginate } from '@/common/utils/paginate';
+import { DISCORD_ROLES } from '@/features/auth/consts';
+import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
+import { User } from '@/features/users/models/user.model';
+import { EventArgs } from '../dtos/event.args';
+import { UpdateEventInput } from '../dtos/event.input';
+import { RegisterEventInput } from '../dtos/register-event.input';
+import { Event, PaginatedEvents } from '../models/event.model';
+import { EventService } from './../services/event.service';
 
 @Resolver(() => Event)
 export class EventsResolver {

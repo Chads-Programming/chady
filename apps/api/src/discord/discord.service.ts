@@ -1,8 +1,8 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
-import { DiscordMember, DiscordRole } from './types';
 import * as consts from './consts';
+import { DiscordMember, DiscordRole } from './types';
 
 @Injectable()
 export class DiscordService {

@@ -1,16 +1,16 @@
+import { join } from 'node:path';
+import { DiscordModule } from '@/discord/discord.module';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLJSON } from 'graphql-type-json';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { UsersModule } from './features/users/users.module';
-import { EventsModule } from './features/events/events.module';
 import { AuthModule } from './features/auth/auth.module';
-import { join } from 'path';
-import { DiscordModule } from '@/discord/discord.module';
 import { ChallengesModule } from './features/challenges/challenges.module';
-import { GraphQLJSON } from 'graphql-type-json';
+import { EventsModule } from './features/events/events.module';
+import { UsersModule } from './features/users/users.module';
 
 @Module({
   imports: [

@@ -1,5 +1,4 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react'
 
 const Python = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -43,5 +42,5 @@ const Python = (props: SVGProps<SVGSVGElement>) => (
       </linearGradient>
     </defs>
   </svg>
-);
-export default Python;
+)
+export default Python

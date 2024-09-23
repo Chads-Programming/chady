@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { usePathname } from 'next/navigation'
+import { useMemo } from 'react'
 
 export const useSameRedirect = () => {
-  const path = usePathname();
+  const path = usePathname()
 
-  return useRedirect(path);
-};
+  return useRedirect(path)
+}
 
 export const useRedirect = (redirectPath: string) => {
   const redirectUrl = useMemo(() => {
-    if (typeof window === "undefined") {
-      return;
+    if (typeof window === 'undefined') {
+      return
     }
 
-    return encodeURIComponent(`${window.location.origin}${redirectPath}`);
-  }, [redirectPath]);
+    return encodeURIComponent(`${window.location.origin}${redirectPath}`)
+  }, [redirectPath])
 
-  return redirectUrl;
-};
+  return redirectUrl
+}

@@ -8,8 +8,8 @@ import { EventType, Periodicity, Status } from '@prisma/client';
 import {
   IsIn,
   IsString,
-  IsUrl,
   IsUUID,
+  IsUrl,
   Length,
   MaxLength,
 } from 'class-validator';

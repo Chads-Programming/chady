@@ -1,25 +1,23 @@
 import {
-  Badge,
   Button,
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-  cn,
-} from "@repo/ui";
-import React, { useMemo } from "react";
-import { ArrowRight } from "lucide-react";
-import Markdown from "react-markdown";
-import { ChallengeDifficult } from "../types";
-import { useRouter } from "next/navigation";
-import { DifficultBadge } from "./difficult-badge";
+} from '@repo/ui'
+import { ArrowRight } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useMemo } from 'react'
+import Markdown from 'react-markdown'
+import type { ChallengeDifficult } from '../types'
+import { DifficultBadge } from './difficult-badge'
 
 interface Props {
-  id: string;
-  title: string;
-  description: string;
-  difficulty: ChallengeDifficult;
+  id: string
+  title: string
+  description: string
+  difficulty: ChallengeDifficult
 }
 
 export const ChallengeCard = ({
@@ -28,15 +26,15 @@ export const ChallengeCard = ({
   description,
   difficulty,
 }: Props) => {
-  const router = useRouter();
+  const router = useRouter()
   const miniDescription = useMemo(
-    () => description.substring(0, 120).concat("..."),
-    [description]
-  );
+    () => description.substring(0, 120).concat('...'),
+    [description],
+  )
 
   const goToChallenge = (id: string) => () => {
-    void router.push(`/challenges/${id}`);
-  };
+    void router.push(`/challenges/${id}`)
+  }
 
   return (
     <Card className="backdrop-blur-md bg-background/10 shadow-lg border-border border-x-0 border-t-0 rounded-none">
@@ -62,5 +60,5 @@ export const ChallengeCard = ({
         </Button>
       </CardFooter>
     </Card>
-  );
-};
+  )
+}

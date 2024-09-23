@@ -1,6 +1,5 @@
-import { DISCORD_INVITATION_LINK } from "@/app/shared/consts";
-import Discord from "@/app/shared/icons/discord";
-import React from "react";
+import { DISCORD_INVITATION_LINK } from '@/app/shared/consts'
+import Discord from '@/app/shared/icons/discord'
 
 const MemberNotFoundPage = () => {
   return (
@@ -14,11 +13,12 @@ const MemberNotFoundPage = () => {
         target="_blank"
         href={DISCORD_INVITATION_LINK}
         className="inline-flex gap-2 mt-4 text-gradient-primary font-bold items-center text-lg"
+        rel="noreferrer"
       >
         join us <Discord />
       </a>
     </main>
-  );
-};
+  )
+}
 
-export default MemberNotFoundPage;
+export default MemberNotFoundPage

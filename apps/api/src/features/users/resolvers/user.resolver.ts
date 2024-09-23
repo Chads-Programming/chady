@@ -1,12 +1,12 @@
-import { RoleDetail } from './../models/role-detail.model';
 import discordUtils from '@/discord/utils';
-import { Resolver, Query, ResolveField, Parent } from '@nestjs/graphql';
-import { User } from '../models/user.model';
-import { UseGuards } from '@nestjs/common';
 import { GqlCurrentUser } from '@/features/auth/decorators/current-user';
-import { UserDetail } from '../models/user-detail.model';
-import { UserService } from '../services/user.service';
 import { GQLJwtAuthGuard } from '@/features/auth/guards/graphql-jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { UserDetail } from '../models/user-detail.model';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
+import { RoleDetail } from './../models/role-detail.model';
 
 @UseGuards(GQLJwtAuthGuard)
 @Resolver(() => UserDetail)

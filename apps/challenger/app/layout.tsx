@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
-import { ThemeProvider } from "./shared/components/theme-provider";
-import { Header } from "./shared/components/header";
-import { Onest } from "next/font/google";
-import "./globals.css";
+import { Onest } from 'next/font/google'
+import { Header } from './shared/components/header'
+import { ThemeProvider } from './shared/components/theme-provider'
+import './globals.css'
 
-import "@repo/ui/globals.css";
-import { FetchingProvider } from "./shared/providers/fetching-provider";
-import { NavigationProgress } from "./shared/components/navigation-progress";
+import '@repo/ui/globals.css'
+import { NavigationProgress } from './shared/components/navigation-progress'
+import { FetchingProvider } from './shared/providers/fetching-provider'
 
 const onest = Onest({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -31,5 +31,5 @@ export default function RootLayout({
         </FetchingProvider>
       </body>
     </html>
-  );
+  )
 }

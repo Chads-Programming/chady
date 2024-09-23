@@ -1,14 +1,13 @@
 export enum Roles {
-	ADMIN,
-	USER_ROLE
+  ADMIN = 0,
+  USER_ROLE = 1,
 }
 
-
 export interface User {
-	id: string;
-	firstName: string;
-	lastName: string;
-	email: string;
-	isActive: boolean;
-	roles: Roles[];
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  isActive: boolean
+  roles: Roles[]
 }

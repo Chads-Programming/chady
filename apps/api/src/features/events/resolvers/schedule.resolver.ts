@@ -1,10 +1,10 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { ScheduleService } from './../services/schedule.service';
-import { EventSchedule } from '../models/schedule.model';
-import { ParseIntPipe } from '@nestjs/common';
-import { UpdateEventScheduleInput } from '../dtos/schedule.input';
-import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
 import { DISCORD_ROLES } from '@/features/auth/consts';
+import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
+import { ParseIntPipe } from '@nestjs/common';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { UpdateEventScheduleInput } from '../dtos/schedule.input';
+import { EventSchedule } from '../models/schedule.model';
+import { ScheduleService } from './../services/schedule.service';
 
 @Resolver(() => EventSchedule)
 export class ScheduleResolver {

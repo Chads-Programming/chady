@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import React from "react";
+import type React from 'react'
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const Layout = ({ children }: Props) => {
@@ -11,7 +11,7 @@ const Layout = ({ children }: Props) => {
     <main className="relative w-full z-10 flex flex-row flex-wrap justify-start gap-8 flex-1 h-[calc(100dvh-8rem)] px-6">
       {children}
     </main>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

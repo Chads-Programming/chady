@@ -1,12 +1,12 @@
 import {
-  registerDecorator,
-  ValidationOptions,
   ValidationArguments,
+  ValidationOptions,
+  registerDecorator,
 } from 'class-validator';
 import { v4 as isUUID } from 'uuid';
 
 export function IsUUIDArray(validationOptions?: ValidationOptions) {
-  return function (object: Object, propertyName: string) {
+  return (object: Object, propertyName: string) => {
     registerDecorator({
       name: 'isUUIDArray',
       target: object.constructor,

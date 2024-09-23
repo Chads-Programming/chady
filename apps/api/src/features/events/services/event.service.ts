@@ -1,9 +1,9 @@
 import { PrismaService } from '@/database/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Prisma, Status, User } from '@prisma/client';
-import { RegisterEventInput } from '../dtos/register-event.input';
-import { UpdateEventInput } from '../dtos/event.input';
 import { EventArgs } from '../dtos/event.args';
+import { UpdateEventInput } from '../dtos/event.input';
+import { RegisterEventInput } from '../dtos/register-event.input';
 
 @Injectable()
 export class EventService {

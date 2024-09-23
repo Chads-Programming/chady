@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/database/prisma.service';
+import { DiscordService } from '@/discord/discord.service';
 import { CreateUserDto } from '@/features/users/dto/create-user.dto';
 import { UpdateUserDto } from '@/features/users/dto/update-user.dto';
-import { DiscordService } from '@/discord/discord.service';
-import { RoleDetail } from '../models/role-detail.model';
+import { Injectable } from '@nestjs/common';
 import roleMappings from '../mappings/role-detail.mapped';
+import { RoleDetail } from '../models/role-detail.model';
 
 @Injectable()
 export class UserService {

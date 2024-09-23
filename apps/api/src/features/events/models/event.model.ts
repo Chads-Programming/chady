@@ -1,7 +1,7 @@
+import { Paginated } from '@/common/dto/page-info';
 import { User } from '@/features/users/models/user.model';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { EventSchedule } from './schedule.model';
-import { Paginated } from '@/common/dto/page-info';
 
 @ObjectType()
 export class Event {

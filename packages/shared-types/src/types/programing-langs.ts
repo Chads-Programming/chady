@@ -1,5 +1,5 @@
 export enum ProgramingLang {
-  Python = "python",
-  Javascript = "javascript",
-  Typescript = "typescript",
+  Python = 'python',
+  Javascript = 'javascript',
+  Typescript = 'typescript',
 }

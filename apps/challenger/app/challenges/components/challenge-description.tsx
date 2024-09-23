@@ -1,12 +1,11 @@
-import React from "react";
-import Markdown from "react-markdown";
-import { DifficultBadge } from "./difficult-badge";
-import { ChallengeDifficult } from "../types";
+import Markdown from 'react-markdown'
+import type { ChallengeDifficult } from '../types'
+import { DifficultBadge } from './difficult-badge'
 
 interface Props {
-  title: string;
-  description: string;
-  difficulty: ChallengeDifficult;
+  title: string
+  description: string
+  difficulty: ChallengeDifficult
 }
 
 export const ChallengeDescription = ({
@@ -24,5 +23,5 @@ export const ChallengeDescription = ({
         {description}
       </Markdown>
     </article>
-  );
-};
+  )
+}

@@ -1,34 +1,35 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import { Search } from "lucide-react";
-import { useDebounceCallback } from "../hooks/use-debounce-callback";
-import { Input } from "@repo/ui";
+import { Input } from '@repo/ui'
+import { Search } from 'lucide-react'
+import type React from 'react'
+import { useState } from 'react'
+import { useDebounceCallback } from '../hooks/use-debounce-callback'
 
 interface Props {
-  value?: string;
-  placeholder?: string;
-  onSearch: (search: string) => void;
+  value?: string
+  placeholder?: string
+  onSearch: (search: string) => void
 }
 
 export const SearchBox = ({
   value,
   onSearch,
-  placeholder = "Search something",
+  placeholder = 'Search something',
 }: Props) => {
-  const debounce = useDebounceCallback();
+  const debounce = useDebounceCallback()
 
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState(value)
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
-    } = evt;
+    } = evt
 
-    setInputValue(value);
+    setInputValue(value)
 
-    debounce(() => onSearch(value));
-  };
+    debounce(() => onSearch(value))
+  }
 
   return (
     <div className="relative py-2 w-full">
@@ -40,5 +41,5 @@ export const SearchBox = ({
         onChange={handleChange}
       />
     </div>
-  );
-};
+  )
+}

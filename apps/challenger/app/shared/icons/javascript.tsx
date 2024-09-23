@@ -1,5 +1,4 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react'
 
 const JavaScript = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -15,5 +14,5 @@ const JavaScript = (props: SVGProps<SVGSVGElement>) => (
       fill="#323330"
     />
   </svg>
-);
-export default JavaScript;
+)
+export default JavaScript

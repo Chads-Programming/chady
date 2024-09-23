@@ -1,9 +1,7 @@
-"use client";
-
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ProfileBanner } from "@/app/auth/components/profile-banner";
+'use client'
+import { ProfileBanner } from '@/app/auth/components/profile-banner'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export const Header = () => {
   return (
@@ -32,5 +30,5 @@ export const Header = () => {
         <ProfileBanner />
       </nav>
     </header>
-  );
-};
+  )
+}

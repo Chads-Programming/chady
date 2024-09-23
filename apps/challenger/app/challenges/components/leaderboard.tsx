@@ -1,9 +1,9 @@
-import React from "react";
+import type React from 'react'
 
 interface Props<Data> {
-  title: string;
-  data: Data[];
-  renderItem: (leaderboardPosition: number, data: Data) => React.ReactNode;
+  title: string
+  data: Data[]
+  renderItem: (leaderboardPosition: number, data: Data) => React.ReactNode
 }
 
 export const Leaderboard = <Data,>({
@@ -27,5 +27,5 @@ export const Leaderboard = <Data,>({
         ))}
       </ul>
     </article>
-  );
-};
+  )
+}

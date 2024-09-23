@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from "react";
-import { CheckCircle2Icon, ChevronDown } from "lucide-react";
+import { CheckCircle2Icon, ChevronDown } from 'lucide-react'
+import type React from 'react'
+import { useMemo, useState } from 'react'
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
-import { Button } from "./button";
+import { Button } from './button'
 import {
   Command,
   CommandEmpty,
@@ -11,27 +12,27 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "./command";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+} from './command'
+import { Popover, PopoverContent, PopoverTrigger } from './popover'
 
 export interface DropdownItem<Data, Value = string | number> {
-  value: Value;
-  label: string;
-  data: Data;
+  value: Value
+  label: string
+  data: Data
 }
 
 interface Props<Data, Value = string | number> {
-  title?: string;
-  items: DropdownItem<Data, Value>[];
-  placeholder?: string;
-  searchLabel?: string;
-  value?: Value;
-  emptyState?: string;
-  onSelect: (item: DropdownItem<Data, Value>) => void;
+  title?: string
+  items: DropdownItem<Data, Value>[]
+  placeholder?: string
+  searchLabel?: string
+  value?: Value
+  emptyState?: string
+  onSelect: (item: DropdownItem<Data, Value>) => void
   children: (
     item: DropdownItem<Data, Value>,
-    selected: boolean
-  ) => React.ReactNode;
+    selected: boolean,
+  ) => React.ReactNode
 }
 
 export const TemplateDropdown = <Data, Value extends string | number>({
@@ -39,23 +40,23 @@ export const TemplateDropdown = <Data, Value extends string | number>({
   items,
   value,
   searchLabel,
-  placeholder = "Select an option",
-  emptyState = "No option found.",
+  placeholder = 'Select an option',
+  emptyState = 'No option found.',
   onSelect,
   children: renderItem,
 }: Props<Data, Value>) => {
-  const [currentValue, setSelectedValue] = useState<Value | undefined>(value);
-  const [isOpen, setOpen] = useState(false);
+  const [currentValue, setSelectedValue] = useState<Value | undefined>(value)
+  const [isOpen, setOpen] = useState(false)
 
   const valueContent = useMemo(() => {
-    const option = items.find((item) => item.value === currentValue);
+    const option = items.find((item) => item.value === currentValue)
 
     if (!option) {
-      return placeholder;
+      return placeholder
     }
 
-    return renderItem(option, true);
-  }, [currentValue, items, placeholder, renderItem]);
+    return renderItem(option, true)
+  }, [currentValue, items, placeholder, renderItem])
 
   return (
     <Popover open={isOpen} onOpenChange={setOpen}>
@@ -70,10 +71,10 @@ export const TemplateDropdown = <Data, Value extends string | number>({
           {
             <ChevronDown
               className={cn(
-                "ml-2 h-4 w-4 shrink-0 opacity-50 transition-all ease-in rotate-0",
+                'ml-2 h-4 w-4 shrink-0 opacity-50 transition-all ease-in rotate-0',
                 {
-                  ["rotate-180"]: isOpen,
-                }
+                  ['rotate-180']: isOpen,
+                },
               )}
             />
           }
@@ -87,7 +88,7 @@ export const TemplateDropdown = <Data, Value extends string | number>({
             <CommandGroup>
               <h3 className="text-sm text-primary/65 font-medium text-pretty mx-2 my-1">
                 {title}
-              </h3>{" "}
+              </h3>{' '}
             </CommandGroup>
           )}
 
@@ -99,9 +100,9 @@ export const TemplateDropdown = <Data, Value extends string | number>({
                   value={item.label}
                   className="cursor-pointer my-1"
                   onSelect={() => {
-                    setSelectedValue(item.value);
-                    setOpen(false);
-                    onSelect(item);
+                    setSelectedValue(item.value)
+                    setOpen(false)
+                    onSelect(item)
                   }}
                 >
                   <div className="inline-flex justify-start gap-2 w-full items-center">
@@ -117,5 +118,5 @@ export const TemplateDropdown = <Data, Value extends string | number>({
         </Command>
       </PopoverContent>
     </Popover>
-  );
-};
+  )
+}

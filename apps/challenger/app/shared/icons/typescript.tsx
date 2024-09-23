@@ -1,5 +1,4 @@
-import * as React from "react";
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react'
 
 const TypeScript = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -19,5 +18,5 @@ const TypeScript = (props: SVGProps<SVGSVGElement>) => (
       fill="#FFF"
     />
   </svg>
-);
-export default TypeScript;
+)
+export default TypeScript

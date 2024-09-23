@@ -1,5 +1,4 @@
-import { Field, ObjectType, OmitType } from '@nestjs/graphql';
-import { RoleDetail } from './role-detail.model';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class User {

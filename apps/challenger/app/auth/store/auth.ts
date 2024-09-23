@@ -1,35 +1,36 @@
-import { ProfileQuery } from "@/graphql/graphql";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { devtools } from "zustand/middleware";
+import type { ProfileQuery } from '@/graphql/graphql'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { devtools } from 'zustand/middleware'
 
 interface AutState {
-  profile?: ProfileQuery["findProfile"];
+  profile?: ProfileQuery['findProfile']
 
-  clearProfile(): void;
-  setProfile(profile: ProfileQuery["findProfile"]): void;
+  clearProfile(): void
+  setProfile(profile: ProfileQuery['findProfile']): void
 }
 
 export const authStore = create<AutState>()(
   devtools(
     persist(
-    (setStore) => ({
-      clearProfile: () => {
-        setStore(() => {
-          return {
-            profile: undefined,
-          };
-        });
-      },
-      setProfile: (profile) => {
-        setStore((state) => {
-          return {
-            ...state,
-            profile,
-          };
-        });
-      },
-    }),
-    { name: "auth-storage" }
-  ))
-);
+      (setStore) => ({
+        clearProfile: () => {
+          setStore(() => {
+            return {
+              profile: undefined,
+            }
+          })
+        },
+        setProfile: (profile) => {
+          setStore((state) => {
+            return {
+              ...state,
+              profile,
+            }
+          })
+        },
+      }),
+      { name: 'auth-storage' },
+    ),
+  ),
+)

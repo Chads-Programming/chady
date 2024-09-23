@@ -1,8 +1,8 @@
-import { firstValueFrom } from 'rxjs';
+import { envs } from '@/config';
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+import { firstValueFrom } from 'rxjs';
 import { CodeExecuteBody, RunnerOutput } from './types';
-import { envs } from '@/config';
 
 @Injectable()
 export class RunnerService {

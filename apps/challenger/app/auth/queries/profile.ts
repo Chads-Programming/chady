@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import { graphql } from "@/graphql";
-import { execute } from "@/graphql/execute";
-import { useQuery } from "@tanstack/react-query";
+import { graphql } from '@/graphql'
+import { execute } from '@/graphql/execute'
+import { useQuery } from '@tanstack/react-query'
 
 const ProfileQuery = graphql(`
   query Profile {
@@ -18,10 +18,10 @@ const ProfileQuery = graphql(`
       }
     }
   }
-`);
+`)
 
 export const useGetProfile = () =>
   useQuery({
-    queryKey: ["profile"],
+    queryKey: ['profile'],
     queryFn: () => execute(ProfileQuery),
-  });
+  })

@@ -28,30 +28,9 @@ type UserDetail {
   roles: [RoleDetail!]!
 }
 
-type EventSchedule {
-  uniqueDate: DateTime!
-  periocity: Periodicity!
-  monday: Boolean!
-  tuesday: Boolean!
-  wednesday: Boolean!
-  thursday: Boolean!
-  friday: Boolean!
-  saturday: Boolean!
-  sunday: Boolean!
-  startTime: DateTime!
-  endTime: DateTime
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-enum Periodicity {
-  DAILY
-  WEEKLY
-  MONTHY
-  ONCE_TIME
+type JwtModel {
+  accessToken: String!
+  refreshToken: String!
 }
 
 type PageInfo {
@@ -59,24 +38,6 @@ type PageInfo {
   totalPages: Float!
   total: Float!
   hasNextPage: Boolean!
-}
-
-type Event {
-  id: String!
-  name: String!
-  description: String!
-  creators: [User!]!
-  schedule: EventSchedule!
-}
-
-type PaginatedEvents {
-  data: [Event!]!
-  pageInfo: PageInfo
-}
-
-type JwtModel {
-  accessToken: String!
-  refreshToken: String!
 }
 
 type TestCase {
@@ -115,6 +76,11 @@ enum Difficult {
   Hard
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type PaginatedChallenges {
   data: [CodeChallenge!]!
   pageInfo: PageInfo
@@ -141,6 +107,40 @@ type InputExecutionResult {
 type SubmissionResult {
   submission: Submission!
   inputResults: [InputExecutionResult!]!
+}
+
+type EventSchedule {
+  uniqueDate: DateTime!
+  periocity: Periodicity!
+  monday: Boolean!
+  tuesday: Boolean!
+  wednesday: Boolean!
+  thursday: Boolean!
+  friday: Boolean!
+  saturday: Boolean!
+  sunday: Boolean!
+  startTime: DateTime!
+  endTime: DateTime
+}
+
+enum Periodicity {
+  DAILY
+  WEEKLY
+  MONTHY
+  ONCE_TIME
+}
+
+type Event {
+  id: String!
+  name: String!
+  description: String!
+  creators: [User!]!
+  schedule: EventSchedule!
+}
+
+type PaginatedEvents {
+  data: [Event!]!
+  pageInfo: PageInfo
 }
 
 type Query {

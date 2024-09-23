@@ -4,7 +4,7 @@ import z from 'zod';
 const PortSchema = z
   .string()
   .refine(
-    (port) => parseInt(port) > 0 && parseInt(port) < 65536,
+    (port) => Number.parseInt(port) > 0 && Number.parseInt(port) < 65536,
     'Invalid port number',
   );
 

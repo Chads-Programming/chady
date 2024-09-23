@@ -1,19 +1,19 @@
 import { GqlCurrentUser } from '@/features/auth/decorators/current-user';
-import { SubmissionInput } from './../dtos/submission.input';
+import { GQLJwtAuthGuard } from '@/features/auth/guards/graphql-jwt-auth.guard';
+import { User } from '@/features/users/models/user.model';
 import { UseGuards } from '@nestjs/common';
 import {
   Args,
   Mutation,
-  Resolver,
+  Parent,
   Query,
   ResolveField,
-  Parent,
+  Resolver,
 } from '@nestjs/graphql';
-import { User } from '@/features/users/models/user.model';
-import { SubmissionService } from '../services/submission.service';
-import { Submission, SubmissionResult } from '../models/submission.model';
 import { CodeChallenge } from '../models/code-challenge.model';
-import { GQLJwtAuthGuard } from '@/features/auth/guards/graphql-jwt-auth.guard';
+import { Submission, SubmissionResult } from '../models/submission.model';
+import { SubmissionService } from '../services/submission.service';
+import { SubmissionInput } from './../dtos/submission.input';
 
 @UseGuards(GQLJwtAuthGuard)
 @Resolver(() => Submission)

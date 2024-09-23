@@ -1,8 +1,8 @@
 import { PrismaService } from '@/database/prisma.service';
 import { Injectable } from '@nestjs/common';
+import { Prisma, ProgrammingLang } from '@prisma/client';
 import { CreateCodeChallengeInput } from '../dtos/code-challenge.input';
 import { SeachChallengeArgs } from '../dtos/search-challenge.args';
-import { Prisma, ProgrammingLang } from '@prisma/client';
 import { CreateTestCaseInput } from '../dtos/test-case.input';
 
 @Injectable()

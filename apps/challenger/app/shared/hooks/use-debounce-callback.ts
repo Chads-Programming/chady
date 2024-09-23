@@ -1,34 +1,34 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from 'react'
 
-const DEFAULT_DEBOUNCE_TIME = 500;
+const DEFAULT_DEBOUNCE_TIME = 500
 
-type CallBack = () => void;
+type CallBack = () => void
 
 export const useDebounceCallback = (delay?: number) => {
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const debounceCallback = useCallback(
     (cb: CallBack) => {
-      cleanTimer();
+      cleanTimer()
 
       timerRef.current = setTimeout(() => {
-        cb();
-      }, delay ?? DEFAULT_DEBOUNCE_TIME);
+        cb()
+      }, delay ?? DEFAULT_DEBOUNCE_TIME)
     },
-    [delay]
-  );
+    [delay],
+  )
 
   const cleanTimer = () => {
     if (timerRef.current) {
-      clearTimeout(timerRef.current);
+      clearTimeout(timerRef.current)
     }
-  };
+  }
 
   useEffect(() => {
     return () => {
-      cleanTimer();
-    };
-  }, [delay]);
+      cleanTimer()
+    }
+  }, [delay])
 
-  return debounceCallback;
-};
+  return debounceCallback
+}

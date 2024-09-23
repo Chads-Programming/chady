@@ -6,5 +6,12 @@
   ],
   "editor.fontFamily": "'JetBrains Mono', 'MesloLGL Nerd Font','Menlo', 'Monaspace Neon', monospace, Cascadia Code PL",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "notebook.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "biome.enabled": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }

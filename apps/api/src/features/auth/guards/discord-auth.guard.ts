@@ -1,8 +1,8 @@
+import { envs } from '@/config';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { MemberNotfoundError } from '../errors';
-import { envs } from '@/config';
 import { Response } from 'express';
+import { MemberNotfoundError } from '../errors';
 
 @Injectable()
 export class DiscordAuthGuard extends AuthGuard('discord') {
