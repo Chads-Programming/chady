@@ -1,3 +1,4 @@
+import type { Difficult } from '@/graphql/graphql'
 import {
   Button,
   Card,
@@ -10,14 +11,13 @@ import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 import Markdown from 'react-markdown'
-import type { ChallengeDifficult } from '../types'
 import { DifficultBadge } from './difficult-badge'
 
 interface Props {
   id: string
   title: string
   description: string
-  difficulty: ChallengeDifficult
+  difficulty: Difficult
 }
 
 export const ChallengeCard = ({

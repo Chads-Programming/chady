@@ -1,8 +1,11 @@
-import { ENVS } from '@/lib/envs'
 import type { CodegenConfig } from '@graphql-codegen/cli'
+import { loadEnvConfig } from '@next/env'
+
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
 
 const config: CodegenConfig = {
-  schema: `${ENVS.NEXT_PUBLIC_API_HOST}/graphql`,
+  schema: `${process.env.NEXT_PUBLIC_API_HOST}/graphql`,
   documents: ['app/**/*.tsx', 'app/**/*.ts'],
   ignoreNoDocuments: true,
   generates: {

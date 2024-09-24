@@ -1,12 +1,13 @@
 'use client'
 
+import { ENVS } from '@/lib/envs'
 import type { TypedDocumentString } from './graphql'
 
 export async function execute<TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) {
-  const response = await fetch('http://localhost:3200/graphql', {
+  const response = await fetch(`${ENVS.NEXT_PUBLIC_API_HOST}/graphql`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

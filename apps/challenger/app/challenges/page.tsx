@@ -5,6 +5,7 @@ import { SearchBox } from '../shared/components/search-box'
 import { ChallengeCard } from './components/challenge-card'
 import { ChallengeFilters } from './components/challenge-filters'
 import { Leaderboard } from './components/leaderboard'
+import { useGetCodeChallengesQuery } from './queries/challenges'
 import { ChallengeDifficult } from './types'
 
 const testAvatar =
@@ -82,6 +83,8 @@ const challenges = [
 ]
 
 export default function Home() {
+  const { data } = useGetCodeChallengesQuery({})
+
   return (
     <>
       <main className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1">
@@ -128,13 +131,13 @@ export default function Home() {
           </header>
 
           <div className="flex flex-col gap-2 w-full border border-border border-t-0 bg-secondary">
-            {challenges.map(({ id, title, description, difficulty }) => (
+            {data.challenges.map(({ id, title, description, difficult }) => (
               <ChallengeCard
                 key={id}
                 id={id}
                 title={title}
                 description={description}
-                difficulty={difficulty}
+                difficulty={difficult}
               />
             ))}
           </div>

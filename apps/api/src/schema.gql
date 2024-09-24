@@ -56,18 +56,12 @@ type CodeChallenge {
   id: String!
   title: String!
   mainCode: String!
+  description: String!
   startedCode: String!
-  lang: ProgrammingLang!
   difficult: Difficult!
   testCases: [TestCase!]!
   createdAt: DateTime!
   updatedAt: DateTime!
-}
-
-enum ProgrammingLang {
-  Javascript
-  Typescript
-  Python
 }
 
 enum Difficult {
@@ -147,7 +141,7 @@ type Query {
   findProfile: UserDetail!
   events(search: String!, status: Status!, page: Int!, perPage: Int!): PaginatedEvents!
   getCodeChallenge(id: String!): CodeChallenge!
-  findCodeChallenges(search: String!, lang: ProgrammingLang!, page: Int!, perPage: Int!, difficult: Difficult!): PaginatedChallenges!
+  findCodeChallenges(search: String, lang: ProgrammingLang, page: Int, perPage: Int, difficult: Difficult): PaginatedChallenges!
   getUserSubmission(submissionId: String!): Submission!
   getUserSubmissions: [Submission!]!
 }
@@ -156,6 +150,12 @@ enum Status {
   PENDING
   READY
   REJECTED
+}
+
+enum ProgrammingLang {
+  Javascript
+  Typescript
+  Python
 }
 
 type Mutation {

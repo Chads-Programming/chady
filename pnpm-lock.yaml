@@ -180,6 +180,9 @@ importers:
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.51.0)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)
+      '@next/env':
+        specifier: ^14.2.13
+        version: 14.2.13
       '@repo/shared-types':
         specifier: workspace:*
         version: link:../../packages/shared-types
@@ -2128,6 +2131,9 @@ packages:
         optional: true
       '@nestjs/platform-express':
         optional: true
+
+  '@next/env@14.2.13':
+    resolution: {integrity: sha512-s3lh6K8cbW1h5Nga7NNeXrbe0+2jIIYK9YaA9T7IufDWnZpozdFUp6Hf0d5rNWUKu4fEuSX2rCKlGjCrtylfDw==}
 
   '@next/env@15.0.0-rc.0':
     resolution: {integrity: sha512-6W0ndQvHR9sXcqcKeR/inD2UTRCs9+VkSK3lfaGmEuZs7EjwwXMO2BPYjz9oBrtfPL3xuTjtXsHKSsalYQ5l1Q==}
@@ -10190,6 +10196,8 @@ snapshots:
       tslib: 2.6.3
     optionalDependencies:
       '@nestjs/platform-express': 10.3.10(@nestjs/common@10.3.10(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10)
+
+  '@next/env@14.2.13': {}
 
   '@next/env@15.0.0-rc.0': {}
 

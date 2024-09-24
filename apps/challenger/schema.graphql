@@ -5,9 +5,9 @@ schema {
 
 type CodeChallenge {
   createdAt: DateTime!
+  description: String!
   difficult: Difficult!
   id: String!
-  lang: ProgrammingLang!
   mainCode: String!
   startedCode: String!
   testCases: [TestCase!]!
@@ -146,7 +146,7 @@ enum ProgrammingLang {
 
 type Query {
   events(page: Int!, perPage: Int!, search: String!, status: Status!): PaginatedEvents!
-  findCodeChallenges(difficult: Difficult!, lang: ProgrammingLang!, page: Int!, perPage: Int!, search: String!): PaginatedChallenges!
+  findCodeChallenges(difficult: Difficult, lang: ProgrammingLang, page: Int, perPage: Int, search: String): PaginatedChallenges!
   findProfile: UserDetail!
   getCodeChallenge(id: String!): CodeChallenge!
   getUserSubmission(submissionId: String!): Submission!
