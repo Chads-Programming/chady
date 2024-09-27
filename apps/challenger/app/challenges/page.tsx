@@ -1,6 +1,8 @@
 'use client'
+import { Footer } from '@/app/shared/components/footer'
+import { useQueryParams } from '@/app/shared/hooks/use-query-params'
+import type { Difficult } from '@/graphql/graphql'
 import { Avatar, AvatarFallback, AvatarImage, cn } from '@repo/ui'
-import { Footer } from '../shared/components/footer'
 import { SearchBox } from '../shared/components/search-box'
 import { ChallengeCard } from './components/challenge-card'
 import { ChallengeFilters } from './components/challenge-filters'
@@ -44,11 +46,33 @@ const leaderboard = [
 ]
 
 export default function Home() {
-  const { data } = useGetCodeChallengesQuery({})
+  const { searchParams, setParam, removeParam } = useQueryParams()
+
+  const handleSearchChange = (search: string) => {
+    if (search) {
+      return setParam('search', search)
+    }
+
+    return removeParam('search')
+  }
+
+  const handleDifficultChange = (difficult: Difficult) => {
+    if (difficult) {
+      return setParam('difficult', difficult)
+    }
+
+    return removeParam('difficult')
+  }
+
+  const { data } = useGetCodeChallengesQuery({
+    search: searchParams.get('search'),
+    difficult: searchParams.get('difficult') as Difficult,
+    perPage: 10,
+  })
 
   return (
-    <>
-      <main className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1">
+    <main className="flex flex-col">
+      <div className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 min-h-[calc(100dvh-8rem)]">
         <aside className="search-header border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 h-fit sticky top-0">
           <Leaderboard
             title="Top Performers"
@@ -82,16 +106,20 @@ export default function Home() {
         </aside>
 
         <section className="flex flex-col items-start w-full md:w-1/2">
-          <header className="search-header px-5 flex flex-col items-start w-full gap-2 shadow-md backdrop-blur-md bg-secondary py-4 rounded-t-md border border-border sticky top-0 z-10">
+          <header className="search-header px-5 flex flex-col items-start w-full gap-2 shadow-md backdrop-blur-md bg-secondary py-4 rounded-md border border-border sticky top-0 z-10">
             <h2 className="text-4xl text-gradient-primary text-pretty font-bold">
               Explore our Challenges
             </h2>
 
-            <ChallengeFilters />
-            <SearchBox onSearch={() => null} placeholder="Search challenges" />
+            <ChallengeFilters onDifficultChange={handleDifficultChange} />
+            <SearchBox
+              value={searchParams.get('search') ?? ''}
+              onSearch={handleSearchChange}
+              placeholder="Search challenges"
+            />
           </header>
 
-          <div className="flex flex-col gap-2 w-full border border-border border-t-0 bg-secondary">
+          <div className="flex flex-col gap-4 w-full mt-4 flex-1">
             {data?.challenges.map(({ id, title, description, difficult }) => (
               <ChallengeCard
                 key={id}
@@ -103,8 +131,8 @@ export default function Home() {
             ))}
           </div>
         </section>
-      </main>
+      </div>
       <Footer />
-    </>
+    </main>
   )
 }

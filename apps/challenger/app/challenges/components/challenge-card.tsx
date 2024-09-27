@@ -1,14 +1,6 @@
-import type { Difficult } from '@/graphql/graphql'
-import {
-  Button,
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@repo/ui'
-import { ArrowRight } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { Difficult } from '@/graphql/graphql'
+import { Card, CardContent, CardHeader, CardTitle, cn } from '@repo/ui'
+import Link from 'next/link'
 import { useMemo } from 'react'
 import Markdown from 'react-markdown'
 import { DifficultBadge } from './difficult-badge'
@@ -26,39 +18,51 @@ export const ChallengeCard = ({
   description,
   difficulty,
 }: Props) => {
-  const router = useRouter()
   const miniDescription = useMemo(
-    () => description.substring(0, 120).concat('...'),
+    () => description.substring(0, 100).concat('...'),
     [description],
   )
 
-  const goToChallenge = (id: string) => () => {
-    void router.push(`/challenges/${id}`)
-  }
-
   return (
-    <Card className="backdrop-blur-md bg-background/10 shadow-lg border-border border-x-0 border-t-0 rounded-none">
-      <CardHeader>
-        <CardTitle className="text-gray-300 text-xl">{title}</CardTitle>
-        <DifficultBadge difficulty={difficulty} />
-      </CardHeader>
-      <CardContent>
-        <div className="text-pretty text-sm challenge-description line-clamp-2 select-none">
-          <Markdown className="border border-border p-6 rounded-md shadow-md text-muted-foreground">
-            {miniDescription}
-          </Markdown>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button
-          variant="secondary"
-          className="group border border-transparent hover:border-primary transition ease-in"
-          onClick={goToChallenge(id)}
-        >
-          Solve
-          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-all ease-in" />
-        </Button>
-      </CardFooter>
-    </Card>
+    <Link
+      href={`/challenges/${id}`}
+      className="group relative w-full flex justify-center items-center"
+    >
+      <div
+        className={cn(
+          'group-hover:blur group-hover:transition-all ease-in absolute w-full h-full inset-0 rounded-lg',
+          {
+            'group-hover:bg-gradient-to-br from-primary to-green-400':
+              difficulty === Difficult.Easy,
+            'group-hover:bg-gradient-to-br from-amber-400 to-primary':
+              difficulty === Difficult.Medium,
+            'group-hover:bg-gradient-to-br from-red-500 to-primary':
+              difficulty === Difficult.Hard,
+          },
+        )}
+      />
+      <Card
+        className={cn(
+          'group-hover:transition-all ease-in bg-secondary dark:bg-zinc-950 relative w-[calc(100%-2px)] h-[calc(100%-2px)] border border-border',
+          {
+            'group-hover:border-primary': difficulty === Difficult.Easy,
+            'group-hover:border-amber-400': difficulty === Difficult.Medium,
+            'group-hover:border-red-500': difficulty === Difficult.Hard,
+          },
+        )}
+      >
+        <CardHeader>
+          <CardTitle className="text-gray-300 text-xl">{title}</CardTitle>
+          <DifficultBadge difficulty={difficulty} />
+        </CardHeader>
+        <CardContent>
+          <div className="text-pretty text-sm challenge-description line-clamp-2 select-none">
+            <Markdown className="border border-border p-4 rounded-md shadow-md text-muted-foreground">
+              {miniDescription}
+            </Markdown>
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }

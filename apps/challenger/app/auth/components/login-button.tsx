@@ -12,10 +12,10 @@ export const LoginButton = ({ sameRedirect }: Props) => {
 
   return (
     <a
-      href={`${
+      href={
         sameRedirect ? `${LOGIN_PATH}?redirectUrl=${redirectUrl}` : LOGIN_PATH
-      }`}
-      className="group px-2 rounded-md border border-border inline-flex gap-1 items-center text-sm font-medium hover:text-foreground text-foreground/80 transition-colors"
+      }
+      className="group px-2 inline-flex gap-1 items-center text-sm font-medium hover:text-foreground text-foreground/80 transition-colors"
     >
       <Discord className="w-5 h-5" /> Login with Discord
       <ChevronRight className="w-0 opacity-0 group-hover:w-5 group-hover:opacity-100  group-hover:translate-x-2 transition-all ease-in duration-200" />

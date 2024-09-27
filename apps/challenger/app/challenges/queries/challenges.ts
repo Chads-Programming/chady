@@ -33,7 +33,7 @@ const defaultPageInfo: PageInfo = {
 
 export const useGetCodeChallengesQuery = (args: QueryFindCodeChallengesArgs) =>
   useQuery({
-    queryKey: ['challenges'],
+    queryKey: ['challenges', args],
     queryFn: () => execute(ChallengesQuery, args),
     select: (data) => ({
       challenges: data?.findCodeChallenges?.data ?? [],
