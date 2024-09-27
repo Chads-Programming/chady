@@ -30,7 +30,7 @@ export const ChallengeCard = ({
     >
       <div
         className={cn(
-          'group-hover:blur group-hover:transition-all ease-in absolute w-full h-full inset-0 rounded-lg',
+          'group-hover:blur transition-all ease-in absolute w-full h-full inset-0 rounded-lg',
           {
             'group-hover:bg-gradient-to-br from-primary to-green-400':
               difficulty === Difficult.Easy,
@@ -43,7 +43,7 @@ export const ChallengeCard = ({
       />
       <Card
         className={cn(
-          'group-hover:transition-all ease-in bg-secondary dark:bg-zinc-950 relative w-[calc(100%-2px)] h-[calc(100%-2px)] border border-border',
+          'transition-all ease-in-out bg-secondary dark:bg-zinc-950 relative w-[calc(100%-2px)] h-[calc(100%-2px)] border border-border',
           {
             'group-hover:border-primary': difficulty === Difficult.Easy,
             'group-hover:border-amber-400': difficulty === Difficult.Medium,

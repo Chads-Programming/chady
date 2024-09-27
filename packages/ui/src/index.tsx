@@ -17,5 +17,7 @@ export * from './components/ui/popover'
 export * from './components/ui/separator'
 export * from './components/ui/command'
 export * from './components/ui/accordion'
+export * from './components/ui/pagination'
+export * from './components/ui/paginator'
 // lib
 export * from './lib/utils'
