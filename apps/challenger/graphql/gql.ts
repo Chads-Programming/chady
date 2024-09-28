@@ -1,5 +1,7 @@
 /* eslint-disable */
-import * as types from './graphql'
+import * as types from './graphql';
+
+
 
 /**
  * Map of all GraphQL operations in the project.
@@ -12,17 +14,20 @@ import * as types from './graphql'
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n  }\n':
-    types.ProfileDocument,
-}
+    "\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n  }\n": types.ProfileDocument,
+    "\n  query FindCodeChallnges($difficult: Difficult, $search: String, $perPage: Int, $page: Int, $lang: ProgrammingLang) {\n    findCodeChallenges(difficult: $difficult, search: $search, perPage: $perPage, page: $page, lang: $lang){\n        data {\n            id\n            title\n            description\n            difficult\n        }\n       pageInfo {\n        currentPage\n        totalPages\n        hasNextPage\n        hasNextPage\n      }\n    }\n  }\n": types.FindCodeChallngesDocument,
+};
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: '\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n  }\n',
-): typeof import('./graphql').ProfileDocument
+export function graphql(source: "\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n  }\n"): typeof import('./graphql').ProfileDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query FindCodeChallnges($difficult: Difficult, $search: String, $perPage: Int, $page: Int, $lang: ProgrammingLang) {\n    findCodeChallenges(difficult: $difficult, search: $search, perPage: $perPage, page: $page, lang: $lang){\n        data {\n            id\n            title\n            description\n            difficult\n        }\n       pageInfo {\n        currentPage\n        totalPages\n        hasNextPage\n        hasNextPage\n      }\n    }\n  }\n"): typeof import('./graphql').FindCodeChallngesDocument;
+
 
 export function graphql(source: string) {
-  return (documents as any)[source] ?? {}
+  return (documents as any)[source] ?? {};
 }

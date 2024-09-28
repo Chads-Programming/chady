@@ -4,29 +4,29 @@ import { IsIn, IsNumber, IsOptional, Min } from 'class-validator';
 
 @ArgsType()
 export class SeachChallengeArgs {
-  @Field((type) => String)
+  @Field((type) => String, { nullable: true })
   @IsOptional()
   search?: string;
 
-  @Field((type) => ProgrammingLang)
+  @Field((type) => ProgrammingLang, { nullable: true })
   @IsOptional()
   @IsIn(Object.values(ProgrammingLang))
   lang?: ProgrammingLang;
 
-  @Field((type) => Int)
+  @Field((type) => Int, { nullable: true })
   @IsOptional()
   @IsNumber()
   @Min(1)
   page?: number;
 
-  @Field((type) => Int)
+  @Field((type) => Int, { nullable: true })
   @IsOptional()
   @IsNumber()
   @Min(1)
   perPage?: number;
 
-  @Field((type) => Difficult)
   @IsOptional()
+  @Field((type) => Difficult, { nullable: true })
   @IsIn(Object.values(Difficult))
   difficult?: Difficult;
 }

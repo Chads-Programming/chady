@@ -5,7 +5,7 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { Difficult, ProgrammingLang } from '@prisma/client';
+import { Difficult } from '@prisma/client';
 import { TestCase } from './test-case.model';
 
 registerEnumType(Difficult, {
@@ -24,10 +24,10 @@ export class CodeChallenge {
   mainCode: string;
 
   @Field()
-  startedCode: string;
+  description: string;
 
-  @Field(() => ProgrammingLang)
-  lang: ProgrammingLang;
+  @Field()
+  startedCode: string;
 
   @Field(() => Difficult)
   difficult: Difficult;
