@@ -7,22 +7,22 @@ export const useQueryParams = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const setParam = (key: string, value: string) => {
+  const setParam = (key: string, value: string, scroll = false) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set(key, value)
 
     const queryParams = params.toString()
 
-    router.push(`${pathname}?${queryParams}`)
+    router.push(`${pathname}?${queryParams}`, { scroll })
   }
 
-  const removeParam = (key: string) => {
+  const removeParam = (key: string, scroll = false) => {
     const params = new URLSearchParams(searchParams.toString())
     params.delete(key)
 
     const queryParams = params.toString()
 
-    router.push(`${pathname}?${queryParams}`)
+    router.push(`${pathname}?${queryParams}`, { scroll })
   }
 
   return {

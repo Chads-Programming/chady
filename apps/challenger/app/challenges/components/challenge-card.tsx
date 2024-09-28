@@ -19,7 +19,7 @@ export const ChallengeCard = ({
   difficulty,
 }: Props) => {
   const miniDescription = useMemo(
-    () => description.substring(0, 100).concat('...'),
+    () => description.substring(0, 150).concat('...'),
     [description],
   )
 
@@ -56,8 +56,8 @@ export const ChallengeCard = ({
           <DifficultBadge difficulty={difficulty} />
         </CardHeader>
         <CardContent>
-          <div className="text-pretty text-sm challenge-description line-clamp-2 select-none">
-            <Markdown className="border border-border p-4 rounded-md shadow-md text-muted-foreground">
+          <div className="text-pretty text-sm challenge-description line-clamp-3 select-none">
+            <Markdown className="py-4 px-2 rounded-md shadow-md text-muted-foreground">
               {miniDescription}
             </Markdown>
           </div>

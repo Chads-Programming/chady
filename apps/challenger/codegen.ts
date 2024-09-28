@@ -6,7 +6,7 @@ loadEnvConfig(projectDir)
 
 const config: CodegenConfig = {
   schema: `${process.env.NEXT_PUBLIC_API_HOST}/graphql`,
-  documents: ['app/**/*.tsx', 'app/**/*.ts'],
+  documents: ['app/**/queries/*.ts'],
   ignoreNoDocuments: true,
   generates: {
     'graphql/': {

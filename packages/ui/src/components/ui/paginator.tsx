@@ -12,6 +12,7 @@ interface Props {
   totalPages: number
   currentPage: number
   pageSize: number
+  pageRange?: number
   onPageChange: (page: number) => void
 }
 
@@ -20,15 +21,20 @@ export const Paginator = ({
   currentPage,
   pageSize,
   onPageChange,
+  pageRange = 5,
 }: Props) => {
-  const hasPrevious = currentPage > pageSize
+  const hasPrevious = totalPages > pageRange && currentPage > 1
   const pagesOffset = useMemo(() => {
-    const startOffset = Math.floor(currentPage / pageSize) + 1
+    const startOffset =
+      totalPages > pageRange ? Math.floor(currentPage / totalPages) + 1 : 1
 
-    return Array.from({ length: pageSize }, (_, i) => i + startOffset)
-  }, [currentPage, pageSize])
+    return Array.from(
+      { length: totalPages > pageRange ? pageRange : totalPages },
+      (_, i) => i + startOffset,
+    )
+  }, [currentPage, totalPages, pageRange])
 
-  const hasNext = currentPage < totalPages
+  const hasNext = totalPages > pageRange && currentPage < totalPages
 
   const handlePaginationNext = () => {
     return onPageChange(pageSize + 1)
@@ -39,7 +45,7 @@ export const Paginator = ({
   }
 
   return (
-    <Pagination>
+    <Pagination className="select-none">
       <PaginationContent>
         {hasPrevious && (
           <PaginationItem>
@@ -50,7 +56,10 @@ export const Paginator = ({
         {pagesOffset.map((page) => {
           return (
             <PaginationItem key={`page-${page}`}>
-              <PaginationLink onClick={() => onPageChange(page)}>
+              <PaginationLink
+                isActive={page === currentPage}
+                onClick={() => onPageChange(page)}
+              >
                 {page}
               </PaginationLink>
             </PaginationItem>

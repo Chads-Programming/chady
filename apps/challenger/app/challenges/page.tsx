@@ -1,10 +1,10 @@
 'use client'
+import { ChallengeList } from '@/app/challenges/components/challenge-list'
 import { Footer } from '@/app/shared/components/footer'
 import { useQueryParams } from '@/app/shared/hooks/use-query-params'
 import type { Difficult } from '@/graphql/graphql'
 import { Avatar, AvatarFallback, AvatarImage, Paginator, cn } from '@repo/ui'
 import { SearchBox } from '../shared/components/search-box'
-import { ChallengeCard } from './components/challenge-card'
 import { ChallengeFilters } from './components/challenge-filters'
 import { Leaderboard } from './components/leaderboard'
 import { useGetCodeChallengesQuery } from './queries/challenges'
@@ -68,10 +68,10 @@ export default function Home() {
     return removeParam('difficult')
   }
 
-  const { data } = useGetCodeChallengesQuery({
+  const { data, isLoading } = useGetCodeChallengesQuery({
     search: searchParams.get('search'),
     difficult: searchParams.get('difficult') as Difficult,
-    page: Number(searchParams.get('page')) ?? 1,
+    page: Number(searchParams.get('page') ?? 1),
     perPage: 10,
   })
 
@@ -124,23 +124,15 @@ export default function Home() {
             />
           </header>
 
-          <div className="flex flex-col gap-4 w-full my-4 flex-1">
-            {data?.challenges.map(({ id, title, description, difficult }) => (
-              <ChallengeCard
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                difficulty={difficult}
-              />
-            ))}
-          </div>
-          <Paginator
-            totalPages={data?.pageInfo.totalPages ?? 0}
-            currentPage={data?.pageInfo.currentPage ?? 0}
-            pageSize={10}
-            onPageChange={handlePageChange}
-          />
+          <ChallengeList challenges={data?.challenges} isLoading={isLoading} />
+          {data?.challenges && (
+            <Paginator
+              totalPages={data.pageInfo.totalPages ?? 0}
+              currentPage={data.pageInfo.currentPage ?? 0}
+              pageSize={10}
+              onPageChange={handlePageChange}
+            />
+          )}
         </section>
       </div>
       <Footer />
