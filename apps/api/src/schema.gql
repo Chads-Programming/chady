@@ -33,25 +33,6 @@ type JwtModel {
   refreshToken: String!
 }
 
-type PageInfo {
-  currentPage: Float!
-  totalPages: Float!
-  total: Float!
-  hasNextPage: Boolean!
-}
-
-type TestCase {
-  id: Float!
-  args: JSON!
-  expectedOutput: String!
-  isSecret: Boolean!
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
 type CodeLangChallengeDetail {
   id: Float!
   mainCode: String!
@@ -72,6 +53,25 @@ enum ProgrammingLang {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type PageInfo {
+  currentPage: Float!
+  totalPages: Float!
+  total: Float!
+  hasNextPage: Boolean!
+}
+
+type TestCase {
+  id: Float!
+  args: JSON!
+  expectedOutput: String!
+  isSecret: Boolean!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 type CodeChallenge {
   id: String!
