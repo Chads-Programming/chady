@@ -8,10 +8,20 @@ type CodeChallenge {
   description: String!
   difficult: Difficult!
   id: String!
-  mainCode: String!
+  langDetails: [CodeLangChallengeDetail!]!
   startedCode: String!
   testCases: [TestCase!]!
   title: String!
+  updatedAt: DateTime!
+}
+
+type CodeLangChallengeDetail {
+  codeChallengeId: String!
+  createdAt: DateTime!
+  id: Float!
+  lang: ProgrammingLang!
+  mainCode: String!
+  startedCode: String!
   updatedAt: DateTime!
 }
 

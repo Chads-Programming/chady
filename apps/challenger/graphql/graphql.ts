@@ -26,10 +26,21 @@ export type CodeChallenge = {
   description: Scalars['String']['output'];
   difficult: Difficult;
   id: Scalars['String']['output'];
-  mainCode: Scalars['String']['output'];
+  langDetails: Array<CodeLangChallengeDetail>;
   startedCode: Scalars['String']['output'];
   testCases: Array<TestCase>;
   title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type CodeLangChallengeDetail = {
+  __typename?: 'CodeLangChallengeDetail';
+  codeChallengeId: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['Float']['output'];
+  lang: ProgrammingLang;
+  mainCode: Scalars['String']['output'];
+  startedCode: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -335,6 +346,13 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
 
+export type FindCodeChallengeByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCase', id: number, args: any, expectedOutput: string, isSecret: boolean }> } };
+
 export type FindCodeChallngesQueryVariables = Exact<{
   difficult?: InputMaybe<Difficult>;
   search?: InputMaybe<Scalars['String']['input']>;
@@ -376,6 +394,27 @@ export const ProfileDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
+export const FindCodeChallengeByIdDocument = new TypedDocumentString(`
+    query FindCodeChallengeById($id: String!) {
+  getCodeChallenge(id: $id) {
+    id
+    title
+    description
+    difficult
+    langDetails {
+      id
+      lang
+      startedCode
+    }
+    testCases {
+      id
+      args
+      expectedOutput
+      isSecret
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<FindCodeChallengeByIdQuery, FindCodeChallengeByIdQueryVariables>;
 export const FindCodeChallngesDocument = new TypedDocumentString(`
     query FindCodeChallnges($difficult: Difficult, $search: String, $perPage: Int, $page: Int, $lang: ProgrammingLang) {
   findCodeChallenges(

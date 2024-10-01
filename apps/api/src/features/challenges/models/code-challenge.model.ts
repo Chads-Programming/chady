@@ -1,3 +1,4 @@
+import { CodeLangChallengeDetail } from '@/challenges/models/code-lang-challenge-detail.model';
 import { Paginated } from '@/common/dto/page-info';
 import {
   Field,
@@ -21,9 +22,6 @@ export class CodeChallenge {
   title: string;
 
   @Field()
-  mainCode: string;
-
-  @Field()
   description: string;
 
   @Field()
@@ -31,6 +29,9 @@ export class CodeChallenge {
 
   @Field(() => Difficult)
   difficult: Difficult;
+
+  @Field(() => [CodeLangChallengeDetail])
+  langDetails: CodeLangChallengeDetail[];
 
   @Field(() => [TestCase], { defaultValue: [] })
   testCases?: TestCase[];

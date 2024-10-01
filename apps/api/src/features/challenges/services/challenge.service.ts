@@ -126,6 +126,14 @@ export class ChallengeService {
     });
   }
 
+  async findLangDetailsByChallengeId(codeChallengeId: string) {
+    return this.prisma.codeChallengeLangDetail.findMany({
+      where: {
+        codeChallengeId,
+      },
+    });
+  }
+
   async softDeleteTestCase(testCaseId: number) {
     return this.prisma.testCase.update({
       where: {

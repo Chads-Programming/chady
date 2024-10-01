@@ -1,3 +1,4 @@
+import { CodeLangChallengeDetail } from '@/challenges/models/code-lang-challenge-detail.model';
 import { paginate } from '@/common/utils/paginate';
 import { DISCORD_ROLES } from '@/features/auth/consts';
 import { AllowedDiscordRoles } from '@/features/auth/decorators/discord-roles';
@@ -60,5 +61,10 @@ export class CodeChallengeResolver {
   @ResolveField(() => [TestCase])
   testCases(@Parent() codeChallenge: CodeChallenge) {
     return this.challengeService.findCodeChallengeTestCases(codeChallenge.id);
+  }
+
+  @ResolveField(() => [CodeLangChallengeDetail])
+  langDetails(@Parent() codeChallenge: CodeChallenge) {
+    return this.challengeService.findLangDetailsByChallengeId(codeChallenge.id);
   }
 }

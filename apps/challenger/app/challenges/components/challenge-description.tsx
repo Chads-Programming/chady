@@ -1,11 +1,11 @@
+import type { Difficult } from '@/graphql/graphql'
 import Markdown from 'react-markdown'
-import type { ChallengeDifficult } from '../types'
 import { DifficultBadge } from './difficult-badge'
 
 interface Props {
   title: string
   description: string
-  difficulty: ChallengeDifficult
+  difficulty: Difficult
 }
 
 export const ChallengeDescription = ({
