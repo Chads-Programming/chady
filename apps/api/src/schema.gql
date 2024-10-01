@@ -33,6 +33,27 @@ type JwtModel {
   refreshToken: String!
 }
 
+type CodeLangChallengeDetail {
+  id: Float!
+  mainCode: String!
+  startedCode: String!
+  codeChallengeId: String!
+  lang: ProgrammingLang!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum ProgrammingLang {
+  Javascript
+  Typescript
+  Python
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type PageInfo {
   currentPage: Float!
   totalPages: Float!
@@ -55,10 +76,10 @@ scalar JSON
 type CodeChallenge {
   id: String!
   title: String!
-  mainCode: String!
   description: String!
   startedCode: String!
   difficult: Difficult!
+  langDetails: [CodeLangChallengeDetail!]!
   testCases: [TestCase!]!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -69,11 +90,6 @@ enum Difficult {
   Medium
   Hard
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type PaginatedChallenges {
   data: [CodeChallenge!]!
@@ -150,12 +166,6 @@ enum Status {
   PENDING
   READY
   REJECTED
-}
-
-enum ProgrammingLang {
-  Javascript
-  Typescript
-  Python
 }
 
 type Mutation {

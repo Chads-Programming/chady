@@ -19,5 +19,6 @@ export * from './components/ui/command'
 export * from './components/ui/accordion'
 export * from './components/ui/pagination'
 export * from './components/ui/paginator'
+export * from './components/hoc/loader-and-error'
 // lib
 export * from './lib/utils'
