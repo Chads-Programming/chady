@@ -33,6 +33,12 @@ type JwtModel {
   refreshToken: String!
 }
 
+type UserScoreModel {
+  user: User!
+  userId: String!
+  totalScore: Float!
+}
+
 type CodeLangChallengeDetail {
   id: Float!
   mainCode: String!
@@ -100,6 +106,7 @@ type Submission {
   id: String!
   solutionCode: String!
   runtime: Float!
+  score: Float!
   status: String!
   codeChallenge: CodeChallenge!
   user: UserDetail!
@@ -160,6 +167,7 @@ type Query {
   findCodeChallenges(search: String, lang: ProgrammingLang, page: Int, perPage: Int, difficult: Difficult): PaginatedChallenges!
   getUserSubmission(submissionId: String!): Submission!
   getUserSubmissions: [Submission!]!
+  findSubmissionsLeaderboard: [UserScoreModel!]!
 }
 
 enum Status {

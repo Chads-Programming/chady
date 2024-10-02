@@ -2,8 +2,8 @@
 
 import type React from 'react'
 import { useAuth } from '../hooks/use-auth'
-import { useSameRedirect } from '../hooks/use-redirect'
 
+import { useSameRedirect } from '@/app/auth/hooks/use-redirect'
 import Discord from '@/app/shared/icons/discord'
 import { ChevronRight } from 'lucide-react'
 import { LOGIN_PATH } from '../consts'

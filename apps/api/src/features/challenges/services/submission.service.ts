@@ -1,3 +1,5 @@
+import { calculateChallengeScore } from '@/challenges/helpers/challenge-score';
+import { difficultMapToFactor } from '@/challenges/mappings/difficult-factor.mapped';
 import { PrismaService } from '@/database/prisma.service';
 import { CodeExecutionContext } from '@/runner/strategies/execution.context';
 import { PythonExecutionStrategy } from '@/runner/strategies/python.strategy';
@@ -51,6 +53,9 @@ export class SubmissionService {
 
   async createUserSubmission(userId: string, submission: SubmissionInput) {
     const { inputResults, runtime } = await this.executeSubmission(submission);
+    const { difficult } = await this.challengeService.findCodeChallengeById(
+      submission.challengeId,
+    );
 
     const createdSubmission = await this.prisma.submission.create({
       data: {
@@ -60,6 +65,10 @@ export class SubmissionService {
         userId,
         runtime,
         status: SubmissionStatus.Pending,
+        score: calculateChallengeScore(
+          runtime,
+          difficultMapToFactor(difficult),
+        ),
       },
     });
 
@@ -99,6 +108,10 @@ export class SubmissionService {
       submissionId,
     );
 
+    const { difficult } = await this.challengeService.findCodeChallengeById(
+      submission.challengeId,
+    );
+
     const { inputResults, runtime, status } =
       await this.executeSubmission(submission);
 
@@ -110,6 +123,10 @@ export class SubmissionService {
         solutionCode: submission.solutionCode,
         runtime,
         status,
+        score: calculateChallengeScore(
+          runtime,
+          difficultMapToFactor(difficult),
+        ),
       },
     });
 
