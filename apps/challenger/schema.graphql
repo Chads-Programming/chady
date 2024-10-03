@@ -157,7 +157,9 @@ enum ProgrammingLang {
 type Query {
   events(page: Int!, perPage: Int!, search: String!, status: Status!): PaginatedEvents!
   findCodeChallenges(difficult: Difficult, lang: ProgrammingLang, page: Int, perPage: Int, search: String): PaginatedChallenges!
+  findPersonalScore: Float!
   findProfile: UserDetail!
+  findSubmissionsLeaderboard: [UserScoreModel!]!
   getCodeChallenge(id: String!): CodeChallenge!
   getUserSubmission(submissionId: String!): Submission!
   getUserSubmissions: [Submission!]!
@@ -187,6 +189,7 @@ type Submission {
   createdAt: DateTime!
   id: String!
   runtime: Float!
+  score: Float!
   solutionCode: String!
   status: String!
   updatedAt: DateTime!
@@ -251,4 +254,10 @@ type UserDetail {
   id: String!
   roles: [RoleDetail!]!
   username: String!
+}
+
+type UserScoreModel {
+  totalScore: Float!
+  user: User!
+  userId: String!
 }

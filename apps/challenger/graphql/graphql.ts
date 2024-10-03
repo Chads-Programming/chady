@@ -212,7 +212,9 @@ export type Query = {
   __typename?: 'Query';
   events: PaginatedEvents;
   findCodeChallenges: PaginatedChallenges;
+  findPersonalScore: Scalars['Float']['output'];
   findProfile: UserDetail;
+  findSubmissionsLeaderboard: Array<UserScoreModel>;
   getCodeChallenge: CodeChallenge;
   getUserSubmission: Submission;
   getUserSubmissions: Array<Submission>;
@@ -271,6 +273,7 @@ export type Submission = {
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
   runtime: Scalars['Float']['output'];
+  score: Scalars['Float']['output'];
   solutionCode: Scalars['String']['output'];
   status: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -341,6 +344,13 @@ export type UserDetail = {
   username: Scalars['String']['output'];
 };
 
+export type UserScoreModel = {
+  __typename?: 'UserScoreModel';
+  totalScore: Scalars['Float']['output'];
+  user: User;
+  userId: Scalars['String']['output'];
+};
+
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -363,6 +373,11 @@ export type FindCodeChallngesQueryVariables = Exact<{
 
 
 export type FindCodeChallngesQuery = { __typename?: 'Query', findCodeChallenges: { __typename?: 'PaginatedChallenges', data: Array<{ __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult }>, pageInfo?: { __typename?: 'PageInfo', currentPage: number, totalPages: number, hasNextPage: boolean } | null } };
+
+export type LeaderboardQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LeaderboardQueryQuery = { __typename?: 'Query', findSubmissionsLeaderboard: Array<{ __typename?: 'UserScoreModel', totalScore: number, user: { __typename?: 'User', id: string, avatar: string, username: string } }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -439,3 +454,15 @@ export const FindCodeChallngesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindCodeChallngesQuery, FindCodeChallngesQueryVariables>;
+export const LeaderboardQueryDocument = new TypedDocumentString(`
+    query LeaderboardQuery {
+  findSubmissionsLeaderboard {
+    user {
+      id
+      avatar
+      username
+    }
+    totalScore
+  }
+}
+    `) as unknown as TypedDocumentString<LeaderboardQueryQuery, LeaderboardQueryQueryVariables>;

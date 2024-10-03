@@ -6,6 +6,7 @@ interface LoaderAndErrorProps<T> {
   isError: boolean
   errorState: ReactNode
   emptyState: ReactNode
+  loadingState?: ReactNode
   data?: T
   children: (props: { data: T }) => ReactNode
 }
@@ -16,17 +17,22 @@ export const LoaderAndError = <T,>({
   data,
   children,
   errorState,
+  loadingState,
   emptyState,
 }: LoaderAndErrorProps<T>) => {
   if (loading) {
-    return <Skeleton className="w-full h-full" />
+    return (
+      <>
+        {loadingState && <Skeleton className="w-full h-full bg-neutral-600" />}
+      </>
+    )
   }
 
   if (isError) {
     return <>{errorState}</>
   }
 
-  if (!data) {
+  if (!data || (Array.isArray(data) && data.length === 0)) {
     return <>{emptyState}</>
   }
 
