@@ -1,52 +1,38 @@
 'use client'
 import { ChallengeList } from '@/app/challenges/components/challenge-list'
+import { useGetLeaderboardQuery } from '@/app/challenges/queries/leaderdboard'
+import { EmptyState } from '@/app/shared/components/empty-state'
+import { ErrorState } from '@/app/shared/components/error-state'
 import { Footer } from '@/app/shared/components/footer'
 import { useQueryParams } from '@/app/shared/hooks/use-query-params'
 import type { Difficult } from '@/graphql/graphql'
-import { Avatar, AvatarFallback, AvatarImage, Paginator, cn } from '@repo/ui'
+import { LoaderAndError, Paginator } from '@repo/ui'
+import { useMemo } from 'react'
 import { SearchBox } from '../shared/components/search-box'
 import { ChallengeFilters } from './components/challenge-filters'
-import { Leaderboard } from './components/leaderboard'
+import { CodersLeaderboard } from './components/coders-leaderboard'
 import { useGetCodeChallengesQuery } from './queries/challenges'
-
-const testAvatar =
-  'https://cdn.discordapp.com/avatars/526081797952634901/3838b7f65f82c7c0a99521230b1fcf8e.webp?size=128'
-
-const leaderboard = [
-  {
-    id: '1',
-    name: 'Peperman',
-    avatar: testAvatar,
-    points: 10200,
-  },
-  {
-    id: '2',
-    name: 'Gatobros',
-    avatar: testAvatar,
-    points: 5001,
-  },
-  {
-    id: '3',
-    name: 'Ubermax',
-    avatar: testAvatar,
-    points: 4921,
-  },
-  {
-    id: '4',
-    name: 'Randomguy',
-    avatar: testAvatar,
-    points: 4211,
-  },
-  {
-    id: '5',
-    name: 'Groundmind',
-    avatar: testAvatar,
-    points: 4121,
-  },
-]
 
 export default function Home() {
   const { searchParams, setParam, removeParam } = useQueryParams()
+  const {
+    data: leaderboardResult,
+    isLoading: isLoadingLeaderboard,
+    isError: isLeaderboardError,
+  } = useGetLeaderboardQuery()
+
+  const codersLeaderboard = useMemo(() => {
+    if (!leaderboardResult?.leaderboard) {
+      return []
+    }
+
+    return leaderboardResult.leaderboard.map(({ user, totalScore }) => ({
+      id: user.id,
+      avatar: user.avatar,
+      username: user.username,
+      totalScore: totalScore,
+    }))
+  }, [leaderboardResult])
 
   const handlePageChange = (page: number) => {
     setParam('page', page.toString())
@@ -78,36 +64,26 @@ export default function Home() {
   return (
     <main className="flex flex-col">
       <div className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 min-h-[calc(100dvh-8rem)]">
-        <aside className="search-header border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 h-fit sticky top-0">
-          <Leaderboard
-            title="Top Performers"
-            items={leaderboard}
-            renderItem={(position, { name, avatar, points }) => (
-              <div className="flex flex-row justify-start gap-2 w-full items-center content-start">
-                <span className="text-lg mr-2 text-primary font-medium">
-                  {position}.
-                </span>
-                <Avatar>
-                  <AvatarImage src={avatar} alt={name} />
-                  <AvatarImage src={avatar} alt={name} />
-                  <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <span
-                  className={cn(
-                    'text-pretty text-sm text-foreground/75  flex-1 w-[100px]',
-                    {
-                      '!text-amber-400 animate-pulse': position === 1,
-                    },
-                  )}
-                >
-                  {name}
-                </span>
-                <span className="text-pretty text-xs text-gray-700 dark:text-gray-400 font-medium border border-border rounded-sm px-2 py-1 shadow-md">
-                  {points} <span className="text-primary/65">pts.</span>
-                </span>
-              </div>
-            )}
-          />
+        <aside className="search-header w-full md:w-1/5 h-[350px] border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 sticky top-0">
+          <LoaderAndError
+            data={codersLeaderboard}
+            loading={isLoadingLeaderboard}
+            isError={isLeaderboardError}
+            errorState={
+              <ErrorState
+                title="Something wrong happened"
+                description="An error has occurred during the proccess"
+              />
+            }
+            emptyState={
+              <EmptyState
+                title="Leaderboard is not available"
+                description="Sorry, we don't have a leaderboard data yet to show"
+              />
+            }
+          >
+            {({ data }) => <CodersLeaderboard items={data} />}
+          </LoaderAndError>
         </aside>
 
         <section className="flex flex-col items-start w-full md:w-1/2">

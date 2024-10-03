@@ -1,5 +1,3 @@
-'use client'
-
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 
@@ -10,13 +8,11 @@ export const useSameRedirect = () => {
 }
 
 export const useRedirect = (redirectPath: string) => {
-  const redirectUrl = useMemo(() => {
+  return useMemo(() => {
     if (typeof window === 'undefined') {
       return
     }
 
     return encodeURIComponent(`${window.location.origin}${redirectPath}`)
   }, [redirectPath])
-
-  return redirectUrl
 }

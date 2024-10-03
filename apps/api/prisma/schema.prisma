@@ -158,6 +158,7 @@ model Submission {
   runtime      Decimal?
   status       SubmissionStatus
   lang         ProgrammingLang
+  score        Int
 
   codeChallengeId String
   codeChallenge   CodeChallenge @relation(fields: [codeChallengeId], references: [id])

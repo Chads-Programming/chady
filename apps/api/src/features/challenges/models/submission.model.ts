@@ -25,6 +25,9 @@ export class Submission {
   runtime: number;
 
   @Field()
+  score: number;
+
+  @Field()
   status: SubmissionStatus;
 
   @Field(() => CodeChallenge)
