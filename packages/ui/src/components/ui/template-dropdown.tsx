@@ -88,7 +88,7 @@ export const TemplateDropdown = <Data, Value extends string | number>({
             <CommandGroup>
               <h3 className="text-sm text-primary/65 font-medium text-pretty mx-2 my-1">
                 {title}
-              </h3>{' '}
+              </h3>
             </CommandGroup>
           )}
 
