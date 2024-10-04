@@ -1,5 +1,5 @@
 import { usePathname } from 'next/navigation'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useSameRedirect = () => {
   const path = usePathname()
@@ -8,11 +8,13 @@ export const useSameRedirect = () => {
 }
 
 export const useRedirect = (redirectPath: string) => {
-  return useMemo(() => {
-    if (typeof window === 'undefined') {
-      return
-    }
+  const [redirectUrl, setRedirectUrl] = useState('')
 
-    return encodeURIComponent(`${window.location.origin}${redirectPath}`)
+  useEffect(() => {
+    setRedirectUrl(
+      encodeURIComponent(`${window.location.origin}${redirectPath}`),
+    )
   }, [redirectPath])
+
+  return redirectUrl
 }

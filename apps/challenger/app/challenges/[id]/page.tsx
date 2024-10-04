@@ -118,7 +118,7 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
         ({
           data: langDetail,
           label: langDetail.lang,
-          value: langDetail.id,
+          value: langDetail.lang,
         }) as DropdownItem<CodeLangChallengeDetail>,
     )
   }, [challenge])
