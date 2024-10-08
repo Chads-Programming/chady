@@ -11,9 +11,7 @@
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
     "@next/env": "^14.2.13",
-    "@repo/shared-types": "workspace:*",
     "@repo/ui": "workspace:*",
-    "@repo/validation-schemas": "workspace:*",
     "@tanstack/react-query": "^5.56.2",
     "graphql": "^16.9.0",
     "lucide": "^0.433.0",

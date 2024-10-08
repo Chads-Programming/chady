@@ -31,8 +31,6 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "5.18.0",
-    "@repo/shared-types": "workspace:*",
-    "@repo/validation-schemas": "workspace:*",
     "axios": "^1.7.3",
     "class-validator": "^0.14.1",
     "cookie-parser": "^1.4.6",
