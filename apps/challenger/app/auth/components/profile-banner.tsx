@@ -1,5 +1,4 @@
 'use client'
-import { ENVS } from '@/lib/envs'
 import {
   Avatar,
   AvatarFallback,
@@ -14,8 +13,6 @@ import { LogOut } from 'lucide-react'
 import { useAuth } from '../hooks/use-auth'
 import { LoginButton } from './login-button'
 import { Role } from './role'
-
-const LOGIN_PATH = `${ENVS.NEXT_PUBLIC_API_HOST}/auth/discord/login`
 
 export const ProfileBanner = () => {
   const { profile, isLoading, logout } = useAuth()
@@ -43,7 +40,6 @@ export const ProfileBanner = () => {
         <div className="flex flex-col items-start justify-start">
           <p className="text-sm font-semibold">{profile.username}</p>
           <Button
-            role="button"
             variant="ghost"
             onClick={logout}
             className="text-xs py-0 px-2 h-auto rounded-md inline-flex gap-1 items-center font-medium hover:text-foreground text-foreground/80 transition-colors"
