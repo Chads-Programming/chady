@@ -106,6 +106,7 @@ type Submission {
   id: String!
   solutionCode: String!
   runtime: Float!
+  lang: ProgrammingLang!
   score: Float!
   status: String!
   codeChallenge: CodeChallenge!
@@ -165,7 +166,7 @@ type Query {
   events(search: String!, status: Status!, page: Int!, perPage: Int!): PaginatedEvents!
   getCodeChallenge(id: String!): CodeChallenge!
   findCodeChallenges(search: String, lang: ProgrammingLang, page: Int, perPage: Int, difficult: Difficult): PaginatedChallenges!
-  getUserSubmission(submissionId: String!): Submission!
+  getUserSubmission(codeChallengeId: String!, programmingLang: ProgrammingLang!): Submission!
   getUserSubmissions: [Submission!]!
   findPersonalScore: Float!
   findSubmissionsLeaderboard: [UserScoreModel!]!

@@ -161,7 +161,7 @@ type Query {
   findProfile: UserDetail!
   findSubmissionsLeaderboard: [UserScoreModel!]!
   getCodeChallenge(id: String!): CodeChallenge!
-  getUserSubmission(submissionId: String!): Submission!
+  getUserSubmission(codeChallengeId: String!, programmingLang: ProgrammingLang!): Submission!
   getUserSubmissions: [Submission!]!
 }
 
@@ -188,6 +188,7 @@ type Submission {
   codeChallenge: CodeChallenge!
   createdAt: DateTime!
   id: String!
+  lang: ProgrammingLang!
   runtime: Float!
   score: Float!
   solutionCode: String!

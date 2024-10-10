@@ -5,7 +5,7 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { SubmissionStatus } from '@prisma/client';
+import { ProgrammingLang, SubmissionStatus } from '@prisma/client';
 import { CodeChallenge } from './code-challenge.model';
 import { TestCase } from './test-case.model';
 
@@ -23,6 +23,9 @@ export class Submission {
 
   @Field()
   runtime: number;
+
+  @Field(() => ProgrammingLang)
+  lang: ProgrammingLang;
 
   @Field()
   score: number;

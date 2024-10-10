@@ -2,6 +2,7 @@ import { calculateChallengeScore } from '@/challenges/helpers/challenge-score';
 import { difficultMapToFactor } from '@/challenges/mappings/difficult-factor.mapped';
 import { PrismaService } from '@/database/prisma.service';
 import { CodeExecutionContext } from '@/runner/strategies/execution.context';
+import { JavascriptExecutionStrategy } from '@/runner/strategies/javascript.strategy';
 import { PythonExecutionStrategy } from '@/runner/strategies/python.strategy';
 import {
   ForbiddenException,
@@ -9,8 +10,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ProgrammingLang, SubmissionStatus, TestCase } from '@prisma/client';
+import { SearchUserSubmissionArgs } from '../dtos/search-user-submission.args';
 import { SubmissionInput } from '../dtos/submission.input';
-import { JavascriptExecutionStrategy } from './../../../runner/strategies/javascript.strategy';
 import { ChallengeService } from './challenge.service';
 
 @Injectable()
@@ -22,11 +23,26 @@ export class SubmissionService {
     private readonly challengeService: ChallengeService,
   ) {}
 
-  async findUserSubmissionById(userId: string, submissionId: string) {
+  async findUserSubmission({
+    userId,
+    codeChallengeId,
+    programmingLang,
+  }: {
+    userId: string;
+  } & SearchUserSubmissionArgs) {
     return this.prisma.submission.findFirst({
       where: {
-        id: submissionId,
+        codeChallengeId,
+        lang: programmingLang,
         userId,
+      },
+    });
+  }
+
+  async findUserSubmissionById(id: string) {
+    return this.prisma.submission.findFirst({
+      where: {
+        id,
       },
     });
   }
@@ -102,11 +118,6 @@ export class SubmissionService {
     if (!hasOwnership) {
       throw new ForbiddenException('User is not related to update submission');
     }
-
-    const userSubmission = await this.findUserSubmissionById(
-      userId,
-      submissionId,
-    );
 
     const { difficult } = await this.challengeService.findCodeChallengeById(
       submission.challengeId,

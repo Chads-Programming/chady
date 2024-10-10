@@ -244,7 +244,8 @@ export type QueryGetCodeChallengeArgs = {
 
 
 export type QueryGetUserSubmissionArgs = {
-  submissionId: Scalars['String']['input'];
+  codeChallengeId: Scalars['String']['input'];
+  programmingLang: ProgrammingLang;
 };
 
 export type RegisterEventInput = {
@@ -272,6 +273,7 @@ export type Submission = {
   codeChallenge: CodeChallenge;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
+  lang: ProgrammingLang;
   runtime: Scalars['Float']['output'];
   score: Scalars['Float']['output'];
   solutionCode: Scalars['String']['output'];
@@ -356,6 +358,21 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
 
+export type CreateUserSubmissionMutationVariables = Exact<{
+  submission: SubmissionInput;
+}>;
+
+
+export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'Submission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCase', id: number } }> } };
+
+export type UpdateUserSubmissionMutationVariables = Exact<{
+  submissionId: Scalars['String']['input'];
+  submission: SubmissionInput;
+}>;
+
+
+export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'Submission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCase', id: number } }> } };
+
 export type FindCodeChallengeByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -378,6 +395,14 @@ export type LeaderboardQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LeaderboardQueryQuery = { __typename?: 'Query', findSubmissionsLeaderboard: Array<{ __typename?: 'UserScoreModel', totalScore: number, user: { __typename?: 'User', id: string, avatar: string, username: string } }> };
+
+export type GetUserSubmissionQueryQueryVariables = Exact<{
+  codeChallengeId: Scalars['String']['input'];
+  programmingLang: ProgrammingLang;
+}>;
+
+
+export type GetUserSubmissionQueryQuery = { __typename?: 'Query', getUserSubmission: { __typename?: 'Submission', id: string, runtime: number, score: number, solutionCode: string, lang: ProgrammingLang, status: string, createdAt: any, updatedAt: any } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -409,6 +434,50 @@ export const ProfileDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
+export const CreateUserSubmissionDocument = new TypedDocumentString(`
+    mutation CreateUserSubmission($submission: SubmissionInput!) {
+  createUserSubmission(submission: $submission) {
+    submission {
+      id
+      runtime
+      score
+      status
+      createdAt
+      updatedAt
+    }
+    inputResults {
+      testCase {
+        id
+      }
+      output
+      executionTime
+      timeFormat
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CreateUserSubmissionMutation, CreateUserSubmissionMutationVariables>;
+export const UpdateUserSubmissionDocument = new TypedDocumentString(`
+    mutation UpdateUserSubmission($submissionId: String!, $submission: SubmissionInput!) {
+  updateUserSubmission(submissionId: $submissionId, submission: $submission) {
+    submission {
+      id
+      runtime
+      score
+      status
+      createdAt
+      updatedAt
+    }
+    inputResults {
+      testCase {
+        id
+      }
+      output
+      executionTime
+      timeFormat
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateUserSubmissionMutation, UpdateUserSubmissionMutationVariables>;
 export const FindCodeChallengeByIdDocument = new TypedDocumentString(`
     query FindCodeChallengeById($id: String!) {
   getCodeChallenge(id: $id) {
@@ -466,3 +535,20 @@ export const LeaderboardQueryDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<LeaderboardQueryQuery, LeaderboardQueryQueryVariables>;
+export const GetUserSubmissionQueryDocument = new TypedDocumentString(`
+    query GetUserSubmissionQuery($codeChallengeId: String!, $programmingLang: ProgrammingLang!) {
+  getUserSubmission(
+    codeChallengeId: $codeChallengeId
+    programmingLang: $programmingLang
+  ) {
+    id
+    runtime
+    score
+    solutionCode
+    lang
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<GetUserSubmissionQueryQuery, GetUserSubmissionQueryQueryVariables>;

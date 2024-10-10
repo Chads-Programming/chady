@@ -1,7 +1,7 @@
 'use client'
 
 import { ProtectedAction } from '@/app/auth/components/protected-action'
-import { useGetCodeChallengeByIdQuery } from '@/app/challenges/queries/challenge-by-id'
+import { useGetCodeChallengeByIdQuery } from '@/app/challenges/queries/get-challenge-by-id'
 import JavaScript from '@/app/shared/icons/javascript'
 import Python from '@/app/shared/icons/python'
 import Typescript from '@/app/shared/icons/typescript'
