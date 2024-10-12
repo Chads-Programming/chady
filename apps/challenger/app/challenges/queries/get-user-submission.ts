@@ -18,10 +18,17 @@ const GetUserSubmissionQuery = graphql(`
     }
   `)
 
-export const useGetUserSubmissionQuery = (
-  codeChallengeId: string,
-  programmingLang: ProgrammingLang,
-) =>
+interface SubmissionQueryArgs {
+  codeChallengeId: string
+  programmingLang: ProgrammingLang
+  isLogged: boolean
+}
+
+export const useGetUserSubmissionQuery = ({
+  codeChallengeId,
+  programmingLang,
+  isLogged,
+}: SubmissionQueryArgs) =>
   useQuery({
     queryKey: ['user-submission', codeChallengeId],
     queryFn: () =>
@@ -29,6 +36,10 @@ export const useGetUserSubmissionQuery = (
         codeChallengeId,
         programmingLang,
       }),
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    enabled: isLogged,
     select: (data) => ({
       userSubmission: data.getUserSubmission,
     }),

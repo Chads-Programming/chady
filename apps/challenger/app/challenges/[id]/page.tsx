@@ -1,10 +1,9 @@
 'use client'
 
 import { ProtectedAction } from '@/app/auth/components/protected-action'
-import { useGetCodeChallengeByIdQuery } from '@/app/challenges/queries/get-challenge-by-id'
-import JavaScript from '@/app/shared/icons/javascript'
-import Python from '@/app/shared/icons/python'
-import Typescript from '@/app/shared/icons/typescript'
+import { CustomResizableHandle } from '@/app/shared/components/custom-resizable-handle'
+import { EmptyState } from '@/app/shared/components/empty-state'
+import { ErrorState } from '@/app/shared/components/error-state'
 import {
   type CodeLangChallengeDetail,
   ProgrammingLang,
@@ -14,7 +13,6 @@ import {
   Button,
   type DropdownItem,
   LoaderAndError,
-  ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
   Tabs,
@@ -22,18 +20,20 @@ import {
   TabsList,
   TabsTrigger,
   TemplateDropdown,
-  cn,
 } from '@repo/ui'
 import { Play } from 'lucide-react'
 import { FileJson, Lightbulb, ListCollapse } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { ChallengeDescription } from '../components/challenge-description'
+import { LangIcon } from '../components/lang-icon'
 import { Solutions } from '../components/solutions'
 import {
   SecretTestResult,
   TestCases,
   TestResult,
 } from '../components/test-summary'
+import { useSubmission } from '../hooks/use-submission'
+import { useGetCodeChallengeByIdQuery } from '../queries/get-challenge-by-id'
 
 const testResults = [
   {
@@ -60,45 +60,16 @@ const testResults = [
   },
 ]
 
-const getLangIcon = (lang: ProgrammingLang) => {
-  switch (lang) {
-    case ProgrammingLang.Javascript:
-      return <JavaScript />
-    case ProgrammingLang.Typescript:
-      return <Typescript />
-    case ProgrammingLang.Python:
-      return <Python />
-  }
-}
-
-interface CustomResizableHandleProps {
-  horizontal?: boolean
-}
-
-const CustomResizableHandle = ({ horizontal }: CustomResizableHandleProps) => (
-  <ResizableHandle
-    withHandle={false}
-    className={cn('w-5 bg-transparent group', {
-      '!h-5 border border-x-0 border-y-border': horizontal,
-    })}
-  >
-    <div
-      className={cn(
-        'transition-all ease-in bg-gray-600 group-hover:bg-primary rounded-md ',
-        {
-          '!w-2/3 !h-1 !rotate-180': horizontal,
-          'h-1/4 w-1': !horizontal,
-        },
-      )}
-    />
-  </ResizableHandle>
-)
-
 const ChallengePage = ({ params }: { params: { id: string } }) => {
   const [selectedLang, setSelectedLang] = useState<ProgrammingLang>(
     ProgrammingLang.Javascript,
   )
-  const [staterCode, setStartedCode] = useState('')
+  const [editorCode, setEditorCode] = useState('')
+
+  const { submission } = useSubmission({
+    challengeId: params.id,
+    programmingLang: selectedLang,
+  })
 
   const {
     data: challenge,
@@ -123,8 +94,9 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
     )
   }, [challenge])
 
-  const handleLangChange = (selectedLang: ProgrammingLang) =>
-    setSelectedLang(selectedLang)
+  const handleLangChange = (
+    option: DropdownItem<CodeLangChallengeDetail, string | number>,
+  ) => setSelectedLang(option.data.lang)
 
   useEffect(() => {
     if (!challenge || !selectedLang) {
@@ -139,8 +111,8 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
       return
     }
 
-    setStartedCode(langDetail.startedCode)
-  }, [selectedLang, challenge])
+    setEditorCode(submission?.solutionCode ?? langDetail.startedCode)
+  }, [selectedLang, challenge, submission])
 
   return (
     <>
@@ -186,16 +158,8 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                 loading={isLoading}
                 data={challenge}
                 isError={isError}
-                errorState={
-                  <p className="text-2xl font-semibold">
-                    An error has occurred
-                  </p>
-                }
-                emptyState={
-                  <p className="text-2xl font-semibold">
-                    No description was provided
-                  </p>
-                }
+                errorState={<ErrorState title="An error has occurred" />}
+                emptyState={<EmptyState title="No description was provided" />}
               >
                 {({ data }) => (
                   <ChallengeDescription
@@ -227,11 +191,11 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                   <TemplateDropdown
                     value={selectedLang}
                     items={availableProgrammingLanguages}
-                    onSelect={(item) => handleLangChange(item.data.lang)}
+                    onSelect={handleLangChange}
                   >
                     {(item) => (
                       <div className="inline-flex gap-2 justify-start items-center">
-                        {getLangIcon(item.data.lang)}
+                        <LangIcon lang={item.data.lang} />
                         <span className="capitalize font-semibold text-sm">
                           {item.label}
                         </span>
@@ -252,7 +216,7 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                   height="100%"
                   language={selectedLang?.toLowerCase()}
                   theme="vs-dark"
-                  defaultValue={staterCode}
+                  defaultValue={editorCode}
                   options={{
                     fontSize: 16,
                     formatOnType: true,

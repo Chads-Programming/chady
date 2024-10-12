@@ -1,5 +1,5 @@
-import { type CodeChallenge, ProgrammingLang } from '@/graphql/graphql'
-import { useEffect, useState } from 'react'
+import { useAuth } from '@/app/auth/hooks/use-auth'
+import type { ProgrammingLang } from '@/graphql/graphql'
 import { useGetUserSubmissionQuery } from '../queries/get-user-submission'
 
 // interface TestCaseStatus {
@@ -12,41 +12,29 @@ import { useGetUserSubmissionQuery } from '../queries/get-user-submission'
 //   timeFormat: number
 // }
 
-export const useSubmission = (challenge: CodeChallenge) => {
-  const [currentSolutionCode, setCurrentSolutionCode] = useState('')
-  const [currentProgrammingLang, setCurrentProgramminLang] =
-    useState<ProgrammingLang>(ProgrammingLang.Javascript)
+interface SubmissionArgs {
+  challengeId: string
+  programmingLang: ProgrammingLang
+}
 
-  const { data } = useGetUserSubmissionQuery(
-    challenge.id,
-    currentProgrammingLang,
-  )
+export const useSubmission = ({
+  challengeId,
+  programmingLang,
+}: SubmissionArgs) => {
+  const { profile } = useAuth()
+  const { data } = useGetUserSubmissionQuery({
+    codeChallengeId: challengeId,
+    programmingLang,
+    isLogged: Boolean(profile),
+  })
+
   // const [createSubmission] = useCreateUserSubmissionMutation()
   // const [updateSubmission] = useUpdateUserSubmissionMutation()
-
-  useEffect(() => {
-    if (!challenge) {
-      return
-    }
-
-    if (!data) {
-      const defaultCode = challenge.langDetails[0]?.startedCode ?? ''
-
-      setCurrentSolutionCode(defaultCode)
-
-      return
-    }
-
-    const { userSubmission } = data
-
-    setCurrentSolutionCode(userSubmission.solutionCode)
-    setCurrentProgramminLang(userSubmission.lang)
-  }, [data, challenge])
 
   const submitSolution = () => {}
 
   return {
-    currentSolutionCode,
+    submission: data?.userSubmission,
     submitSolution,
   }
 }
