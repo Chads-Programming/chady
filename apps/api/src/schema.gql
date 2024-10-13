@@ -67,7 +67,7 @@ type PageInfo {
   hasNextPage: Boolean!
 }
 
-type TestCase {
+type TestCaseModel {
   id: Float!
   args: JSON!
   expectedOutput: String!
@@ -86,7 +86,7 @@ type CodeChallenge {
   startedCode: String!
   difficult: Difficult!
   langDetails: [CodeLangChallengeDetail!]!
-  testCases: [TestCase!]!
+  testCases: [TestCaseModel!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -102,6 +102,14 @@ type PaginatedChallenges {
   pageInfo: PageInfo
 }
 
+type InputExecutionResult {
+  testCase: TestCaseModel!
+  output: String!
+  executionTime: Float!
+  timeFormat: String!
+  isSuccess: Boolean!
+}
+
 type Submission {
   id: String!
   solutionCode: String!
@@ -115,16 +123,27 @@ type Submission {
   updatedAt: DateTime!
 }
 
-type InputExecutionResult {
-  testCase: TestCase!
-  output: String!
-  executionTime: Float!
-  timeFormat: String!
+type RegisteredSubmission {
+  id: String!
+  solutionCode: String!
+  runtime: Float!
+  lang: ProgrammingLang!
+  score: Float!
+  status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type SubmissionResult {
-  submission: Submission!
+  submission: RegisteredSubmission!
   inputResults: [InputExecutionResult!]!
+  status: SubmissionStatus!
+}
+
+enum SubmissionStatus {
+  Success
+  Pending
+  Failed
 }
 
 type EventSchedule {

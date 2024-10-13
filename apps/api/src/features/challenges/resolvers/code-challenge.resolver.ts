@@ -16,7 +16,7 @@ import {
   CodeChallenge,
   PaginatedChallenges,
 } from '../models/code-challenge.model';
-import { TestCase } from '../models/test-case.model';
+import { TestCaseModel } from '../models/test-case.model';
 import { ChallengeService } from '../services/challenge.service';
 import { CreateTestCaseInput } from './../dtos/test-case.input';
 
@@ -58,7 +58,7 @@ export class CodeChallengeResolver {
     return paginate(response);
   }
 
-  @ResolveField(() => [TestCase])
+  @ResolveField(() => [TestCaseModel])
   testCases(@Parent() codeChallenge: CodeChallenge) {
     return this.challengeService.findCodeChallengeTestCases(codeChallenge.id);
   }

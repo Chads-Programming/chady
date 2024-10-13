@@ -66,7 +66,7 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
   )
   const [editorCode, setEditorCode] = useState('')
 
-  const { submission } = useSubmission({
+  const { submission, testCasesStatus } = useSubmission({
     challengeId: params.id,
     programmingLang: selectedLang,
   })
