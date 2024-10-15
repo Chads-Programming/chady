@@ -35,38 +35,18 @@ import {
 import { useSubmission } from '../hooks/use-submission'
 import { useGetCodeChallengeByIdQuery } from '../queries/get-challenge-by-id'
 
-const testResults = [
-  {
-    id: 'test-1',
-    input: [1, 2, 3],
-    ouput: 6,
-    currentOutput: 6,
-    isSuccess: true,
-  },
-  {
-    id: 'test-2',
-    input: [1, 2, 3, 1],
-    ouput: 7,
-    currentOutput: 5,
-    isSuccess: false,
-  },
-  {
-    id: 'test-3',
-    isSuccess: true,
-  },
-  {
-    id: 'test-4',
-    isSuccess: false,
-  },
-]
-
 const ChallengePage = ({ params }: { params: { id: string } }) => {
   const [selectedLang, setSelectedLang] = useState<ProgrammingLang>(
     ProgrammingLang.Javascript,
   )
   const [editorCode, setEditorCode] = useState('')
 
-  const { submission, testCasesStatus } = useSubmission({
+  const {
+    submission,
+    isLoadingSubmission,
+    isSubmissionError,
+    submissionStatus,
+  } = useSubmission({
     challengeId: params.id,
     programmingLang: selectedLang,
   })
@@ -230,32 +210,40 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
             <CustomResizableHandle horizontal />
             <ResizablePanel defaultSize={25}>
               <div className="flex flex-col items-start justify-start p-6 w-full h-[calc(100%_-_44px)] overflow-y-auto">
-                {
-                  <TestCases>
-                    {testResults.map(({ id, isSuccess, ...restTest }) => {
-                      if (restTest.input?.toString()) {
+                <LoaderAndError
+                  loading={isLoadingSubmission}
+                  isError={isSubmissionError}
+                  data={submissionStatus?.testResults}
+                  errorState={<ErrorState title="An error has occurred" />}
+                  emptyState={<EmptyState title="No results to display" />}
+                >
+                  {({ data: testResults }) => (
+                    <TestCases>
+                      {testResults.map(({ id, isSuccess, ...restTest }) => {
+                        if (restTest.input?.toString()) {
+                          return (
+                            <TestResult
+                              key={id}
+                              id={id}
+                              isSuccess={isSuccess}
+                              input={restTest.input}
+                              currentOuput={restTest.currentOutput}
+                              expectedOutput={restTest.ouput}
+                            />
+                          )
+                        }
+
                         return (
-                          <TestResult
+                          <SecretTestResult
                             key={id}
                             id={id}
                             isSuccess={isSuccess}
-                            input={restTest.input}
-                            currentOuput={restTest.currentOutput}
-                            expectedOutput={restTest.ouput}
                           />
                         )
-                      }
-
-                      return (
-                        <SecretTestResult
-                          key={id}
-                          id={id}
-                          isSuccess={isSuccess}
-                        />
-                      )
-                    })}
-                  </TestCases>
-                }
+                      })}
+                    </TestCases>
+                  )}
+                </LoaderAndError>
               </div>
             </ResizablePanel>
           </ResizablePanelGroup>

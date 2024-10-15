@@ -28,7 +28,7 @@ export type CodeChallenge = {
   id: Scalars['String']['output'];
   langDetails: Array<CodeLangChallengeDetail>;
   startedCode: Scalars['String']['output'];
-  testCases: Array<TestCase>;
+  testCases: Array<TestCaseModel>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -115,8 +115,9 @@ export enum EventType {
 export type InputExecutionResult = {
   __typename?: 'InputExecutionResult';
   executionTime: Scalars['Float']['output'];
+  isSuccess: Scalars['Boolean']['output'];
   output: Scalars['String']['output'];
-  testCase: TestCase;
+  testCase: TestCaseModel;
   timeFormat: Scalars['String']['output'];
 };
 
@@ -254,6 +255,18 @@ export type RegisterEventInput = {
   schedule: CreateEventScheduleInput;
 };
 
+export type RegisteredSubmission = {
+  __typename?: 'RegisteredSubmission';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  lang: ProgrammingLang;
+  runtime: Scalars['Float']['output'];
+  score: Scalars['Float']['output'];
+  solutionCode: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type RoleDetail = {
   __typename?: 'RoleDetail';
   color: Scalars['Float']['output'];
@@ -291,11 +304,18 @@ export type SubmissionInput = {
 export type SubmissionResult = {
   __typename?: 'SubmissionResult';
   inputResults: Array<InputExecutionResult>;
-  submission: Submission;
+  status: SubmissionStatus;
+  submission: RegisteredSubmission;
 };
 
-export type TestCase = {
-  __typename?: 'TestCase';
+export enum SubmissionStatus {
+  Failed = 'Failed',
+  Pending = 'Pending',
+  Success = 'Success'
+}
+
+export type TestCaseModel = {
+  __typename?: 'TestCaseModel';
   args: Scalars['JSON']['output'];
   expectedOutput: Scalars['String']['output'];
   id: Scalars['Float']['output'];
@@ -363,7 +383,7 @@ export type CreateUserSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'Submission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCase', id: number } }> } };
+export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number } }> } };
 
 export type UpdateUserSubmissionMutationVariables = Exact<{
   submissionId: Scalars['String']['input'];
@@ -371,14 +391,14 @@ export type UpdateUserSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'Submission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCase', id: number } }> } };
+export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number } }> } };
 
 export type FindCodeChallengeByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCase', id: number, args: any, expectedOutput: string, isSecret: boolean }> } };
+export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCaseModel', id: number, args: any, expectedOutput: string, isSecret: boolean }> } };
 
 export type FindCodeChallngesQueryVariables = Exact<{
   difficult?: InputMaybe<Difficult>;
@@ -449,6 +469,7 @@ export const CreateUserSubmissionDocument = new TypedDocumentString(`
       testCase {
         id
       }
+      isSuccess
       output
       executionTime
       timeFormat
@@ -471,6 +492,7 @@ export const UpdateUserSubmissionDocument = new TypedDocumentString(`
       testCase {
         id
       }
+      isSuccess
       output
       executionTime
       timeFormat

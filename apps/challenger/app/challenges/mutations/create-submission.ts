@@ -18,6 +18,7 @@ const CreateUserSubmissionMutation = graphql(`
                   testCase {
                       id
                   }
+                  isSuccess
                   output
                   executionTime
                   timeFormat

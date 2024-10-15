@@ -10,11 +10,6 @@ import { useCreateUserSubmissionMutation } from '../mutations/create-submission'
 import { useUpdateUserSubmissionMutation } from '../mutations/update-submission'
 import { useGetUserSubmissionQuery } from '../queries/get-user-submission'
 
-interface TestCaseResult {
-  testCaseId: number
-  testResult: string
-}
-
 interface SubmissionStatus {
   runtime: number
   testResults: TestCaseResult[]
@@ -63,14 +58,9 @@ export const useSubmission = ({
 
     const { inputResults, submission } = mutationResponse
 
-    const testCases = inputResults.map((inputResult) => ({
-      testCaseId: inputResult.testCase.id,
-      testResult: inputResult.output,
-    })) as TestCaseResult[]
-
     setSubmissionStatus({
       runtime: submission.runtime,
-      testResults: testCases,
+      testResults: inputResults,
     })
   }
 
