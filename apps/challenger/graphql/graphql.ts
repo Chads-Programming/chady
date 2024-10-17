@@ -28,7 +28,7 @@ export type CodeChallenge = {
   id: Scalars['String']['output'];
   langDetails: Array<CodeLangChallengeDetail>;
   startedCode: Scalars['String']['output'];
-  testCases: Array<TestCase>;
+  testCases: Array<TestCaseModel>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -115,8 +115,9 @@ export enum EventType {
 export type InputExecutionResult = {
   __typename?: 'InputExecutionResult';
   executionTime: Scalars['Float']['output'];
+  isSuccess: Scalars['Boolean']['output'];
   output: Scalars['String']['output'];
-  testCase: TestCase;
+  testCase: TestCaseModel;
   timeFormat: Scalars['String']['output'];
 };
 
@@ -244,13 +245,26 @@ export type QueryGetCodeChallengeArgs = {
 
 
 export type QueryGetUserSubmissionArgs = {
-  submissionId: Scalars['String']['input'];
+  codeChallengeId: Scalars['String']['input'];
+  programmingLang: ProgrammingLang;
 };
 
 export type RegisterEventInput = {
   creators: Array<Scalars['String']['input']>;
   event: CreateEventInput;
   schedule: CreateEventScheduleInput;
+};
+
+export type RegisteredSubmission = {
+  __typename?: 'RegisteredSubmission';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['String']['output'];
+  lang: ProgrammingLang;
+  runtime: Scalars['Float']['output'];
+  score: Scalars['Float']['output'];
+  solutionCode: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type RoleDetail = {
@@ -272,6 +286,7 @@ export type Submission = {
   codeChallenge: CodeChallenge;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
+  lang: ProgrammingLang;
   runtime: Scalars['Float']['output'];
   score: Scalars['Float']['output'];
   solutionCode: Scalars['String']['output'];
@@ -289,11 +304,18 @@ export type SubmissionInput = {
 export type SubmissionResult = {
   __typename?: 'SubmissionResult';
   inputResults: Array<InputExecutionResult>;
-  submission: Submission;
+  status: SubmissionStatus;
+  submission: RegisteredSubmission;
 };
 
-export type TestCase = {
-  __typename?: 'TestCase';
+export enum SubmissionStatus {
+  Failed = 'Failed',
+  Pending = 'Pending',
+  Success = 'Success'
+}
+
+export type TestCaseModel = {
+  __typename?: 'TestCaseModel';
   args: Scalars['JSON']['output'];
   expectedOutput: Scalars['String']['output'];
   id: Scalars['Float']['output'];
@@ -356,12 +378,27 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
 
+export type CreateUserSubmissionMutationVariables = Exact<{
+  submission: SubmissionInput;
+}>;
+
+
+export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: any, isSecret: boolean, expectedOutput: string } }> } };
+
+export type UpdateUserSubmissionMutationVariables = Exact<{
+  submissionId: Scalars['String']['input'];
+  submission: SubmissionInput;
+}>;
+
+
+export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: any, isSecret: boolean, expectedOutput: string } }> } };
+
 export type FindCodeChallengeByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCase', id: number, args: any, expectedOutput: string, isSecret: boolean }> } };
+export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCaseModel', id: number, args: any, expectedOutput: string, isSecret: boolean }> } };
 
 export type FindCodeChallngesQueryVariables = Exact<{
   difficult?: InputMaybe<Difficult>;
@@ -378,6 +415,14 @@ export type LeaderboardQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LeaderboardQueryQuery = { __typename?: 'Query', findSubmissionsLeaderboard: Array<{ __typename?: 'UserScoreModel', totalScore: number, user: { __typename?: 'User', id: string, avatar: string, username: string } }> };
+
+export type GetUserSubmissionQueryQueryVariables = Exact<{
+  codeChallengeId: Scalars['String']['input'];
+  programmingLang: ProgrammingLang;
+}>;
+
+
+export type GetUserSubmissionQueryQuery = { __typename?: 'Query', getUserSubmission: { __typename?: 'Submission', id: string, runtime: number, score: number, solutionCode: string, lang: ProgrammingLang, status: string, createdAt: any, updatedAt: any } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -409,6 +454,58 @@ export const ProfileDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
+export const CreateUserSubmissionDocument = new TypedDocumentString(`
+    mutation CreateUserSubmission($submission: SubmissionInput!) {
+  createUserSubmission(submission: $submission) {
+    submission {
+      id
+      runtime
+      score
+      status
+      createdAt
+      updatedAt
+    }
+    inputResults {
+      testCase {
+        id
+        args
+        isSecret
+        expectedOutput
+      }
+      isSuccess
+      output
+      executionTime
+      timeFormat
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CreateUserSubmissionMutation, CreateUserSubmissionMutationVariables>;
+export const UpdateUserSubmissionDocument = new TypedDocumentString(`
+    mutation UpdateUserSubmission($submissionId: String!, $submission: SubmissionInput!) {
+  updateUserSubmission(submissionId: $submissionId, submission: $submission) {
+    submission {
+      id
+      runtime
+      score
+      status
+      createdAt
+      updatedAt
+    }
+    inputResults {
+      testCase {
+        id
+        args
+        isSecret
+        expectedOutput
+      }
+      isSuccess
+      output
+      executionTime
+      timeFormat
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateUserSubmissionMutation, UpdateUserSubmissionMutationVariables>;
 export const FindCodeChallengeByIdDocument = new TypedDocumentString(`
     query FindCodeChallengeById($id: String!) {
   getCodeChallenge(id: $id) {
@@ -466,3 +563,20 @@ export const LeaderboardQueryDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<LeaderboardQueryQuery, LeaderboardQueryQueryVariables>;
+export const GetUserSubmissionQueryDocument = new TypedDocumentString(`
+    query GetUserSubmissionQuery($codeChallengeId: String!, $programmingLang: ProgrammingLang!) {
+  getUserSubmission(
+    codeChallengeId: $codeChallengeId
+    programmingLang: $programmingLang
+  ) {
+    id
+    runtime
+    score
+    solutionCode
+    lang
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<GetUserSubmissionQueryQuery, GetUserSubmissionQueryQueryVariables>;

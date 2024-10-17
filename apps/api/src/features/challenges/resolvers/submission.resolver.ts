@@ -10,8 +10,10 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { SearchUserSubmissionArgs } from '../dtos/search-user-submission.args';
 import { CodeChallenge } from '../models/code-challenge.model';
-import { Submission, SubmissionResult } from '../models/submission.model';
+import { SubmissionResult } from '../models/submission-result.model';
+import { Submission } from '../models/submission.model';
 import { SubmissionService } from '../services/submission.service';
 import { SubmissionInput } from './../dtos/submission.input';
 
@@ -23,9 +25,13 @@ export class SubmissionResolver {
   @Query(() => Submission)
   getUserSubmission(
     @GqlCurrentUser() user: User,
-    @Args('submissionId') submissionId: string,
+    @Args() { codeChallengeId, programmingLang }: SearchUserSubmissionArgs,
   ) {
-    return this.submissionService.findUserSubmissionById(user.id, submissionId);
+    return this.submissionService.findUserSubmission({
+      userId: user.id,
+      codeChallengeId,
+      programmingLang,
+    });
   }
 
   @Query(() => [Submission])

@@ -169,5 +169,5 @@ model Submission {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  @@unique([userId, codeChallengeId])
+  @@unique([userId, codeChallengeId, lang])
 }

@@ -5,9 +5,8 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { SubmissionStatus } from '@prisma/client';
+import { ProgrammingLang, SubmissionStatus } from '@prisma/client';
 import { CodeChallenge } from './code-challenge.model';
-import { TestCase } from './test-case.model';
 
 registerEnumType(SubmissionStatus, {
   name: 'SubmissionStatus',
@@ -23,6 +22,9 @@ export class Submission {
 
   @Field()
   runtime: number;
+
+  @Field(() => ProgrammingLang)
+  lang: ProgrammingLang;
 
   @Field()
   score: number;
@@ -41,28 +43,4 @@ export class Submission {
 
   @Field(() => GraphQLISODateTime)
   updatedAt: Date;
-}
-
-@ObjectType()
-export class InputExecutionResult {
-  @Field(() => TestCase)
-  testCase: TestCase;
-
-  @Field()
-  output: string;
-
-  @Field()
-  executionTime: number;
-
-  @Field()
-  timeFormat: string;
-}
-
-@ObjectType()
-export class SubmissionResult {
-  @Field(() => Submission)
-  submission: Submission;
-
-  @Field(() => [InputExecutionResult])
-  inputResults: InputExecutionResult[];
 }

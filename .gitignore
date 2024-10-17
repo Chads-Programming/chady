@@ -38,3 +38,5 @@ yarn-error.log*
 *.pem
 .idea/
 *.code-workspace
+target
+Cargo.lock

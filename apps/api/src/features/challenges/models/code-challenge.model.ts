@@ -7,7 +7,7 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { Difficult } from '@prisma/client';
-import { TestCase } from './test-case.model';
+import { TestCaseModel } from './test-case.model';
 
 registerEnumType(Difficult, {
   name: 'Difficult',
@@ -33,8 +33,8 @@ export class CodeChallenge {
   @Field(() => [CodeLangChallengeDetail])
   langDetails: CodeLangChallengeDetail[];
 
-  @Field(() => [TestCase], { defaultValue: [] })
-  testCases?: TestCase[];
+  @Field(() => [TestCaseModel], { defaultValue: [] })
+  testCases?: TestCaseModel[];
 
   @Field(() => GraphQLISODateTime)
   createdAt: Date;

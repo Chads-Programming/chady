@@ -10,7 +10,7 @@ type CodeChallenge {
   id: String!
   langDetails: [CodeLangChallengeDetail!]!
   startedCode: String!
-  testCases: [TestCase!]!
+  testCases: [TestCaseModel!]!
   title: String!
   updatedAt: DateTime!
 }
@@ -98,8 +98,9 @@ enum EventType {
 
 type InputExecutionResult {
   executionTime: Float!
+  isSuccess: Boolean!
   output: String!
-  testCase: TestCase!
+  testCase: TestCaseModel!
   timeFormat: String!
 }
 
@@ -161,7 +162,7 @@ type Query {
   findProfile: UserDetail!
   findSubmissionsLeaderboard: [UserScoreModel!]!
   getCodeChallenge(id: String!): CodeChallenge!
-  getUserSubmission(submissionId: String!): Submission!
+  getUserSubmission(codeChallengeId: String!, programmingLang: ProgrammingLang!): Submission!
   getUserSubmissions: [Submission!]!
 }
 
@@ -169,6 +170,17 @@ input RegisterEventInput {
   creators: [String!]!
   event: CreateEventInput!
   schedule: CreateEventScheduleInput!
+}
+
+type RegisteredSubmission {
+  createdAt: DateTime!
+  id: String!
+  lang: ProgrammingLang!
+  runtime: Float!
+  score: Float!
+  solutionCode: String!
+  status: String!
+  updatedAt: DateTime!
 }
 
 type RoleDetail {
@@ -188,6 +200,7 @@ type Submission {
   codeChallenge: CodeChallenge!
   createdAt: DateTime!
   id: String!
+  lang: ProgrammingLang!
   runtime: Float!
   score: Float!
   solutionCode: String!
@@ -204,10 +217,17 @@ input SubmissionInput {
 
 type SubmissionResult {
   inputResults: [InputExecutionResult!]!
-  submission: Submission!
+  status: SubmissionStatus!
+  submission: RegisteredSubmission!
 }
 
-type TestCase {
+enum SubmissionStatus {
+  Failed
+  Pending
+  Success
+}
+
+type TestCaseModel {
   args: JSON!
   expectedOutput: String!
   id: Float!

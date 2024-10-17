@@ -1,5 +1,9 @@
 import { join } from 'node:path';
+import { AuthModule } from '@/auth/auth.module';
+import { ChallengesModule } from '@/challenges/challenges.module';
 import { DiscordModule } from '@/discord/discord.module';
+import { EventsModule } from '@/events/events.module';
+import { UsersModule } from '@/users/users.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -7,10 +11,6 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
-import { AuthModule } from './features/auth/auth.module';
-import { ChallengesModule } from './features/challenges/challenges.module';
-import { EventsModule } from './features/events/events.module';
-import { UsersModule } from './features/users/users.module';
 
 @Module({
   imports: [

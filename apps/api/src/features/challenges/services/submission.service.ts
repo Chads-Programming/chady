@@ -2,6 +2,7 @@ import { calculateChallengeScore } from '@/challenges/helpers/challenge-score';
 import { difficultMapToFactor } from '@/challenges/mappings/difficult-factor.mapped';
 import { PrismaService } from '@/database/prisma.service';
 import { CodeExecutionContext } from '@/runner/strategies/execution.context';
+import { JavascriptExecutionStrategy } from '@/runner/strategies/javascript.strategy';
 import { PythonExecutionStrategy } from '@/runner/strategies/python.strategy';
 import {
   ForbiddenException,
@@ -9,8 +10,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ProgrammingLang, SubmissionStatus, TestCase } from '@prisma/client';
+import { SearchUserSubmissionArgs } from '../dtos/search-user-submission.args';
 import { SubmissionInput } from '../dtos/submission.input';
-import { JavascriptExecutionStrategy } from './../../../runner/strategies/javascript.strategy';
+import { InputExecutionResult } from '../models/input-execution-result.model';
+import { SubmissionResult } from '../models/submission-result.model';
+import { TestCaseModel } from '../models/test-case.model';
 import { ChallengeService } from './challenge.service';
 
 @Injectable()
@@ -22,11 +26,26 @@ export class SubmissionService {
     private readonly challengeService: ChallengeService,
   ) {}
 
-  async findUserSubmissionById(userId: string, submissionId: string) {
+  async findUserSubmission({
+    userId,
+    codeChallengeId,
+    programmingLang,
+  }: {
+    userId: string;
+  } & SearchUserSubmissionArgs) {
     return this.prisma.submission.findFirst({
       where: {
-        id: submissionId,
+        codeChallengeId,
+        lang: programmingLang,
         userId,
+      },
+    });
+  }
+
+  async findUserSubmissionById(id: string) {
+    return this.prisma.submission.findFirst({
+      where: {
+        id,
       },
     });
   }
@@ -51,8 +70,12 @@ export class SubmissionService {
     });
   }
 
-  async createUserSubmission(userId: string, submission: SubmissionInput) {
-    const { inputResults, runtime } = await this.executeSubmission(submission);
+  async createUserSubmission(
+    userId: string,
+    submission: SubmissionInput,
+  ): Promise<SubmissionResult> {
+    const { inputResults, runtime, status } =
+      await this.executeSubmission(submission);
     const { difficult } = await this.challengeService.findCodeChallengeById(
       submission.challengeId,
     );
@@ -73,8 +96,12 @@ export class SubmissionService {
     });
 
     return {
-      submission: createdSubmission,
+      submission: {
+        ...createdSubmission,
+        runtime,
+      },
       inputResults,
+      status,
     };
   }
 
@@ -93,7 +120,7 @@ export class SubmissionService {
     submissionId: string,
     userId: string,
     submission: SubmissionInput,
-  ) {
+  ): Promise<SubmissionResult> {
     const hasOwnership = await this.checkSubmissionOwnership(
       userId,
       submissionId,
@@ -102,11 +129,6 @@ export class SubmissionService {
     if (!hasOwnership) {
       throw new ForbiddenException('User is not related to update submission');
     }
-
-    const userSubmission = await this.findUserSubmissionById(
-      userId,
-      submissionId,
-    );
 
     const { difficult } = await this.challengeService.findCodeChallengeById(
       submission.challengeId,
@@ -131,8 +153,12 @@ export class SubmissionService {
     });
 
     return {
-      submission: updatedSubmission,
+      submission: {
+        ...updatedSubmission,
+        runtime,
+      },
       inputResults,
+      status,
     };
   }
 
@@ -184,7 +210,7 @@ export class SubmissionService {
       return result.output === testCase.expectedOutput;
     });
 
-    const inputResults = executionResult.results.map(
+    const inputResults: InputExecutionResult[] = executionResult.results.map(
       ({ input, output, execution_time, time_format }) => {
         const testCase = mappedTestCases.get(Number(input.id));
 
@@ -193,6 +219,7 @@ export class SubmissionService {
           output,
           executionTime: execution_time,
           timeFormat: time_format,
+          isSuccess: output === testCase.expectedOutput,
         };
       },
     );
@@ -204,15 +231,17 @@ export class SubmissionService {
     };
   }
 
-  private handleSecretTestCase(testCase: TestCase) {
+  private handleSecretTestCase(testCase: TestCase): TestCaseModel {
     if (testCase.isSecret) {
       return {
         ...testCase,
-        id: 'secret',
-        args: '****',
+        args: {},
         expectedOutput: '****',
       };
     }
-    return testCase;
+    return {
+      ...testCase,
+      args: testCase.args as Record<string, unknown>,
+    };
   }
 }

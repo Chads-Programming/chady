@@ -2,12 +2,12 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
-export class TestCase {
+export class TestCaseModel {
   @Field()
   id: number;
 
   @Field(() => GraphQLJSON)
-  args: JSON;
+  args: Record<string, unknown>;
 
   @Field()
   expectedOutput: string;
