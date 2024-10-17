@@ -1,6 +1,7 @@
 import { useAuth } from '@/app/auth/hooks/use-auth'
 import type {
   CreateUserSubmissionMutation,
+  InputExecutionResult,
   ProgrammingLang,
   UpdateUserSubmissionMutation,
 } from '@/graphql/graphql'
@@ -12,7 +13,7 @@ import { useGetUserSubmissionQuery } from '../queries/get-user-submission'
 
 interface SubmissionStatus {
   runtime: number
-  testResults: TestCaseResult[]
+  testResults: InputExecutionResult[]
 }
 
 interface SubmissionArgs {

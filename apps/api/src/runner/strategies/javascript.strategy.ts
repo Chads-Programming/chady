@@ -7,8 +7,6 @@ import {
   PrepareMainCodeArgs,
 } from './code-execution.strategy';
 
-const LIBRARY_IMPORTS = `const writter = require('./write');`;
-
 @Injectable()
 export class JavascriptExecutionStrategy implements CodeExecutionStrategy {
   constructor(private readonly runner: RunnerService) {}
@@ -16,7 +14,7 @@ export class JavascriptExecutionStrategy implements CodeExecutionStrategy {
   prepareMainCode(args: PrepareMainCodeArgs): string {
     const { baseCode, solutionCode } = args;
 
-    return `${LIBRARY_IMPORTS}\n${solutionCode}\n${baseCode}`;
+    return `${solutionCode}\n${baseCode}`;
   }
 
   execute({ inputs, mainCode }: ExecuteCodeArgs): Promise<RunnerOutput> {

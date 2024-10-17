@@ -12,13 +12,12 @@ pub fn parse_output(output: &Output, input: &Input) -> InputResult {
 
     let execution_time: f64 = tokens
         .next()
-        .unwrap()
-        .to_string()
+        .unwrap_or("-1ms")
         .replace("ms", "")
         .parse()
         .unwrap_or(DEFAULT_TIME);
 
-    let result = tokens.next().unwrap().to_string();
+    let result = tokens.next().unwrap_or("").to_string();
 
     if !result.is_empty() {
         return InputResult {

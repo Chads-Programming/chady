@@ -9,6 +9,7 @@ import {
   ProgrammingLang,
 } from '@/graphql/graphql'
 import { Editor } from '@monaco-editor/react'
+
 import {
   Button,
   type DropdownItem,
@@ -46,6 +47,7 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
     isLoadingSubmission,
     isSubmissionError,
     submissionStatus,
+    submitSolution,
   } = useSubmission({
     challengeId: params.id,
     programmingLang: selectedLang,
@@ -77,6 +79,14 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
   const handleLangChange = (
     option: DropdownItem<CodeLangChallengeDetail, string | number>,
   ) => setSelectedLang(option.data.lang)
+
+  const handleSubmit = () => {
+    submitSolution(editorCode)
+  }
+
+  const handleEditorChange = (code: string | undefined) => {
+    setEditorCode(code ?? '')
+  }
 
   useEffect(() => {
     if (!challenge || !selectedLang) {
@@ -186,17 +196,18 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                     <Button
                       variant="default"
                       className="inline-flex items-center gap-1 text-white"
+                      onClick={handleSubmit}
                     >
                       <Play className="w-4 h-4" /> Submit
                     </Button>
                   </ProtectedAction>
                 </div>
                 <Editor
-                  key={selectedLang}
                   height="100%"
                   language={selectedLang?.toLowerCase()}
                   theme="vs-dark"
-                  defaultValue={editorCode}
+                  value={editorCode}
+                  onChange={handleEditorChange}
                   options={{
                     fontSize: 16,
                     formatOnType: true,
@@ -219,25 +230,25 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                 >
                   {({ data: testResults }) => (
                     <TestCases>
-                      {testResults.map(({ id, isSuccess, ...restTest }) => {
-                        if (restTest.input?.toString()) {
+                      {testResults.map(({ isSuccess, testCase, output }) => {
+                        if (testCase.isSecret) {
                           return (
-                            <TestResult
-                              key={id}
-                              id={id}
+                            <SecretTestResult
+                              key={testCase.id}
+                              id={testCase.id.toString()}
                               isSuccess={isSuccess}
-                              input={restTest.input}
-                              currentOuput={restTest.currentOutput}
-                              expectedOutput={restTest.ouput}
                             />
                           )
                         }
 
                         return (
-                          <SecretTestResult
-                            key={id}
-                            id={id}
+                          <TestResult
+                            key={testCase.id}
+                            id={testCase.id.toString()}
                             isSuccess={isSuccess}
+                            input={testCase.args.toString()}
+                            currentOuput={output}
+                            expectedOutput={testCase.expectedOutput}
                           />
                         )
                       })}

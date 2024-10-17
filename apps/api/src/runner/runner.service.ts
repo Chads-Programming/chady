@@ -13,6 +13,7 @@ export class RunnerService {
 
     const request$ = this.http.post<RunnerOutput>(url, {
       ...codeBody,
+      id: new Date().getTime().toString(),
       main_code: codeBody.mainCode,
     });
     const result = await firstValueFrom(request$);

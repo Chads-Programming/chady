@@ -17,6 +17,9 @@ const CreateUserSubmissionMutation = graphql(`
               inputResults {
                   testCase {
                       id
+                      args
+                      isSecret
+                      expectedOutput
                   }
                   isSuccess
                   output

@@ -383,7 +383,7 @@ export type CreateUserSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number } }> } };
+export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: any, isSecret: boolean, expectedOutput: string } }> } };
 
 export type UpdateUserSubmissionMutationVariables = Exact<{
   submissionId: Scalars['String']['input'];
@@ -391,7 +391,7 @@ export type UpdateUserSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number } }> } };
+export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: any, isSecret: boolean, expectedOutput: string } }> } };
 
 export type FindCodeChallengeByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -468,6 +468,9 @@ export const CreateUserSubmissionDocument = new TypedDocumentString(`
     inputResults {
       testCase {
         id
+        args
+        isSecret
+        expectedOutput
       }
       isSuccess
       output
@@ -491,6 +494,9 @@ export const UpdateUserSubmissionDocument = new TypedDocumentString(`
     inputResults {
       testCase {
         id
+        args
+        isSecret
+        expectedOutput
       }
       isSuccess
       output
