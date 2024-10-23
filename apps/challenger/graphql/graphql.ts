@@ -16,8 +16,6 @@ export type Scalars = {
   Float: { input: number; output: number; }
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: { input: any; output: any; }
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: any; output: any; }
 };
 
 export type CodeChallenge = {
@@ -72,7 +70,7 @@ export type CreateEventScheduleInput = {
 };
 
 export type CreateTestCaseInput = {
-  args: Scalars['JSON']['input'];
+  args: Scalars['String']['input'];
   codeChallengeId: Scalars['String']['input'];
   expectedOutput: Scalars['String']['input'];
   isSecret: Scalars['Boolean']['input'];
@@ -316,7 +314,7 @@ export enum SubmissionStatus {
 
 export type TestCaseModel = {
   __typename?: 'TestCaseModel';
-  args: Scalars['JSON']['output'];
+  args: Scalars['String']['output'];
   expectedOutput: Scalars['String']['output'];
   id: Scalars['Float']['output'];
   isSecret: Scalars['Boolean']['output'];
@@ -383,7 +381,7 @@ export type CreateUserSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: any, isSecret: boolean, expectedOutput: string } }> } };
+export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: string, isSecret: boolean, expectedOutput: string } }> } };
 
 export type UpdateUserSubmissionMutationVariables = Exact<{
   submissionId: Scalars['String']['input'];
@@ -391,14 +389,14 @@ export type UpdateUserSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: any, isSecret: boolean, expectedOutput: string } }> } };
+export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: string, isSecret: boolean, expectedOutput: string } }> } };
 
 export type FindCodeChallengeByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCaseModel', id: number, args: any, expectedOutput: string, isSecret: boolean }> } };
+export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCaseModel', id: number, args: string, expectedOutput: string, isSecret: boolean }> } };
 
 export type FindCodeChallngesQueryVariables = Exact<{
   difficult?: InputMaybe<Difficult>;

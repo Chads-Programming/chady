@@ -53,7 +53,7 @@ input CreateEventScheduleInput {
 }
 
 input CreateTestCaseInput {
-  args: JSON!
+  args: String!
   codeChallengeId: String!
   expectedOutput: String!
   isSecret: Boolean!
@@ -103,11 +103,6 @@ type InputExecutionResult {
   testCase: TestCaseModel!
   timeFormat: String!
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
 
 type JwtModel {
   accessToken: String!
@@ -228,7 +223,7 @@ enum SubmissionStatus {
 }
 
 type TestCaseModel {
-  args: JSON!
+  args: String!
   expectedOutput: String!
   id: Float!
   isSecret: Boolean!

@@ -142,7 +142,7 @@ model CodeChallengeLangDetail {
 
 model TestCase {
   id              Int     @id @default(autoincrement())
-  args            Json
+  args            String
   expectedOutput  String
   codeChallengeId String
   isSecret        Boolean @default(false)

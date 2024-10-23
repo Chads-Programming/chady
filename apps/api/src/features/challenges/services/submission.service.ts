@@ -192,7 +192,7 @@ export class SubmissionService {
     const executionResult = await executionContext.executeCode({
       inputs: testCases.map((testCase) => ({
         id: testCase.id.toString(),
-        args: JSON.stringify(testCase.args),
+        args: testCase.args,
       })),
       mainCodeArgs: {
         baseCode: challengeLangDetail.mainCode,
@@ -235,13 +235,13 @@ export class SubmissionService {
     if (testCase.isSecret) {
       return {
         ...testCase,
-        args: {},
+        args: '****',
         expectedOutput: '****',
       };
     }
     return {
       ...testCase,
-      args: testCase.args as Record<string, unknown>,
+      args: testCase.args,
     };
   }
 }
