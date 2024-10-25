@@ -7,7 +7,7 @@ const LeaderboardQuery = graphql(`
         findSubmissionsLeaderboard {
             user {
                 id
-                avatar
+                avatarUrl
                 username
             }
             totalScore

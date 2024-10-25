@@ -34,7 +34,7 @@ type JwtModel {
 }
 
 type UserScoreModel {
-  user: User!
+  user: UserDetail!
   userId: String!
   totalScore: Float!
 }

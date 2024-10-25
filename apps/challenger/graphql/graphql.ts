@@ -367,7 +367,7 @@ export type UserDetail = {
 export type UserScoreModel = {
   __typename?: 'UserScoreModel';
   totalScore: Scalars['Float']['output'];
-  user: User;
+  user: UserDetail;
   userId: Scalars['String']['output'];
 };
 
@@ -412,7 +412,7 @@ export type FindCodeChallngesQuery = { __typename?: 'Query', findCodeChallenges:
 export type LeaderboardQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LeaderboardQueryQuery = { __typename?: 'Query', findSubmissionsLeaderboard: Array<{ __typename?: 'UserScoreModel', totalScore: number, user: { __typename?: 'User', id: string, avatar: string, username: string } }> };
+export type LeaderboardQueryQuery = { __typename?: 'Query', findSubmissionsLeaderboard: Array<{ __typename?: 'UserScoreModel', totalScore: number, user: { __typename?: 'UserDetail', id: string, avatarUrl: string, username: string } }> };
 
 export type GetUserSubmissionQueryQueryVariables = Exact<{
   codeChallengeId: Scalars['String']['input'];
@@ -554,7 +554,7 @@ export const LeaderboardQueryDocument = new TypedDocumentString(`
   findSubmissionsLeaderboard {
     user {
       id
-      avatar
+      avatarUrl
       username
     }
     totalScore

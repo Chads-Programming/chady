@@ -273,6 +273,6 @@ type UserDetail {
 
 type UserScoreModel {
   totalScore: Float!
-  user: User!
+  user: UserDetail!
   userId: String!
 }

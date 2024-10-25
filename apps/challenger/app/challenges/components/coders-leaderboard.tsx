@@ -1,7 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage, cn } from '@repo/ui'
 
+export interface LeaderBoardItem {
+  id: string
+  avatar: string
+  username: string
+  totalScore: number
+}
+
 interface Props {
-  items: { id: string; avatar: string; username: string; totalScore: number }[]
+  items: LeaderBoardItem[]
 }
 
 export const CodersLeaderboard = ({ items }: Props) => {

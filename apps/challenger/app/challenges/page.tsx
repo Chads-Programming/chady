@@ -1,4 +1,5 @@
 'use client'
+
 import { ChallengeList } from '@/app/challenges/components/challenge-list'
 import { useGetLeaderboardQuery } from '@/app/challenges/queries/get-leaderdboard'
 import { EmptyState } from '@/app/shared/components/empty-state'
@@ -10,7 +11,11 @@ import { LoaderAndError, Paginator } from '@repo/ui'
 import { useMemo } from 'react'
 import { SearchBox } from '../shared/components/search-box'
 import { ChallengeFilters } from './components/challenge-filters'
-import { CodersLeaderboard } from './components/coders-leaderboard'
+import {
+  CodersLeaderboard,
+  type LeaderBoardItem,
+} from './components/coders-leaderboard'
+
 import { useGetCodeChallengesQuery } from './queries/get-challenges'
 
 export default function Home() {
@@ -21,14 +26,14 @@ export default function Home() {
     isError: isLeaderboardError,
   } = useGetLeaderboardQuery()
 
-  const codersLeaderboard = useMemo(() => {
+  const codersLeaderboard: LeaderBoardItem[] = useMemo(() => {
     if (!leaderboardResult?.leaderboard) {
       return []
     }
 
     return leaderboardResult.leaderboard.map(({ user, totalScore }) => ({
       id: user.id,
-      avatar: user.avatar,
+      avatar: user.avatarUrl,
       username: user.username,
       totalScore: totalScore,
     }))

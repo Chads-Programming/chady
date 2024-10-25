@@ -1,7 +1,10 @@
+import discordUtils from '@/discord/utils';
+
 import { GqlCurrentUser } from '@/auth/decorators/current-user';
 import { GQLJwtAuthGuard } from '@/auth/guards/graphql-jwt-auth.guard';
 import { UserScoreModel } from '@/challenges/models/user-score.model';
 import { SubmissionScoreService } from '@/challenges/services/submission-score.service';
+import { UserDetail } from '@/features/users/models/user-detail.model';
 import { User } from '@/users/models/user.model';
 import { UserService } from '@/users/services/user.service';
 import { UseGuards } from '@nestjs/common';
@@ -25,8 +28,13 @@ export class SubmissionScoreResolver {
     return this.submissionScoreService.findSubmissionsLeaderboard();
   }
 
-  @ResolveField(() => User)
-  user(@Parent() userScore: UserScoreModel) {
-    return this.userService.findUserById(userScore.userId);
+  @ResolveField(() => UserDetail)
+  async user(@Parent() userScore: UserScoreModel) {
+    const user = await this.userService.findUserById(userScore.userId);
+
+    return {
+      ...user,
+      avatarUrl: discordUtils.getAvatarUrl(user.discordId, user.avatar),
+    };
   }
 }
