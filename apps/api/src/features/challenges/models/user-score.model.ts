@@ -1,10 +1,10 @@
-import { User } from '@/users/models/user.model';
+import { UserDetail } from '@/features/users/models/user-detail.model';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class UserScoreModel {
-  @Field(() => User)
-  user: User;
+  @Field(() => UserDetail)
+  user: UserDetail;
 
   @Field()
   userId: string;

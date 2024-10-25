@@ -109,7 +109,7 @@ export class ChallengeService {
   async createTestCase(createTestCaseDto: CreateTestCaseInput) {
     return this.prisma.testCase.create({
       data: {
-        args: createTestCaseDto.args as Prisma.JsonValue,
+        args: createTestCaseDto.args,
         isSecret: createTestCaseDto.isSecret,
         expectedOutput: createTestCaseDto.expectedOutput,
         codeChallengeId: createTestCaseDto.codeChallengeId,

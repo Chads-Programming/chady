@@ -1,11 +1,12 @@
 import { PrismaService } from '@/database/prisma.service';
 import { Injectable } from '@nestjs/common';
+import { UserScoreModel } from '../models/user-score.model';
 
 @Injectable()
 export class SubmissionScoreService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findSubmissionsLeaderboard() {
+  async findSubmissionsLeaderboard(): Promise<Omit<UserScoreModel, 'user'>[]> {
     const rawScores = await this.prisma.submission.groupBy({
       by: ['userId'],
       _sum: {
@@ -21,7 +22,7 @@ export class SubmissionScoreService {
 
     return rawScores.map((userScore) => ({
       userId: userScore.userId,
-      totalScore: userScore._sum,
+      totalScore: userScore._sum.score,
     }));
   }
 

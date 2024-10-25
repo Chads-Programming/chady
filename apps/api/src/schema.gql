@@ -34,7 +34,7 @@ type JwtModel {
 }
 
 type UserScoreModel {
-  user: User!
+  user: UserDetail!
   userId: String!
   totalScore: Float!
 }
@@ -69,15 +69,10 @@ type PageInfo {
 
 type TestCaseModel {
   id: Float!
-  args: JSON!
+  args: String!
   expectedOutput: String!
   isSecret: Boolean!
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
 
 type CodeChallenge {
   id: String!
@@ -269,7 +264,7 @@ input CreateCodeChallengeInput {
 }
 
 input CreateTestCaseInput {
-  args: JSON!
+  args: String!
   expectedOutput: String!
   codeChallengeId: String!
   isSecret: Boolean!
