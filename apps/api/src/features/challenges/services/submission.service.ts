@@ -244,4 +244,27 @@ export class SubmissionService {
       args: testCase.args,
     };
   }
+
+  async submitUserSolution(
+    userId: string,
+    submission: SubmissionInput,
+  ): Promise<SubmissionResult> {
+    const currentSubmission = await this.prisma.submission.findFirst({
+      where: {
+        userId,
+        codeChallengeId: submission.challengeId,
+        lang: submission.lang,
+      },
+    });
+
+    if (currentSubmission) {
+      return this.updateUserSubmission(
+        currentSubmission.id,
+        userId,
+        submission,
+      );
+    }
+
+    return this.createUserSubmission(userId, submission);
+  }
 }

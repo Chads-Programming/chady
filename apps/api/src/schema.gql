@@ -198,8 +198,7 @@ type Mutation {
   updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
   createCodeChallenge(newCodeChallenge: CreateCodeChallengeInput!): CodeChallenge!
   createTestCase(testCase: CreateTestCaseInput!): CodeChallenge!
-  createUserSubmission(submission: SubmissionInput!): SubmissionResult!
-  updateUserSubmission(submissionId: String!, submission: SubmissionInput!): SubmissionResult!
+  submitUserSolution(submission: SubmissionInput!): SubmissionResult!
   refreshToken: JwtModel!
 }
 

@@ -132,6 +132,7 @@ export type Mutation = {
   createUserSubmission: SubmissionResult;
   refreshToken: JwtModel;
   registerEvent: Event;
+  submitUserSolution: SubmissionResult;
   updateEvent: Event;
   updateSchedule: EventSchedule;
   updateUserSubmission: SubmissionResult;
@@ -155,6 +156,11 @@ export type MutationCreateUserSubmissionArgs = {
 
 export type MutationRegisterEventArgs = {
   newEvent: RegisterEventInput;
+};
+
+
+export type MutationSubmitUserSolutionArgs = {
+  submission: SubmissionInput;
 };
 
 
@@ -376,20 +382,12 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
 
-export type CreateUserSubmissionMutationVariables = Exact<{
+export type SubmitSolutionMutationVariables = Exact<{
   submission: SubmissionInput;
 }>;
 
 
-export type CreateUserSubmissionMutation = { __typename?: 'Mutation', createUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: string, isSecret: boolean, expectedOutput: string } }> } };
-
-export type UpdateUserSubmissionMutationVariables = Exact<{
-  submissionId: Scalars['String']['input'];
-  submission: SubmissionInput;
-}>;
-
-
-export type UpdateUserSubmissionMutation = { __typename?: 'Mutation', updateUserSubmission: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: string, isSecret: boolean, expectedOutput: string } }> } };
+export type SubmitSolutionMutation = { __typename?: 'Mutation', submitUserSolution: { __typename?: 'SubmissionResult', submission: { __typename?: 'RegisteredSubmission', id: string, runtime: number, score: number, status: string, createdAt: any, updatedAt: any }, inputResults: Array<{ __typename?: 'InputExecutionResult', isSuccess: boolean, output: string, executionTime: number, timeFormat: string, testCase: { __typename?: 'TestCaseModel', id: number, args: string, isSecret: boolean, expectedOutput: string } }> } };
 
 export type FindCodeChallengeByIdQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -452,9 +450,9 @@ export const ProfileDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
-export const CreateUserSubmissionDocument = new TypedDocumentString(`
-    mutation CreateUserSubmission($submission: SubmissionInput!) {
-  createUserSubmission(submission: $submission) {
+export const SubmitSolutionDocument = new TypedDocumentString(`
+    mutation SubmitSolution($submission: SubmissionInput!) {
+  submitUserSolution(submission: $submission) {
     submission {
       id
       runtime
@@ -477,33 +475,7 @@ export const CreateUserSubmissionDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<CreateUserSubmissionMutation, CreateUserSubmissionMutationVariables>;
-export const UpdateUserSubmissionDocument = new TypedDocumentString(`
-    mutation UpdateUserSubmission($submissionId: String!, $submission: SubmissionInput!) {
-  updateUserSubmission(submissionId: $submissionId, submission: $submission) {
-    submission {
-      id
-      runtime
-      score
-      status
-      createdAt
-      updatedAt
-    }
-    inputResults {
-      testCase {
-        id
-        args
-        isSecret
-        expectedOutput
-      }
-      isSuccess
-      output
-      executionTime
-      timeFormat
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<UpdateUserSubmissionMutation, UpdateUserSubmissionMutationVariables>;
+    `) as unknown as TypedDocumentString<SubmitSolutionMutation, SubmitSolutionMutationVariables>;
 export const FindCodeChallengeByIdDocument = new TypedDocumentString(`
     query FindCodeChallengeById($id: String!) {
   getCodeChallenge(id: $id) {
