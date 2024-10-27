@@ -3,9 +3,9 @@ import { execute } from '@/graphql/execute'
 import type { SubmissionInput } from '@/graphql/graphql'
 import { useMutation } from '@tanstack/react-query'
 
-const CreateUserSubmissionMutation = graphql(`
-    mutation CreateUserSubmission($submission: SubmissionInput!) {
-        createUserSubmission(submission: $submission ){
+const SubmitSolutionMutation = graphql(`
+    mutation SubmitSolution($submission: SubmissionInput!) {
+        submitUserSolution(submission: $submission ){
               submission {
                   id
                   runtime
@@ -30,11 +30,11 @@ const CreateUserSubmissionMutation = graphql(`
       }
   `)
 
-export const useCreateUserSubmissionMutation = () =>
+export const useSubmitSolutionMutation = () =>
   useMutation({
-    mutationKey: ['create-user-submission'],
+    mutationKey: ['submit-solution'],
     mutationFn: (args: SubmissionInput) =>
-      execute(CreateUserSubmissionMutation, {
+      execute(SubmitSolutionMutation, {
         submission: args,
       }),
   })

@@ -47,23 +47,10 @@ export class SubmissionResolver {
   }
 
   @Mutation(() => SubmissionResult)
-  createUserSubmission(
+  submitUserSolution(
     @GqlCurrentUser() user: User,
     @Args('submission') submission: SubmissionInput,
   ) {
-    return this.submissionService.createUserSubmission(user.id, submission);
-  }
-
-  @Mutation(() => SubmissionResult)
-  updateUserSubmission(
-    @GqlCurrentUser() user: User,
-    @Args('submissionId') submissionId: string,
-    @Args('submission') submission: SubmissionInput,
-  ) {
-    return this.submissionService.updateUserSubmission(
-      submissionId,
-      user.id,
-      submission,
-    );
+    return this.submissionService.submitUserSolution(user.id, submission);
   }
 }

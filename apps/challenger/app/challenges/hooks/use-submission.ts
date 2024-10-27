@@ -1,14 +1,12 @@
 import { useAuth } from '@/app/auth/hooks/use-auth'
 import type {
-  CreateUserSubmissionMutation,
   InputExecutionResult,
   ProgrammingLang,
-  UpdateUserSubmissionMutation,
+  SubmitSolutionMutation,
 } from '@/graphql/graphql'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useCreateUserSubmissionMutation } from '../mutations/create-submission'
-import { useUpdateUserSubmissionMutation } from '../mutations/update-submission'
+import { useSubmitSolutionMutation } from '../mutations/submit-solution'
 import { useGetUserSubmissionQuery } from '../queries/get-user-submission'
 
 interface SubmissionStatus {
@@ -38,20 +36,13 @@ export const useSubmission = ({
   >(undefined)
 
   const {
-    mutate: createSubmission,
-    isPending: isCreatingSubmission,
-    isError: isCreatingSubmissionError,
-  } = useCreateUserSubmissionMutation()
-  const {
-    mutate: updateSubmission,
-    isPending: isUpdatingSubmission,
-    isError: isUpdatingSubmissionError,
-  } = useUpdateUserSubmissionMutation()
+    mutate: submit,
+    isPending: isLoadingSubmission,
+    isError: isSubmissionError,
+  } = useSubmitSolutionMutation()
 
   const handleSubmissionSuccess = (
-    mutationResponse:
-      | UpdateUserSubmissionMutation['updateUserSubmission']
-      | CreateUserSubmissionMutation['createUserSubmission'],
+    mutationResponse: SubmitSolutionMutation['submitUserSolution'],
   ) => {
     void queryClient.invalidateQueries({
       queryKey: [['user-submission', challengeId]],
@@ -66,26 +57,7 @@ export const useSubmission = ({
   }
 
   const submitSolution = (solutionCode: string) => {
-    if (data?.userSubmission) {
-      updateSubmission(
-        {
-          submissionId: data.userSubmission.id,
-          submission: {
-            challengeId,
-            lang: programmingLang,
-            solutionCode,
-          },
-        },
-        {
-          onSuccess: (response) =>
-            handleSubmissionSuccess(response.updateUserSubmission),
-        },
-      )
-
-      return
-    }
-
-    createSubmission(
+    submit(
       {
         challengeId,
         lang: programmingLang,
@@ -93,7 +65,7 @@ export const useSubmission = ({
       },
       {
         onSuccess: (response) =>
-          handleSubmissionSuccess(response.createUserSubmission),
+          handleSubmissionSuccess(response.submitUserSolution),
       },
     )
   }
@@ -102,7 +74,7 @@ export const useSubmission = ({
     submissionStatus,
     submission: data?.userSubmission,
     submitSolution,
-    isLoadingSubmission: isCreatingSubmission || isUpdatingSubmission,
-    isSubmissionError: isCreatingSubmissionError || isUpdatingSubmissionError,
+    isLoadingSubmission,
+    isSubmissionError,
   }
 }
