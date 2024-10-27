@@ -112,13 +112,11 @@ type JwtModel {
 type Mutation {
   createCodeChallenge(newCodeChallenge: CreateCodeChallengeInput!): CodeChallenge!
   createTestCase(testCase: CreateTestCaseInput!): CodeChallenge!
-  createUserSubmission(submission: SubmissionInput!): SubmissionResult!
   refreshToken: JwtModel!
   registerEvent(newEvent: RegisterEventInput!): Event!
   submitUserSolution(submission: SubmissionInput!): SubmissionResult!
   updateEvent(event: UpdateEventInput!): Event!
   updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
-  updateUserSubmission(submission: SubmissionInput!, submissionId: String!): SubmissionResult!
 }
 
 type PageInfo {

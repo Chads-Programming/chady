@@ -6,8 +6,8 @@ import type {
 } from '@/graphql/graphql'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useSubmitSolutionMutation } from '../mutations/submit-solution'
-import { useGetUserSubmissionQuery } from '../queries/get-user-submission'
+import { useGetUserSubmissionQuery } from './use-get-user-submission-query'
+import { useSubmitSolutionMutation } from './use-submit-solution-mutation'
 
 interface SubmissionStatus {
   runtime: number
