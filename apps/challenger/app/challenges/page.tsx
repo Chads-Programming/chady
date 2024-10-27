@@ -1,7 +1,6 @@
 'use client'
 
 import { ChallengeList } from '@/app/challenges/components/challenge-list'
-import { useGetLeaderboardQuery } from '@/app/challenges/queries/get-leaderdboard'
 import { EmptyState } from '@/app/shared/components/empty-state'
 import { ErrorState } from '@/app/shared/components/error-state'
 import { Footer } from '@/app/shared/components/footer'
@@ -15,8 +14,8 @@ import {
   CodersLeaderboard,
   type LeaderBoardItem,
 } from './components/coders-leaderboard'
-
-import { useGetCodeChallengesQuery } from './queries/get-challenges'
+import { useGetCodeChallengesQuery } from './hooks/use-get-challenges-query'
+import { useGetLeaderboardQuery } from './hooks/use-get-leaderdboard-query'
 
 export default function Home() {
   const { searchParams, setParam, removeParam } = useQueryParams()

@@ -1,5 +1,3 @@
-'use client'
-
 import { ENVS } from '@/lib/envs'
 import type { TypedDocumentString } from './graphql'
 

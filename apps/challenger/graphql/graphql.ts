@@ -129,13 +129,11 @@ export type Mutation = {
   __typename?: 'Mutation';
   createCodeChallenge: CodeChallenge;
   createTestCase: CodeChallenge;
-  createUserSubmission: SubmissionResult;
   refreshToken: JwtModel;
   registerEvent: Event;
   submitUserSolution: SubmissionResult;
   updateEvent: Event;
   updateSchedule: EventSchedule;
-  updateUserSubmission: SubmissionResult;
 };
 
 
@@ -146,11 +144,6 @@ export type MutationCreateCodeChallengeArgs = {
 
 export type MutationCreateTestCaseArgs = {
   testCase: CreateTestCaseInput;
-};
-
-
-export type MutationCreateUserSubmissionArgs = {
-  submission: SubmissionInput;
 };
 
 
@@ -172,12 +165,6 @@ export type MutationUpdateEventArgs = {
 export type MutationUpdateScheduleArgs = {
   id: Scalars['Float']['input'];
   schedule: UpdateEventScheduleInput;
-};
-
-
-export type MutationUpdateUserSubmissionArgs = {
-  submission: SubmissionInput;
-  submissionId: Scalars['String']['input'];
 };
 
 export type PageInfo = {
@@ -382,6 +369,19 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
 
+export type LeaderboardQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LeaderboardQueryQuery = { __typename?: 'Query', findSubmissionsLeaderboard: Array<{ __typename?: 'UserScoreModel', totalScore: number, user: { __typename?: 'UserDetail', id: string, avatarUrl: string, username: string } }> };
+
+export type GetUserSubmissionQueryQueryVariables = Exact<{
+  codeChallengeId: Scalars['String']['input'];
+  programmingLang: ProgrammingLang;
+}>;
+
+
+export type GetUserSubmissionQueryQuery = { __typename?: 'Query', getUserSubmission: { __typename?: 'Submission', id: string, runtime: number, score: number, solutionCode: string, lang: ProgrammingLang, status: string, createdAt: any, updatedAt: any } };
+
 export type SubmitSolutionMutationVariables = Exact<{
   submission: SubmissionInput;
 }>;
@@ -396,6 +396,13 @@ export type FindCodeChallengeByIdQueryVariables = Exact<{
 
 export type FindCodeChallengeByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang, startedCode: string }>, testCases: Array<{ __typename?: 'TestCaseModel', id: number, args: string, expectedOutput: string, isSecret: boolean }> } };
 
+export type FindCodeChallengeInfoByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type FindCodeChallengeInfoByIdQuery = { __typename?: 'Query', getCodeChallenge: { __typename?: 'CodeChallenge', id: string, title: string, difficult: Difficult, langDetails: Array<{ __typename?: 'CodeLangChallengeDetail', id: number, lang: ProgrammingLang }> } };
+
 export type FindCodeChallngesQueryVariables = Exact<{
   difficult?: InputMaybe<Difficult>;
   search?: InputMaybe<Scalars['String']['input']>;
@@ -406,19 +413,6 @@ export type FindCodeChallngesQueryVariables = Exact<{
 
 
 export type FindCodeChallngesQuery = { __typename?: 'Query', findCodeChallenges: { __typename?: 'PaginatedChallenges', data: Array<{ __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult }>, pageInfo?: { __typename?: 'PageInfo', currentPage: number, totalPages: number, hasNextPage: boolean } | null } };
-
-export type LeaderboardQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LeaderboardQueryQuery = { __typename?: 'Query', findSubmissionsLeaderboard: Array<{ __typename?: 'UserScoreModel', totalScore: number, user: { __typename?: 'UserDetail', id: string, avatarUrl: string, username: string } }> };
-
-export type GetUserSubmissionQueryQueryVariables = Exact<{
-  codeChallengeId: Scalars['String']['input'];
-  programmingLang: ProgrammingLang;
-}>;
-
-
-export type GetUserSubmissionQueryQuery = { __typename?: 'Query', getUserSubmission: { __typename?: 'Submission', id: string, runtime: number, score: number, solutionCode: string, lang: ProgrammingLang, status: string, createdAt: any, updatedAt: any } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -450,6 +444,35 @@ export const ProfileDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
+export const LeaderboardQueryDocument = new TypedDocumentString(`
+    query LeaderboardQuery {
+  findSubmissionsLeaderboard {
+    user {
+      id
+      avatarUrl
+      username
+    }
+    totalScore
+  }
+}
+    `) as unknown as TypedDocumentString<LeaderboardQueryQuery, LeaderboardQueryQueryVariables>;
+export const GetUserSubmissionQueryDocument = new TypedDocumentString(`
+    query GetUserSubmissionQuery($codeChallengeId: String!, $programmingLang: ProgrammingLang!) {
+  getUserSubmission(
+    codeChallengeId: $codeChallengeId
+    programmingLang: $programmingLang
+  ) {
+    id
+    runtime
+    score
+    solutionCode
+    lang
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<GetUserSubmissionQueryQuery, GetUserSubmissionQueryQueryVariables>;
 export const SubmitSolutionDocument = new TypedDocumentString(`
     mutation SubmitSolution($submission: SubmissionInput!) {
   submitUserSolution(submission: $submission) {
@@ -497,6 +520,19 @@ export const FindCodeChallengeByIdDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindCodeChallengeByIdQuery, FindCodeChallengeByIdQueryVariables>;
+export const FindCodeChallengeInfoByIdDocument = new TypedDocumentString(`
+    query FindCodeChallengeInfoById($id: String!) {
+  getCodeChallenge(id: $id) {
+    id
+    title
+    difficult
+    langDetails {
+      id
+      lang
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<FindCodeChallengeInfoByIdQuery, FindCodeChallengeInfoByIdQueryVariables>;
 export const FindCodeChallngesDocument = new TypedDocumentString(`
     query FindCodeChallnges($difficult: Difficult, $search: String, $perPage: Int, $page: Int, $lang: ProgrammingLang) {
   findCodeChallenges(
@@ -521,32 +557,3 @@ export const FindCodeChallngesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindCodeChallngesQuery, FindCodeChallngesQueryVariables>;
-export const LeaderboardQueryDocument = new TypedDocumentString(`
-    query LeaderboardQuery {
-  findSubmissionsLeaderboard {
-    user {
-      id
-      avatarUrl
-      username
-    }
-    totalScore
-  }
-}
-    `) as unknown as TypedDocumentString<LeaderboardQueryQuery, LeaderboardQueryQueryVariables>;
-export const GetUserSubmissionQueryDocument = new TypedDocumentString(`
-    query GetUserSubmissionQuery($codeChallengeId: String!, $programmingLang: ProgrammingLang!) {
-  getUserSubmission(
-    codeChallengeId: $codeChallengeId
-    programmingLang: $programmingLang
-  ) {
-    id
-    runtime
-    score
-    solutionCode
-    lang
-    status
-    createdAt
-    updatedAt
-  }
-}
-    `) as unknown as TypedDocumentString<GetUserSubmissionQueryQuery, GetUserSubmissionQueryQueryVariables>;

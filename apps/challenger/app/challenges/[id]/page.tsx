@@ -33,8 +33,8 @@ import {
   TestCases,
   TestResult,
 } from '../components/test-summary'
+import { useGetCodeChallengeByIdQuery } from '../hooks/use-get-challenge-by-id-query'
 import { useSubmission } from '../hooks/use-submission'
-import { useGetCodeChallengeByIdQuery } from '../queries/get-challenge-by-id'
 
 const ChallengePage = ({ params }: { params: { id: string } }) => {
   const [selectedLang, setSelectedLang] = useState<ProgrammingLang>(
