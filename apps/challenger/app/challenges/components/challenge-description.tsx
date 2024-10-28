@@ -19,7 +19,7 @@ export const ChallengeDescription = ({
         <h2 className="font-bold text-xl text-foreground">{title}</h2>
         <DifficultBadge difficulty={difficulty} />
       </header>
-      <Markdown className="text-gray-300 text-sm challenge-description">
+      <Markdown className="font-mono text-gray-300 text-sm challenge-description">
         {description}
       </Markdown>
     </article>

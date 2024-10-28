@@ -177,12 +177,18 @@ importers:
       '@next/env':
         specifier: ^14.2.13
         version: 14.2.14
+      '@repo/assets':
+        specifier: workspace:*
+        version: link:../../packages/assets
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tanstack/react-query':
         specifier: ^5.56.2
         version: 5.59.0(react@19.0.0-rc-f994737d14-20240522)
+      geist:
+        specifier: ^1.3.1
+        version: 1.3.1(next@15.0.0-rc.0(@babel/core@7.25.7)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522))
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -264,6 +270,8 @@ importers:
         version: 5.6.2
 
   apps/runner: {}
+
+  packages/assets: {}
 
   packages/tailwind-config:
     devDependencies:
@@ -3759,6 +3767,11 @@ packages:
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
+
+  geist@1.3.1:
+    resolution: {integrity: sha512-Q4gC1pBVPN+D579pBaz0TRRnGA4p9UK6elDY/xizXdFk/g4EKR5g0I+4p/Kj6gM0SajDBZ/0FvDV9ey9ud7BWw==}
+    peerDependencies:
+      next: '>=13.2.0'
 
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -9896,6 +9909,10 @@ snapshots:
     optional: true
 
   function-bind@1.1.2: {}
+
+  geist@1.3.1(next@15.0.0-rc.0(@babel/core@7.25.7)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)):
+    dependencies:
+      next: 15.0.0-rc.0(@babel/core@7.25.7)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)
 
   gensync@1.0.0-beta.2: {}
 
