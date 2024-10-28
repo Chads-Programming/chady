@@ -1,18 +1,14 @@
 'use client'
 
-import { Onest } from 'next/font/google'
 import { Header } from './shared/components/header'
 import { ThemeProvider } from './shared/components/theme-provider'
 import './globals.css'
 
 import '@repo/ui/globals.css'
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
 import { NavigationProgress } from './shared/components/navigation-progress'
 import { FetchingProvider } from './shared/providers/fetching-provider'
-
-const onest = Onest({
-  subsets: ['latin'],
-  variable: '--font-sans',
-})
 
 export default function RootLayout({
   children,
@@ -21,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${onest.variable} bg-background`}>
+      <body
+        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} bg-background`}
+      >
         <NavigationProgress />
         <FetchingProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
