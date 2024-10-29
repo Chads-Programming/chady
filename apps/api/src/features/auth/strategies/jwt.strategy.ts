@@ -11,7 +11,7 @@ import { JwtPayload } from '../types';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
-      ignoreExpiration: true,
+      ignoreExpiration: false,
       secretOrKey: envs.JWT_ACCESS_SECRET,
       jwtFromRequest: ExtractJwt.fromExtractors([
         ExtractJwt.fromAuthHeaderAsBearerToken(),

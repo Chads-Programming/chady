@@ -10,7 +10,7 @@ interface AutState {
   setProfile(profile: ProfileQuery['findProfile']): void
 }
 
-export const authStore = create<AutState>()(
+export const useAuthStore = create<AutState>()(
   devtools(
     persist(
       (setStore) => ({

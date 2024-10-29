@@ -20,8 +20,8 @@ export const ProfileBanner = () => {
   if (isLoading) {
     return (
       <div className="inline-flex gap-2 justify-start items-center">
-        <Skeleton className="h-12 w-12 rounded-full" />
-        <Skeleton className="h-12 w-[100px] rounded-md" />
+        <Skeleton className="h-12 w-12 rounded-full bg-gray-600" />
+        <Skeleton className="h-12 w-[100px] rounded-md bg-gray-600" />
       </div>
     )
   }
