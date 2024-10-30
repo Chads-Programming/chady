@@ -369,6 +369,11 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
 
+export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RefreshTokenMutation = { __typename?: 'Mutation', refreshToken: { __typename: 'JwtModel' } };
+
 export type LeaderboardQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -444,6 +449,13 @@ export const ProfileDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
+export const RefreshTokenDocument = new TypedDocumentString(`
+    mutation RefreshToken {
+  refreshToken {
+    __typename
+  }
+}
+    `) as unknown as TypedDocumentString<RefreshTokenMutation, RefreshTokenMutationVariables>;
 export const LeaderboardQueryDocument = new TypedDocumentString(`
     query LeaderboardQuery {
   findSubmissionsLeaderboard {

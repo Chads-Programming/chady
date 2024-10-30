@@ -24,7 +24,7 @@ export async function execute<TResult, TVariables>(
 
   const json = await response.json()
 
-  if ('error' in json) {
+  if ('error' in json || 'errors' in json) {
     throw new Error(json.error)
   }
 

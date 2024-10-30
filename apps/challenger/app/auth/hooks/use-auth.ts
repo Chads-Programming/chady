@@ -2,26 +2,42 @@
 
 import { useEffect } from 'react'
 import { LOGOUT_PATH } from '../consts'
-import { useGetProfile } from '../queries/profile'
-import { authStore } from '../store/auth'
+import { useAuthStore } from '../store/auth'
+import { useGetProfileQuery } from './use-get-profile-query'
+import { useRefreshTokenMutation } from './use-refresh-token-mutation'
 
 export const useAuth = () => {
-  const { data, isLoading, error } = useGetProfile()
-  const { setProfile, profile, clearProfile } = authStore()
+  const {
+    data: profileResult,
+    isLoading: isLoadingProfile,
+    error,
+    refetch: refetchProfile,
+  } = useGetProfileQuery()
+  const { setProfile, profile: storedProfile, clearProfile } = useAuthStore()
+  const { mutate: refreshSession } = useRefreshTokenMutation()
 
   useEffect(() => {
-    if (error && !isLoading) {
-      logout()
+    const hasExpiredSession = error && storedProfile
+
+    if (hasExpiredSession) {
+      refreshSession(undefined, {
+        onSuccess() {
+          refetchProfile()
+        },
+        onError() {
+          clearProfile()
+        },
+      })
     }
-  }, [error, isLoading])
+  }, [error, refreshSession, clearProfile, storedProfile, refetchProfile])
 
   useEffect(() => {
-    if (!data) {
+    if (!profileResult) {
       return
     }
 
-    setProfile(data.findProfile)
-  }, [data, setProfile])
+    setProfile(profileResult.findProfile)
+  }, [profileResult, setProfile])
 
   const logout = () => {
     clearProfile()
@@ -29,8 +45,8 @@ export const useAuth = () => {
   }
 
   return {
-    profile,
+    profile: storedProfile,
     logout,
-    isLoading,
+    isLoading: isLoadingProfile,
   }
 }
