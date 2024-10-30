@@ -8,41 +8,36 @@ import { useRefreshTokenMutation } from './use-refresh-token-mutation'
 
 export const useAuth = () => {
   const {
-    data,
+    data: profileResult,
     isLoading: isLoadingProfile,
     error,
     refetch: refetchProfile,
   } = useGetProfileQuery()
-  const { setProfile, profile, clearProfile } = useAuthStore()
-  const { mutate: refreshSession, isPending: isRefreshingSession } =
-    useRefreshTokenMutation()
+  const { setProfile, profile: storedProfile, clearProfile } = useAuthStore()
+  const { mutate: refreshSession } = useRefreshTokenMutation()
 
   useEffect(() => {
-    const hasExpiredSession = error && profile
+    const hasExpiredSession = error && storedProfile
 
     if (hasExpiredSession) {
-      console.log('expired session')
-
       refreshSession(undefined, {
         onSuccess() {
-          console.log('refresh ok')
           refetchProfile()
         },
         onError() {
-          console.log('refresh bad')
           clearProfile()
         },
       })
     }
-  }, [error, refreshSession, clearProfile, profile, refetchProfile])
+  }, [error, refreshSession, clearProfile, storedProfile, refetchProfile])
 
   useEffect(() => {
-    if (!data) {
+    if (!profileResult) {
       return
     }
 
-    setProfile(data.findProfile)
-  }, [data, setProfile])
+    setProfile(profileResult.findProfile)
+  }, [profileResult, setProfile])
 
   const logout = () => {
     clearProfile()
@@ -50,8 +45,8 @@ export const useAuth = () => {
   }
 
   return {
-    profile,
+    profile: storedProfile,
     logout,
-    isLoading: isRefreshingSession || isLoadingProfile,
+    isLoading: isLoadingProfile,
   }
 }
