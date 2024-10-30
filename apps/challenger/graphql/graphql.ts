@@ -48,27 +48,6 @@ export type CreateCodeChallengeInput = {
   title: Scalars['String']['input'];
 };
 
-export type CreateEventInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  link: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  type: EventType;
-};
-
-export type CreateEventScheduleInput = {
-  endTime?: InputMaybe<Scalars['DateTime']['input']>;
-  friday?: Scalars['Boolean']['input'];
-  monday?: Scalars['Boolean']['input'];
-  periocity: Periodicity;
-  saturday?: Scalars['Boolean']['input'];
-  startTime: Scalars['DateTime']['input'];
-  sunday?: Scalars['Boolean']['input'];
-  thursday?: Scalars['Boolean']['input'];
-  tuesday?: Scalars['Boolean']['input'];
-  uniqueDate: Scalars['DateTime']['input'];
-  wednesday?: Scalars['Boolean']['input'];
-};
-
 export type CreateTestCaseInput = {
   args: Scalars['String']['input'];
   codeChallengeId: Scalars['String']['input'];
@@ -80,34 +59,6 @@ export enum Difficult {
   Easy = 'Easy',
   Hard = 'Hard',
   Medium = 'Medium'
-}
-
-export type Event = {
-  __typename?: 'Event';
-  creators: Array<User>;
-  description: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  schedule: EventSchedule;
-};
-
-export type EventSchedule = {
-  __typename?: 'EventSchedule';
-  endTime?: Maybe<Scalars['DateTime']['output']>;
-  friday: Scalars['Boolean']['output'];
-  monday: Scalars['Boolean']['output'];
-  periocity: Periodicity;
-  saturday: Scalars['Boolean']['output'];
-  startTime: Scalars['DateTime']['output'];
-  sunday: Scalars['Boolean']['output'];
-  thursday: Scalars['Boolean']['output'];
-  tuesday: Scalars['Boolean']['output'];
-  uniqueDate: Scalars['DateTime']['output'];
-  wednesday: Scalars['Boolean']['output'];
-};
-
-export enum EventType {
-  Course = 'COURSE'
 }
 
 export type InputExecutionResult = {
@@ -130,10 +81,7 @@ export type Mutation = {
   createCodeChallenge: CodeChallenge;
   createTestCase: CodeChallenge;
   refreshToken: JwtModel;
-  registerEvent: Event;
   submitUserSolution: SubmissionResult;
-  updateEvent: Event;
-  updateSchedule: EventSchedule;
 };
 
 
@@ -147,24 +95,8 @@ export type MutationCreateTestCaseArgs = {
 };
 
 
-export type MutationRegisterEventArgs = {
-  newEvent: RegisterEventInput;
-};
-
-
 export type MutationSubmitUserSolutionArgs = {
   submission: SubmissionInput;
-};
-
-
-export type MutationUpdateEventArgs = {
-  event: UpdateEventInput;
-};
-
-
-export type MutationUpdateScheduleArgs = {
-  id: Scalars['Float']['input'];
-  schedule: UpdateEventScheduleInput;
 };
 
 export type PageInfo = {
@@ -181,19 +113,6 @@ export type PaginatedChallenges = {
   pageInfo?: Maybe<PageInfo>;
 };
 
-export type PaginatedEvents = {
-  __typename?: 'PaginatedEvents';
-  data: Array<Event>;
-  pageInfo?: Maybe<PageInfo>;
-};
-
-export enum Periodicity {
-  Daily = 'DAILY',
-  Monthy = 'MONTHY',
-  OnceTime = 'ONCE_TIME',
-  Weekly = 'WEEKLY'
-}
-
 export enum ProgrammingLang {
   Javascript = 'Javascript',
   Python = 'Python',
@@ -202,7 +121,6 @@ export enum ProgrammingLang {
 
 export type Query = {
   __typename?: 'Query';
-  events: PaginatedEvents;
   findCodeChallenges: PaginatedChallenges;
   findPersonalScore: Scalars['Float']['output'];
   findProfile: UserDetail;
@@ -210,14 +128,6 @@ export type Query = {
   getCodeChallenge: CodeChallenge;
   getUserSubmission: Submission;
   getUserSubmissions: Array<Submission>;
-};
-
-
-export type QueryEventsArgs = {
-  page: Scalars['Int']['input'];
-  perPage: Scalars['Int']['input'];
-  search: Scalars['String']['input'];
-  status: Status;
 };
 
 
@@ -240,12 +150,6 @@ export type QueryGetUserSubmissionArgs = {
   programmingLang: ProgrammingLang;
 };
 
-export type RegisterEventInput = {
-  creators: Array<Scalars['String']['input']>;
-  event: CreateEventInput;
-  schedule: CreateEventScheduleInput;
-};
-
 export type RegisteredSubmission = {
   __typename?: 'RegisteredSubmission';
   createdAt: Scalars['DateTime']['output'];
@@ -265,12 +169,6 @@ export type RoleDetail = {
   imageUrl: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
-
-export enum Status {
-  Pending = 'PENDING',
-  Ready = 'READY',
-  Rejected = 'REJECTED'
-}
 
 export type Submission = {
   __typename?: 'Submission';
@@ -311,39 +209,6 @@ export type TestCaseModel = {
   expectedOutput: Scalars['String']['output'];
   id: Scalars['Float']['output'];
   isSecret: Scalars['Boolean']['output'];
-};
-
-export type UpdateEventInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['String']['input'];
-  link?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  status: Status;
-  type?: InputMaybe<EventType>;
-};
-
-export type UpdateEventScheduleInput = {
-  endTime?: InputMaybe<Scalars['DateTime']['input']>;
-  friday?: InputMaybe<Scalars['Boolean']['input']>;
-  monday?: InputMaybe<Scalars['Boolean']['input']>;
-  periocity?: InputMaybe<Periodicity>;
-  saturday?: InputMaybe<Scalars['Boolean']['input']>;
-  startTime?: InputMaybe<Scalars['DateTime']['input']>;
-  sunday?: InputMaybe<Scalars['Boolean']['input']>;
-  thursday?: InputMaybe<Scalars['Boolean']['input']>;
-  tuesday?: InputMaybe<Scalars['Boolean']['input']>;
-  uniqueDate?: InputMaybe<Scalars['DateTime']['input']>;
-  wednesday?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type User = {
-  __typename?: 'User';
-  avatar: Scalars['String']['output'];
-  discordId: Scalars['String']['output'];
-  discriminator: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  roles: Array<Scalars['String']['output']>;
-  username: Scalars['String']['output'];
 };
 
 export type UserDetail = {

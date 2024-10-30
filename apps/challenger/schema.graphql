@@ -31,27 +31,6 @@ input CreateCodeChallengeInput {
   title: String!
 }
 
-input CreateEventInput {
-  description: String
-  link: String!
-  name: String!
-  type: EventType!
-}
-
-input CreateEventScheduleInput {
-  endTime: DateTime
-  friday: Boolean! = false
-  monday: Boolean! = false
-  periocity: Periodicity!
-  saturday: Boolean! = false
-  startTime: DateTime!
-  sunday: Boolean! = false
-  thursday: Boolean! = false
-  tuesday: Boolean! = false
-  uniqueDate: DateTime!
-  wednesday: Boolean! = false
-}
-
 input CreateTestCaseInput {
   args: String!
   codeChallengeId: String!
@@ -68,32 +47,6 @@ enum Difficult {
   Easy
   Hard
   Medium
-}
-
-type Event {
-  creators: [User!]!
-  description: String!
-  id: String!
-  name: String!
-  schedule: EventSchedule!
-}
-
-type EventSchedule {
-  endTime: DateTime
-  friday: Boolean!
-  monday: Boolean!
-  periocity: Periodicity!
-  saturday: Boolean!
-  startTime: DateTime!
-  sunday: Boolean!
-  thursday: Boolean!
-  tuesday: Boolean!
-  uniqueDate: DateTime!
-  wednesday: Boolean!
-}
-
-enum EventType {
-  COURSE
 }
 
 type InputExecutionResult {
@@ -113,10 +66,7 @@ type Mutation {
   createCodeChallenge(newCodeChallenge: CreateCodeChallengeInput!): CodeChallenge!
   createTestCase(testCase: CreateTestCaseInput!): CodeChallenge!
   refreshToken: JwtModel!
-  registerEvent(newEvent: RegisterEventInput!): Event!
   submitUserSolution(submission: SubmissionInput!): SubmissionResult!
-  updateEvent(event: UpdateEventInput!): Event!
-  updateSchedule(id: Float!, schedule: UpdateEventScheduleInput!): EventSchedule!
 }
 
 type PageInfo {
@@ -131,18 +81,6 @@ type PaginatedChallenges {
   pageInfo: PageInfo
 }
 
-type PaginatedEvents {
-  data: [Event!]!
-  pageInfo: PageInfo
-}
-
-enum Periodicity {
-  DAILY
-  MONTHY
-  ONCE_TIME
-  WEEKLY
-}
-
 enum ProgrammingLang {
   Javascript
   Python
@@ -150,7 +88,6 @@ enum ProgrammingLang {
 }
 
 type Query {
-  events(page: Int!, perPage: Int!, search: String!, status: Status!): PaginatedEvents!
   findCodeChallenges(difficult: Difficult, lang: ProgrammingLang, page: Int, perPage: Int, search: String): PaginatedChallenges!
   findPersonalScore: Float!
   findProfile: UserDetail!
@@ -158,12 +95,6 @@ type Query {
   getCodeChallenge(id: String!): CodeChallenge!
   getUserSubmission(codeChallengeId: String!, programmingLang: ProgrammingLang!): Submission!
   getUserSubmissions: [Submission!]!
-}
-
-input RegisterEventInput {
-  creators: [String!]!
-  event: CreateEventInput!
-  schedule: CreateEventScheduleInput!
 }
 
 type RegisteredSubmission {
@@ -182,12 +113,6 @@ type RoleDetail {
   id: String!
   imageUrl: String!
   name: String!
-}
-
-enum Status {
-  PENDING
-  READY
-  REJECTED
 }
 
 type Submission {
@@ -226,38 +151,6 @@ type TestCaseModel {
   expectedOutput: String!
   id: Float!
   isSecret: Boolean!
-}
-
-input UpdateEventInput {
-  description: String
-  id: String!
-  link: String
-  name: String
-  status: Status!
-  type: EventType
-}
-
-input UpdateEventScheduleInput {
-  endTime: DateTime
-  friday: Boolean = false
-  monday: Boolean = false
-  periocity: Periodicity
-  saturday: Boolean = false
-  startTime: DateTime
-  sunday: Boolean = false
-  thursday: Boolean = false
-  tuesday: Boolean = false
-  uniqueDate: DateTime
-  wednesday: Boolean = false
-}
-
-type User {
-  avatar: String!
-  discordId: String!
-  discriminator: String!
-  id: String!
-  roles: [String!]!
-  username: String!
 }
 
 type UserDetail {

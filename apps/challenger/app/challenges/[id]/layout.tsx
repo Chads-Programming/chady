@@ -4,6 +4,7 @@ interface Props {
   children: React.ReactNode
 }
 
+import { ENVS } from '@/lib/envs'
 import type { Metadata } from 'next'
 import { getChallengeInfoTitleById } from '../services/get-challenge-by-id'
 
@@ -28,6 +29,7 @@ export async function generateMetadata({
 
   return {
     title: getCodeChallenge.title,
+    metadataBase: new URL(ENVS.NEXT_PUBLIC_HOST),
     description,
     openGraph: {
       description,
