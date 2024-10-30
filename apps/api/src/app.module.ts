@@ -2,7 +2,6 @@ import { join } from 'node:path';
 import { AuthModule } from '@/auth/auth.module';
 import { ChallengesModule } from '@/challenges/challenges.module';
 import { DiscordModule } from '@/discord/discord.module';
-import { EventsModule } from '@/events/events.module';
 import { UsersModule } from '@/users/users.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
@@ -15,7 +14,6 @@ import { DatabaseModule } from './database/database.module';
   imports: [
     DatabaseModule,
     UsersModule,
-    EventsModule,
     DiscordModule,
     ChallengesModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
