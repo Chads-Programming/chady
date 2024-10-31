@@ -177,9 +177,6 @@ importers:
       '@next/env':
         specifier: ^14.2.13
         version: 14.2.14
-      '@repo/assets':
-        specifier: workspace:*
-        version: link:../../packages/assets
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -271,8 +268,6 @@ importers:
 
   apps/runner: {}
 
-  packages/assets: {}
-
   packages/tailwind-config:
     devDependencies:
       '@repo/typescript-config':
@@ -331,6 +326,9 @@ importers:
       lucide-react:
         specifier: ^0.438.0
         version: 0.438.0(react@18.3.1)
+      next-themes:
+        specifier: ^0.3.0
+        version: 0.3.0(react-dom@19.0.0-rc-f994737d14-20240522(react@18.3.1))(react@18.3.1)
       react-resizable-panels:
         specifier: ^2.1.2
         version: 2.1.4(react-dom@19.0.0-rc-f994737d14-20240522(react@18.3.1))(react@18.3.1)
@@ -11143,6 +11141,11 @@ snapshots:
   next-nprogress-bar@2.3.13:
     dependencies:
       nprogress: 0.2.0
+
+  next-themes@0.3.0(react-dom@19.0.0-rc-f994737d14-20240522(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 19.0.0-rc-f994737d14-20240522(react@18.3.1)
 
   next-themes@0.3.0(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522):
     dependencies:
