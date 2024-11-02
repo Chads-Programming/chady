@@ -68,7 +68,7 @@ export default function Home() {
   return (
     <main className="flex flex-col">
       <div className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 min-h-[calc(100dvh-8rem)]">
-        <aside className="search-header w-full md:w-1/5 h-[350px] border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 sticky top-0">
+        <aside className="search-header w-full md:w-1/4 xl:w-1/5 h-fit border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 sticky top-0">
           <LoaderAndError
             data={codersLeaderboard}
             loading={isLoadingLeaderboard}
@@ -90,9 +90,9 @@ export default function Home() {
           </LoaderAndError>
         </aside>
 
-        <section className="flex flex-col items-start w-full md:w-1/2">
+        <section className="flex flex-col items-start w-full md:w-1/2 lg:w-1/3">
           <header className="search-header px-5 flex flex-col items-start w-full gap-2 shadow-md backdrop-blur-md bg-secondary py-4 rounded-md border border-border sticky top-0 z-10">
-            <h2 className="text-4xl text-gradient-primary text-pretty font-bold">
+            <h2 className="text-xl sm:text-2xl md:text-4xl text-gradient-primary text-pretty font-bold">
               Explore our Challenges
             </h2>
 

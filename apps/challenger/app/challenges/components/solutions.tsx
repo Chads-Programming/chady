@@ -66,7 +66,7 @@ export const Solutions = () => {
         {solutions.map(({ owner, date, executionTime }) => (
           <article
             key={owner}
-            className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-700 rounded-md"
+            className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-300 hover:dark:bg-zinc-700 rounded-md"
           >
             <header>
               <h2 className="font-bold text-pretty">
@@ -82,7 +82,9 @@ export const Solutions = () => {
               </div>
               <div className="inline-flex items-center gap-2 text-primary">
                 <Timer className="w-4" />
-                <span className="text-sm mt-0.5">{executionTime} ms</span>
+                <span className="font-mono text-sm mt-0.5">
+                  {executionTime} ms
+                </span>
               </div>
             </footer>
           </article>

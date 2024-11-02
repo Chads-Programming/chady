@@ -25,3 +25,4 @@ export * from './lib/utils'
 // theme
 export * from './theme/theme-provider'
 export * from './theme/theme-toggler'
+export * from './theme/use-theme'

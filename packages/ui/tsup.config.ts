@@ -11,6 +11,8 @@ export default defineConfig((options: Options) => ({
   external: ['react'],
   banner: {
     js: '"use client";',
+    ts: '"use client";',
+    tsx: '"use client";',
   },
   ...options,
 }))

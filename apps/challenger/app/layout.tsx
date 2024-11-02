@@ -20,8 +20,8 @@ export default function RootLayout({
       <body
         className={`font-sans ${GeistSans.variable} ${GeistMono.variable} bg-background`}
       >
-        <NavigationProgress />
         <FetchingProvider>
+          <NavigationProgress />
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Header />
             {children}

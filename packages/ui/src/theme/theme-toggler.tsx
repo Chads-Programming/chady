@@ -1,25 +1,12 @@
 import { Button } from '@/components/ui/button'
 import { Moon, Sun } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { useTheme } from './use-theme'
 
 export const ThemeToggler = () => {
   const { setTheme, theme } = useTheme()
 
   const changeTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
-  }
-
-  if (theme === 'dark') {
-    return (
-      <Button
-        key={theme}
-        onClick={changeTheme}
-        variant="ghost"
-        className="rounded-full p-2"
-      >
-        <Moon />
-      </Button>
-    )
   }
 
   return (
@@ -29,7 +16,7 @@ export const ThemeToggler = () => {
       variant="ghost"
       className="rounded-full p-2"
     >
-      <Sun />
+      {theme === 'dark' ? <Moon /> : <Sun />}
     </Button>
   )
 }

@@ -16,10 +16,12 @@ export const ChallengeDescription = ({
   return (
     <article className="flex flex-col gap-2 h-full overflow-y-auto px-2">
       <header className="flex flex-col gap-2 mb-4">
-        <h2 className="font-bold text-xl text-foreground">{title}</h2>
+        <h2 className="font-bold text-xl dark:text-secondary-foreground">
+          {title}
+        </h2>
         <DifficultBadge difficulty={difficulty} />
       </header>
-      <Markdown className="font-mono text-gray-300 text-sm challenge-description">
+      <Markdown className="font-mono text-gray-600 dark:text-gray-300 text-sm challenge-description">
         {description}
       </Markdown>
     </article>

@@ -1,33 +1,30 @@
 'use client'
 import { ProfileBanner } from '@/app/auth/components/profile-banner'
-import Image from 'next/image'
+import { ThemeToggler } from '@repo/ui'
 import Link from 'next/link'
 
 export const Header = () => {
   return (
-    <header className="w-full">
+    <header className="w-full border-b">
       <nav className="bg-background flex flex-row gap-2 justify-between items-center h-14 px-8">
-        <div className="flex gap-1 items-center text-sm font-medium ">
+        <div className="flex gap-4 items-center text-sm font-medium ">
           <Link
             href="/"
-            className="flex gap-1 items-center font-bold text-2xl text-pretty text-primary italic"
+            className="font-mono font-bold text-2xl text-primary border border-primary rounded-md px-2 py-1"
           >
-            <Image
-              src="/logos/cat-chad.png"
-              width={30}
-              height={20}
-              alt="cat_chad"
-            />
             <span className="text-gradient-primary">Chady</span>
           </Link>
           <Link
-            className="ml-8 hover:text-foreground text-foreground/80 transition-colors"
+            className="hover:text-foreground text-foreground/80 transition-colors"
             href="/challenges"
           >
             Explore
           </Link>
         </div>
-        <ProfileBanner />
+        <div className="flex flex-row gap-2 justify-between items-center">
+          <ThemeToggler />
+          <ProfileBanner />
+        </div>
       </nav>
     </header>
   )

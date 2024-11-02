@@ -22,6 +22,7 @@ import {
   TabsTrigger,
   TemplateDropdown,
 } from '@repo/ui'
+import { useTheme } from '@repo/ui'
 import { Play } from 'lucide-react'
 import { FileJson, Lightbulb, ListCollapse } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
@@ -37,6 +38,7 @@ import { useGetCodeChallengeByIdQuery } from '../hooks/use-get-challenge-by-id-q
 import { useSubmission } from '../hooks/use-submission'
 
 const ChallengePage = ({ params }: { params: { id: string } }) => {
+  const { theme } = useTheme()
   const [selectedLang, setSelectedLang] = useState<ProgrammingLang>(
     ProgrammingLang.Javascript,
   )
@@ -205,7 +207,7 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                 <Editor
                   height="100%"
                   language={selectedLang?.toLowerCase()}
-                  theme="vs-dark"
+                  theme={theme === 'dark' ? 'vs-dark' : 'vs-light'}
                   value={editorCode}
                   onChange={handleEditorChange}
                   options={{
