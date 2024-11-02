@@ -1,10 +1,10 @@
 'use client'
 
 import { Header } from './shared/components/header'
-import { ThemeProvider } from './shared/components/theme-provider'
 import './globals.css'
 
 import '@repo/ui/globals.css'
+import { ThemeProvider } from '@repo/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import { NavigationProgress } from './shared/components/navigation-progress'
@@ -20,8 +20,8 @@ export default function RootLayout({
       <body
         className={`font-sans ${GeistSans.variable} ${GeistMono.variable} bg-background`}
       >
-        <NavigationProgress />
         <FetchingProvider>
+          <NavigationProgress />
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Header />
             {children}

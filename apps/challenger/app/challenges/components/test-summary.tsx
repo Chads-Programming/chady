@@ -72,7 +72,7 @@ export const TestResult = <
     <AccordionItem value={id}>
       <AccordionTrigger
         className={cn(
-          'text-sm font-medium hover:no-underline hover:bg-zinc-600 px-2 rounded-t-sm',
+          'text-sm font-medium hover:no-underline hover:bg-zinc-300  hover:dark:bg-zinc-600 px-2 rounded-t-sm',
           {
             'text-green-500': isSuccess,
             'text-red-500': !isSuccess,

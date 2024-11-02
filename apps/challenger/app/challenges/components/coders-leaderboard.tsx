@@ -21,7 +21,7 @@ export const CodersLeaderboard = ({ items }: Props) => {
         {items.map(({ id, avatar, username, totalScore }, index) => (
           <li
             key={id}
-            className="inline-flex text-sm items-center justify-start transition ease-in cursor-pointer rounded-md border border-transparent hover:border-primary p-2 px-3"
+            className="inline-flex text-sm items-center justify-start transition ease-in cursor-pointer rounded-md p-2 px-3"
           >
             <div className="flex flex-row justify-start gap-2 w-full items-center content-start">
               <span className="text-lg mr-2 text-primary font-medium">
@@ -34,9 +34,10 @@ export const CodersLeaderboard = ({ items }: Props) => {
               </Avatar>
               <span
                 className={cn(
-                  'text-pretty text-sm text-foreground/75  flex-1 w-[100px]',
+                  'block md:hidden lg:block text-pretty text-sm text-foreground/75  flex-1 w-[100px]',
                   {
-                    '!text-amber-400 animate-pulse': index + 1,
+                    'text-amber-600 dark:text-amber-400 animate-pulse':
+                      index + 1,
                   },
                 )}
               >

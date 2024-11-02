@@ -51,13 +51,15 @@ export const ChallengeCard = ({
           },
         )}
       >
-        <CardHeader>
-          <CardTitle className="text-gray-300 text-xl">{title}</CardTitle>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-gray-600 dark:text-gray-300 text-lg sm:text-xl">
+            {title}
+          </CardTitle>
           <DifficultBadge difficulty={difficulty} />
         </CardHeader>
         <CardContent>
-          <div className="text-pretty text-sm challenge-description line-clamp-3 select-none">
-            <Markdown className="font-mono py-4 px-2 rounded-md shadow-md text-muted-foreground">
+          <div className="text-pretty text-sm challenge-description select-none">
+            <Markdown className="font-mono py-4 px-2 text-muted-foreground">
               {miniDescription}
             </Markdown>
           </div>
