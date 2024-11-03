@@ -9,6 +9,8 @@ export const ThemeToggler = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
+  const icon = theme === 'dark' ? <Moon /> : <Sun />
+
   return (
     <Button
       key={theme}
@@ -16,7 +18,7 @@ export const ThemeToggler = () => {
       variant="ghost"
       className="rounded-full p-2"
     >
-      {theme === 'dark' ? <Moon /> : <Sun />}
+      {icon}
     </Button>
   )
 }

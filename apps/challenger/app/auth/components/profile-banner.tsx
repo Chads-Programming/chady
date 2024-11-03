@@ -7,24 +7,14 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Skeleton,
 } from '@repo/ui'
-import { LogOut } from 'lucide-react'
+import { Loader, LogOut } from 'lucide-react'
 import { useAuth } from '../hooks/use-auth'
 import { LoginButton } from './login-button'
 import { Role } from './role'
 
 export const ProfileBanner = () => {
   const { profile, isLoading, logout } = useAuth()
-
-  if (isLoading) {
-    return (
-      <div className="inline-flex gap-2 justify-start items-center">
-        <Skeleton className="h-12 w-12 rounded-full bg-gray-600" />
-        <Skeleton className="h-12 w-[100px] rounded-md bg-gray-600" />
-      </div>
-    )
-  }
 
   if (!profile) {
     return <LoginButton />
@@ -33,7 +23,10 @@ export const ProfileBanner = () => {
   return (
     <div className="inline-flex gap-2 justify-start">
       <Popover>
-        <PopoverTrigger className="inline-flex gap-2 justify-start items-center">
+        <PopoverTrigger className="relative inline-flex gap-2 justify-start items-center">
+          {isLoading && (
+            <Loader className="absolute top-0 -left-[0.75] z-10 animate-spin w-4 h-4" />
+          )}
           <Avatar>
             <AvatarImage src={profile.avatarUrl} alt={profile.username} />
             <AvatarFallback>{profile.username.charAt(0)}</AvatarFallback>
