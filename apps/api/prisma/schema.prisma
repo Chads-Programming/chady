@@ -18,7 +18,7 @@ model User {
   username      String
   avatar        String
   discordId     String
-  discriminator String @unique
+  discriminator String
 
   accessToken  String
   refreshToken String

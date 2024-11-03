@@ -11,8 +11,8 @@ import { useMemo } from 'react'
 import { SearchBox } from '../shared/components/search-box'
 import { ChallengeFilters } from './components/challenge-filters'
 import {
+  type CoderLeadItem,
   CodersLeaderboard,
-  type LeaderBoardItem,
 } from './components/coders-leaderboard'
 import { useGetCodeChallengesQuery } from './hooks/use-get-challenges-query'
 import { useGetLeaderboardQuery } from './hooks/use-get-leaderdboard-query'
@@ -25,7 +25,7 @@ export default function Home() {
     isError: isLeaderboardError,
   } = useGetLeaderboardQuery()
 
-  const codersLeaderboard: LeaderBoardItem[] = useMemo(() => {
+  const codersLeaderboard: CoderLeadItem[] = useMemo(() => {
     if (!leaderboardResult?.leaderboard) {
       return []
     }
