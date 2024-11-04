@@ -22,7 +22,7 @@ import {
   TabsTrigger,
   TemplateDropdown,
 } from '@repo/ui'
-import { useTheme } from '@repo/ui'
+import { useTheme } from '@repo/ui/theme'
 import { Play } from 'lucide-react'
 import { FileJson, Lightbulb, ListCollapse } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'

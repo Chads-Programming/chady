@@ -1,7 +1,12 @@
 'use client'
 import { ProfileBanner } from '@/app/auth/components/profile-banner'
-import { ThemeToggler } from '@repo/ui'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
+
+const ThemeToggler = dynamic(
+  () => import('@repo/ui/theme').then((mod) => mod.ThemeToggler),
+  { ssr: false },
+)
 
 export const Header = () => {
   return (

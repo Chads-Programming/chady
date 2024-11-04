@@ -3,7 +3,7 @@ import { type Options, defineConfig } from 'tsup'
 export default defineConfig((options: Options) => ({
   treeshake: true,
   splitting: true,
-  entry: ['src/globals.css', 'src/**/*.tsx'],
+  entry: ['src/globals.css', 'src/**/*.tsx', 'src/**/*.ts'],
   format: ['esm', 'cjs'],
   dts: true,
   minify: true,
@@ -11,8 +11,6 @@ export default defineConfig((options: Options) => ({
   external: ['react'],
   banner: {
     js: '"use client";',
-    ts: '"use client";',
-    tsx: '"use client";',
   },
   ...options,
 }))

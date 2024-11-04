@@ -5,6 +5,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.mjs",
+    "./theme": "./dist/theme/index.mjs",
     "./tailwind.config": "./tailwind.config.ts",
     "./globals.css": "./src/styles/globals.css"
   },
