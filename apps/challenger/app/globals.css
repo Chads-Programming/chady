@@ -72,10 +72,27 @@ html {
 
 @keyframes search-header-shadow {
   to {
-    @apply shadow-lg backdrop-blur-md bg-background/80 rounded-t-none;
+    @apply shadow-lg backdrop-blur-md bg-background/80 rounded-t-none border-t-0;
+  }
+}
+
+
+.aside-container {
+  animation: aside-shadow 1s linear both;
+  animation-timeline: scroll();
+  animation-range: 0 100px;
+}
+
+@keyframes aside-shadow {
+  to {
+    @apply shadow-lg rounded-t-none border-t-0;
   }
 }
 
 .text-gradient-primary {
   @apply bg-gradient-to-r from-primary to-green-500 bg-clip-text text-transparent;
+}
+
+.bg-gradient-primary {
+  @apply bg-gradient-to-r from-primary to-green-500;
 }

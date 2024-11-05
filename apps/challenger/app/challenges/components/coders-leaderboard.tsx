@@ -65,7 +65,7 @@ export function CodersLeaderboard({ items }: Props) {
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
-        <div className="space-y-2">
+        <div className="space-y-2 divide-y">
           {items.map((coder, index) => {
             const position = index + 1
 
