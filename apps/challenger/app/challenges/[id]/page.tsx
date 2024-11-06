@@ -29,13 +29,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { ChallengeDescription } from '../components/challenge-description'
 import { LangIcon } from '../components/lang-icon'
 import { Solutions } from '../components/solutions'
-import {
-  SecretTestResult,
-  TestCases,
-  TestResult,
-} from '../components/test-summary'
 import { useGetCodeChallengeByIdQuery } from '../hooks/use-get-challenge-by-id-query'
 import { useSubmission } from '../hooks/use-submission'
+import { SubmissionTestsSection } from './submission-tests-section'
 
 const ChallengePage = ({ params }: { params: { id: string } }) => {
   const { theme } = useTheme()
@@ -228,33 +224,18 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                   isError={isSubmissionError}
                   data={submissionStatus?.testResults}
                   errorState={<ErrorState title="An error has occurred" />}
-                  emptyState={<EmptyState title="No results to display" />}
+                  emptyState={
+                    <h3 className="font-semibold text-lg">
+                      Submit your solution to see the results
+                    </h3>
+                  }
                 >
                   {({ data: testResults }) => (
-                    <TestCases>
-                      {testResults.map(({ isSuccess, testCase, output }) => {
-                        if (testCase.isSecret) {
-                          return (
-                            <SecretTestResult
-                              key={testCase.id}
-                              id={testCase.id.toString()}
-                              isSuccess={isSuccess}
-                            />
-                          )
-                        }
-
-                        return (
-                          <TestResult
-                            key={testCase.id}
-                            id={testCase.id.toString()}
-                            isSuccess={isSuccess}
-                            input={testCase.args.toString()}
-                            currentOuput={output}
-                            expectedOutput={testCase.expectedOutput}
-                          />
-                        )
-                      })}
-                    </TestCases>
+                    <SubmissionTestsSection
+                      testResults={testResults}
+                      score={submission?.score ?? 0}
+                      isSuccess={testResults.every((test) => test.isSuccess)}
+                    />
                   )}
                 </LoaderAndError>
               </div>
