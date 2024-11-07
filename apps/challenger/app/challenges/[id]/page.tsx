@@ -234,6 +234,7 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                     <SubmissionTestsSection
                       testResults={testResults}
                       score={submission?.score ?? 0}
+                      runtime={submission?.runtime ?? 0}
                       isSuccess={testResults.every((test) => test.isSuccess)}
                     />
                   )}

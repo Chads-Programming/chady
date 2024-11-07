@@ -103,7 +103,7 @@ export const TestResult = <
 
 export const TestCases = ({ children }: TestSummaryProps) => {
   return (
-    <Accordion type="single" className="font-mono w-full" collapsible>
+    <Accordion type="multiple" className="font-mono w-full">
       {children}
     </Accordion>
   )
