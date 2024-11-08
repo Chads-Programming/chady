@@ -12,5 +12,7 @@ export const calculateChallengeScore = (
 
   const difficultRelation = difficultFactor / MAX_DIFFICULT_FACTOR;
 
-  return difficultRelation * timeExecutionFactor * 100;
+  const score = difficultRelation * timeExecutionFactor * 100;
+
+  return score > 0 ? score : 0;
 };

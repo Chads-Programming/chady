@@ -27,7 +27,7 @@ export const LoaderAndError = <T,>({
   if (loading) {
     return (
       <>
-        {loadingState && <Skeleton className="w-full h-full bg-neutral-600" />}
+        {loadingState ?? <Skeleton className="w-full h-full bg-neutral-600" />}
       </>
     )
   }

@@ -11,6 +11,9 @@ import {
 import { Editor } from '@monaco-editor/react'
 
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Button,
   type DropdownItem,
   LoaderAndError,
@@ -23,7 +26,7 @@ import {
   TemplateDropdown,
 } from '@repo/ui'
 import { useTheme } from '@repo/ui/theme'
-import { Play } from 'lucide-react'
+import { Play, Terminal } from 'lucide-react'
 import { FileJson, Lightbulb, ListCollapse } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { ChallengeDescription } from '../components/challenge-description'
@@ -218,16 +221,20 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
             </ResizablePanel>
             <CustomResizableHandle horizontal />
             <ResizablePanel defaultSize={25}>
-              <div className="flex flex-col items-start justify-start p-6 w-full h-[calc(100%_-_44px)] overflow-y-auto">
+              <div className="flex flex-col items-start justify-start p-6 w-full h-full overflow-y-auto">
                 <LoaderAndError
                   loading={isLoadingSubmission}
                   isError={isSubmissionError}
                   data={submissionStatus?.testResults}
                   errorState={<ErrorState title="An error has occurred" />}
                   emptyState={
-                    <h3 className="font-semibold text-lg">
-                      Submit your solution to see the results
-                    </h3>
+                    <Alert className="bg-card">
+                      <Terminal className="h-4 w-4" />
+                      <AlertTitle>Heads up!</AlertTitle>
+                      <AlertDescription>
+                        Submit your solution to see the results
+                      </AlertDescription>
+                    </Alert>
                   }
                 >
                   {({ data: testResults }) => (
@@ -235,7 +242,6 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
                       testResults={testResults}
                       score={submission?.score ?? 0}
                       runtime={submission?.runtime ?? 0}
-                      isSuccess={testResults.every((test) => test.isSuccess)}
                     />
                   )}
                 </LoaderAndError>
