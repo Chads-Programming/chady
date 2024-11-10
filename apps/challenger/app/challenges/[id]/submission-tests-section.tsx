@@ -1,5 +1,5 @@
 import type { InputExecutionResult } from '@/graphql/graphql'
-import { SubmissionResultCard } from '../components/submission-result-card'
+import { SubmissionSummaryCard } from '../components/submission-summary-card'
 import { TestResults, type TestSummaryProps } from '../components/test-results'
 
 interface Props {
@@ -28,7 +28,7 @@ export const SubmissionTestsSection = ({
 
   return (
     <div className="grid grid-cols-2 w-full">
-      <SubmissionResultCard
+      <SubmissionSummaryCard
         score={score}
         runtime={runtime}
         totalTests={totalTests}

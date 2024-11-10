@@ -8,7 +8,7 @@ type Props = {
   totalSuccess: number
 }
 
-export const SubmissionResultCard = ({
+export const SubmissionSummaryCard = ({
   score,
   runtime,
   totalTests,
@@ -21,7 +21,7 @@ export const SubmissionResultCard = ({
     <Card className="w-full max-w-md h-fit sticky top-1">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">
-          Submission results
+          Submission summary
         </CardTitle>
       </CardHeader>
       <CardContent className="grid gap-6">
@@ -45,7 +45,7 @@ export const SubmissionResultCard = ({
               </Badge>
             </div>
           </div>
-          <div className="grid gap-4 flex-1 font-mono">
+          <div className="grid gap-4 flex-1">
             <div className="flex items-center gap-2 text-lg">
               <Beaker className="w-5 h-5" />
               <span className="font-medium">Total tests:</span>
