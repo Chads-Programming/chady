@@ -45,7 +45,7 @@ export const useSubmission = ({
     mutationResponse: SubmitSolutionMutation['submitUserSolution'],
   ) => {
     void queryClient.invalidateQueries({
-      queryKey: [['user-submission', challengeId]],
+      queryKey: ['user-submission', challengeId],
     })
 
     const { inputResults, submission } = mutationResponse

@@ -1,6 +1,10 @@
 import { Skeleton } from '@/components/ui/skeleton'
 import type { ReactNode } from 'react'
 
+type NonNullableObject<T> = {
+  [P in keyof T]-?: NonNullable<T[P]>
+}
+
 interface LoaderAndErrorProps<T> {
   loading: boolean
   isError: boolean
@@ -8,7 +12,7 @@ interface LoaderAndErrorProps<T> {
   emptyState: ReactNode
   loadingState?: ReactNode
   data?: T
-  children: (props: { data: T }) => ReactNode
+  children: (props: { data: NonNullableObject<T> }) => ReactNode
 }
 
 export const LoaderAndError = <T,>({
@@ -23,7 +27,7 @@ export const LoaderAndError = <T,>({
   if (loading) {
     return (
       <>
-        {loadingState && <Skeleton className="w-full h-full bg-neutral-600" />}
+        {loadingState ?? <Skeleton className="w-full h-full bg-neutral-600" />}
       </>
     )
   }
@@ -36,5 +40,5 @@ export const LoaderAndError = <T,>({
     return <>{emptyState}</>
   }
 
-  return <>{children({ data })}</>
+  return <>{children({ data } as { data: NonNullableObject<T> })}</>
 }

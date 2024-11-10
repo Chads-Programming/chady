@@ -68,7 +68,7 @@ export default function Home() {
   return (
     <main className="flex flex-col">
       <div className="w-full z-10 flex flex-row flex-wrap justify-center py-4 px-8 gap-8 flex-1 min-h-[calc(100dvh-8rem)]">
-        <aside className="search-header w-full md:w-1/4 xl:w-1/5 h-fit border border-border rounded-md backdrop-blur-md bg-secondary shadow-lg p-2 sticky top-0">
+        <aside className="aside-container w-full md:w-1/4 xl:w-1/5 h-fit border border-border rounded-md backdrop-blur-md bg-transparent shadow-lg p-2 sticky top-0">
           <LoaderAndError
             data={codersLeaderboard}
             loading={isLoadingLeaderboard}

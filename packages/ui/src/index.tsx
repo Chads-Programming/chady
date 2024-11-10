@@ -20,9 +20,6 @@ export * from './components/ui/accordion'
 export * from './components/ui/pagination'
 export * from './components/ui/paginator'
 export * from './components/hoc/loader-and-error'
+export * from './components/ui/alert'
 // lib
 export * from './lib/utils'
-// theme
-export * from './theme/theme-provider'
-export * from './theme/theme-toggler'
-export * from './theme/use-theme'

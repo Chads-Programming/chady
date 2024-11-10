@@ -200,9 +200,10 @@ export class SubmissionService {
       },
     });
 
-    const runtime = executionResult.results.reduce(
-      (acc, { execution_time }) => acc + execution_time,
-      0,
+    const runtime = Number(
+      executionResult.results
+        .reduce((acc, { execution_time }) => acc + execution_time, 0)
+        .toFixed(3),
     );
 
     const hasPassed = executionResult.results.every((result) => {

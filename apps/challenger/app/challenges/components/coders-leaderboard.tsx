@@ -58,12 +58,14 @@ const CoderIcon = ({ position }: CoderIconProps) => {
 
 export function CodersLeaderboard({ items }: Props) {
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full bg-transparent rounded-none border-none shadow-none">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-xl font-bold">Top 10</CardTitle>
+        <CardTitle className="text-xl font-bold text-gradient-primary">
+          Top 10
+        </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
-        <div className="space-y-2">
+        <div className="space-y-2 divide-y">
           {items.map((coder, index) => {
             const position = index + 1
 

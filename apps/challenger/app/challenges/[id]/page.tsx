@@ -11,6 +11,9 @@ import {
 import { Editor } from '@monaco-editor/react'
 
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Button,
   type DropdownItem,
   LoaderAndError,
@@ -22,20 +25,16 @@ import {
   TabsTrigger,
   TemplateDropdown,
 } from '@repo/ui'
-import { useTheme } from '@repo/ui'
-import { Play } from 'lucide-react'
+import { useTheme } from '@repo/ui/theme'
+import { Play, Terminal } from 'lucide-react'
 import { FileJson, Lightbulb, ListCollapse } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { ChallengeDescription } from '../components/challenge-description'
 import { LangIcon } from '../components/lang-icon'
 import { Solutions } from '../components/solutions'
-import {
-  SecretTestResult,
-  TestCases,
-  TestResult,
-} from '../components/test-summary'
 import { useGetCodeChallengeByIdQuery } from '../hooks/use-get-challenge-by-id-query'
 import { useSubmission } from '../hooks/use-submission'
+import { SubmissionTestsSection } from './submission-tests-section'
 
 const ChallengePage = ({ params }: { params: { id: string } }) => {
   const { theme } = useTheme()
@@ -222,39 +221,28 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
             </ResizablePanel>
             <CustomResizableHandle horizontal />
             <ResizablePanel defaultSize={25}>
-              <div className="flex flex-col items-start justify-start p-6 w-full h-[calc(100%_-_44px)] overflow-y-auto">
+              <div className="flex flex-col items-start justify-start p-6 w-full h-full overflow-y-auto">
                 <LoaderAndError
                   loading={isLoadingSubmission}
                   isError={isSubmissionError}
                   data={submissionStatus?.testResults}
                   errorState={<ErrorState title="An error has occurred" />}
-                  emptyState={<EmptyState title="No results to display" />}
+                  emptyState={
+                    <Alert className="bg-card">
+                      <Terminal className="h-4 w-4" />
+                      <AlertTitle>Heads up!</AlertTitle>
+                      <AlertDescription>
+                        Submit your solution to see the results
+                      </AlertDescription>
+                    </Alert>
+                  }
                 >
                   {({ data: testResults }) => (
-                    <TestCases>
-                      {testResults.map(({ isSuccess, testCase, output }) => {
-                        if (testCase.isSecret) {
-                          return (
-                            <SecretTestResult
-                              key={testCase.id}
-                              id={testCase.id.toString()}
-                              isSuccess={isSuccess}
-                            />
-                          )
-                        }
-
-                        return (
-                          <TestResult
-                            key={testCase.id}
-                            id={testCase.id.toString()}
-                            isSuccess={isSuccess}
-                            input={testCase.args.toString()}
-                            currentOuput={output}
-                            expectedOutput={testCase.expectedOutput}
-                          />
-                        )
-                      })}
-                    </TestCases>
+                    <SubmissionTestsSection
+                      testResults={testResults}
+                      score={submission?.score ?? 0}
+                      runtime={submission?.runtime ?? 0}
+                    />
                   )}
                 </LoaderAndError>
               </div>

@@ -4,7 +4,7 @@ import { Header } from './shared/components/header'
 import './globals.css'
 
 import '@repo/ui/globals.css'
-import { ThemeProvider } from '@repo/ui'
+import { ThemeProvider } from '@repo/ui/theme'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import { NavigationProgress } from './shared/components/navigation-progress'
