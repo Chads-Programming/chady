@@ -1,4 +1,6 @@
+import { envs } from '@/config';
 import { Response } from 'express';
+import ms from 'ms';
 import { JwtModel } from './models/jwt.model';
 
 // biome-ignore lint/complexity/noStaticOnlyClass: just a simple helper
@@ -7,13 +9,13 @@ export class JwtHelper {
     res.cookie('access-token', jwt.accessToken, {
       httpOnly: true,
       sameSite: 'lax',
-      maxAge: 1.8e6,
+      maxAge: ms(envs.JWT_ACCESS_EXPIRATION),
     });
 
     res.cookie('refresh-token', jwt.refreshToken, {
       httpOnly: true,
       sameSite: 'lax',
-      maxAge: 1.8e6,
+      maxAge: ms(envs.JWT_REFRESH_EXPIRATION),
     });
   }
 
