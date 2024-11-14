@@ -5,6 +5,7 @@ import { ErrorState } from '@/app/shared/components/error-state'
 import { getDiffTime } from '@/helpers/get-diff-time'
 import { LoaderAndError } from '@repo/ui'
 import { Calendar, Timer } from 'lucide-react'
+import { LangIcon } from '../components/lang-icon'
 import { useGetSolutionsInfoByChallengesQuery } from '../hooks/use-get-solutions-info-by-challenge.query'
 
 interface Props {
@@ -32,15 +33,16 @@ export const SolutionsSection = ({ codeChallengeId }: Props) => {
           errorState={<ErrorState title="An error has occurred" />}
         >
           {({ data }) =>
-            data.solutions.map(({ user, runtime, updatedAt }) => (
+            data.solutions.map(({ user, runtime, lang, updatedAt }) => (
               <article
                 key={user.id}
                 className="transition ease-linear px-3 py-1 cursor-pointer select-none flex flex-col gap-3 items-start w-full hover:bg-zinc-300 hover:dark:bg-zinc-700 rounded-md"
               >
-                <header>
+                <header className="inline-flex justify-between w-full">
                   <h2 className="font-bold text-pretty">
                     {user.username.toLowerCase()}'s solution
                   </h2>
+                  <LangIcon lang={lang} />
                 </header>
                 <footer className="inline-flex items-center gap-2 w-full justify-between">
                   <div className="inline-flex items-center gap-2 text-muted-foreground">
