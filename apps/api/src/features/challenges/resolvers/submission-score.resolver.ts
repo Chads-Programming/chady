@@ -8,7 +8,9 @@ import { UserDetail } from '@/features/users/models/user-detail.model';
 import { User } from '@/users/models/user.model';
 import { UserService } from '@/users/services/user.service';
 import { UseGuards } from '@nestjs/common';
-import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { SearchSubmissionsArgs } from '../dtos/search-submissions.args';
+import { SubmissionInfo } from '../models/submission-info.model';
 
 @Resolver(() => UserScoreModel)
 export class SubmissionScoreResolver {
@@ -21,6 +23,15 @@ export class SubmissionScoreResolver {
   @Query(() => Number)
   findPersonalScore(@GqlCurrentUser() user: User) {
     return this.submissionScoreService.findUserTotalScore(user.id);
+  }
+
+  @Query(() => [SubmissionInfo])
+  getSubmissionsInfoByChallenge(
+    @Args() { codeChallengeId }: SearchSubmissionsArgs,
+  ) {
+    return this.submissionScoreService.findSubmissionsInfoByChallenge(
+      codeChallengeId,
+    );
   }
 
   @Query(() => [UserScoreModel])

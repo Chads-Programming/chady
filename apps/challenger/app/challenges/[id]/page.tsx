@@ -31,9 +31,9 @@ import { FileJson, Lightbulb, ListCollapse } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { ChallengeDescription } from '../components/challenge-description'
 import { LangIcon } from '../components/lang-icon'
-import { Solutions } from '../components/solutions'
 import { useGetCodeChallengeByIdQuery } from '../hooks/use-get-challenge-by-id-query'
 import { useSubmission } from '../hooks/use-submission'
+import { SolutionsSection } from './solutions-section'
 import { SubmissionTestsSection } from './submission-tests-section'
 
 const ChallengePage = ({ params }: { params: { id: string } }) => {
@@ -162,7 +162,7 @@ const ChallengePage = ({ params }: { params: { id: string } }) => {
               </LoaderAndError>
             </TabsContent>
             <TabsContent value="solutions" className="h-[calc(100%_-_44px)]">
-              <Solutions />
+              <SolutionsSection codeChallengeId={params.id} />
             </TabsContent>
           </Tabs>
         </ResizablePanel>

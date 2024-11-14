@@ -87,7 +87,7 @@ export class SubmissionService {
         lang: submission.lang,
         userId,
         runtime,
-        status: SubmissionStatus.Pending,
+        status,
         score: calculateChallengeScore(
           runtime,
           difficultMapToFactor(difficult),
