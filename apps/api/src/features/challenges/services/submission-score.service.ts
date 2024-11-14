@@ -41,4 +41,20 @@ export class SubmissionScoreService {
 
     return userScore._sum;
   }
+
+  async findSubmissionsInfoByChallenge(codeChallengeId: string) {
+    return this.prisma.submission.findMany({
+      where: {
+        codeChallengeId,
+        status: 'Success',
+      },
+      select: {
+        runtime: true,
+        lang: true,
+        updatedAt: true,
+        createdAt: true,
+        user: true,
+      },
+    });
+  }
 }

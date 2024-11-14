@@ -9,6 +9,12 @@ type RoleDetail {
   imageUrl: String!
 }
 
+type SimpleUser {
+  id: String!
+  discordId: String!
+  username: String!
+}
+
 type UserDetail {
   id: String!
   discordId: String!
@@ -30,12 +36,10 @@ type UserScoreModel {
   totalScore: Float!
 }
 
-type CodeLangChallengeDetail {
-  id: Float!
-  mainCode: String!
-  startedCode: String!
-  codeChallengeId: String!
+type SubmissionInfo {
+  runtime: Float!
   lang: ProgrammingLang!
+  user: SimpleUser!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -50,6 +54,16 @@ enum ProgrammingLang {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type CodeLangChallengeDetail {
+  id: Float!
+  mainCode: String!
+  startedCode: String!
+  codeChallengeId: String!
+  lang: ProgrammingLang!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
 
 type PageInfo {
   currentPage: Float!
@@ -139,6 +153,7 @@ type Query {
   getUserSubmission(codeChallengeId: String!, programmingLang: ProgrammingLang!): Submission!
   getUserSubmissions: [Submission!]!
   findPersonalScore: Float!
+  getSubmissionsInfoByChallenge(codeChallengeId: String!): [SubmissionInfo!]!
   findSubmissionsLeaderboard: [UserScoreModel!]!
 }
 

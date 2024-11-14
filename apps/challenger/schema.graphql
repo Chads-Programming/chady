@@ -93,6 +93,7 @@ type Query {
   findProfile: UserDetail!
   findSubmissionsLeaderboard: [UserScoreModel!]!
   getCodeChallenge(id: String!): CodeChallenge!
+  getSubmissionsInfoByChallenge(codeChallengeId: String!): [SubmissionInfo!]!
   getUserSubmission(codeChallengeId: String!, programmingLang: ProgrammingLang!): Submission!
   getUserSubmissions: [Submission!]!
 }
@@ -115,6 +116,12 @@ type RoleDetail {
   name: String!
 }
 
+type SimpleUser {
+  discordId: String!
+  id: String!
+  username: String!
+}
+
 type Submission {
   codeChallenge: CodeChallenge!
   createdAt: DateTime!
@@ -126,6 +133,14 @@ type Submission {
   status: String!
   updatedAt: DateTime!
   user: UserDetail!
+}
+
+type SubmissionInfo {
+  createdAt: DateTime!
+  lang: ProgrammingLang!
+  runtime: Float!
+  updatedAt: DateTime!
+  user: SimpleUser!
 }
 
 input SubmissionInput {

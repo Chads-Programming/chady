@@ -126,6 +126,7 @@ export type Query = {
   findProfile: UserDetail;
   findSubmissionsLeaderboard: Array<UserScoreModel>;
   getCodeChallenge: CodeChallenge;
+  getSubmissionsInfoByChallenge: Array<SubmissionInfo>;
   getUserSubmission: Submission;
   getUserSubmissions: Array<Submission>;
 };
@@ -142,6 +143,11 @@ export type QueryFindCodeChallengesArgs = {
 
 export type QueryGetCodeChallengeArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryGetSubmissionsInfoByChallengeArgs = {
+  codeChallengeId: Scalars['String']['input'];
 };
 
 
@@ -170,6 +176,13 @@ export type RoleDetail = {
   name: Scalars['String']['output'];
 };
 
+export type SimpleUser = {
+  __typename?: 'SimpleUser';
+  discordId: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  username: Scalars['String']['output'];
+};
+
 export type Submission = {
   __typename?: 'Submission';
   codeChallenge: CodeChallenge;
@@ -182,6 +195,15 @@ export type Submission = {
   status: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   user: UserDetail;
+};
+
+export type SubmissionInfo = {
+  __typename?: 'SubmissionInfo';
+  createdAt: Scalars['DateTime']['output'];
+  lang: ProgrammingLang;
+  runtime: Scalars['Float']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user: SimpleUser;
 };
 
 export type SubmissionInput = {
@@ -283,6 +305,13 @@ export type FindCodeChallngesQueryVariables = Exact<{
 
 
 export type FindCodeChallngesQuery = { __typename?: 'Query', findCodeChallenges: { __typename?: 'PaginatedChallenges', data: Array<{ __typename?: 'CodeChallenge', id: string, title: string, description: string, difficult: Difficult }>, pageInfo?: { __typename?: 'PageInfo', currentPage: number, totalPages: number, hasNextPage: boolean } | null } };
+
+export type FindSubmissionInfoByChallengeQueryVariables = Exact<{
+  codeChallengeId: Scalars['String']['input'];
+}>;
+
+
+export type FindSubmissionInfoByChallengeQuery = { __typename?: 'Query', getSubmissionsInfoByChallenge: Array<{ __typename?: 'SubmissionInfo', lang: ProgrammingLang, runtime: number, createdAt: any, updatedAt: any, user: { __typename?: 'SimpleUser', id: string, username: string } }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -434,3 +463,17 @@ export const FindCodeChallngesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindCodeChallngesQuery, FindCodeChallngesQueryVariables>;
+export const FindSubmissionInfoByChallengeDocument = new TypedDocumentString(`
+    query FindSubmissionInfoByChallenge($codeChallengeId: String!) {
+  getSubmissionsInfoByChallenge(codeChallengeId: $codeChallengeId) {
+    lang
+    runtime
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<FindSubmissionInfoByChallengeQuery, FindSubmissionInfoByChallengeQueryVariables>;

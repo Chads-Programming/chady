@@ -22,6 +22,7 @@ const documents = {
     "\n    query FindCodeChallengeById($id: String!){\n        getCodeChallenge(id: $id){\n            id\n            title\n            description\n            difficult\n            langDetails {\n                id\n                lang\n                startedCode\n            }\n            testCases {\n                id\n                args\n                expectedOutput\n                isSecret\n            }\n        }\n    }\n": types.FindCodeChallengeByIdDocument,
     "\n    query FindCodeChallengeInfoById($id: String!){\n        getCodeChallenge(id: $id){\n            id\n            title\n            difficult\n            langDetails {\n                id\n                lang\n            }\n        }\n    }\n": types.FindCodeChallengeInfoByIdDocument,
     "\n  query FindCodeChallnges($difficult: Difficult, $search: String, $perPage: Int, $page: Int, $lang: ProgrammingLang) {\n    findCodeChallenges(difficult: $difficult, search: $search, perPage: $perPage, page: $page, lang: $lang){\n        data {\n            id\n            title\n            description\n            difficult\n        }\n       pageInfo {\n        currentPage\n        totalPages\n        hasNextPage\n        hasNextPage\n      }\n    }\n  }\n": types.FindCodeChallngesDocument,
+    "\n  query FindSubmissionInfoByChallenge($codeChallengeId: String!) {\n    getSubmissionsInfoByChallenge(codeChallengeId: $codeChallengeId){\n      lang\n      runtime\n      createdAt\n      updatedAt\n        user {\n            id\n            username\n        }\n    }\n  }\n": types.FindSubmissionInfoByChallengeDocument,
 };
 
 /**
@@ -56,6 +57,10 @@ export function graphql(source: "\n    query FindCodeChallengeInfoById($id: Stri
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query FindCodeChallnges($difficult: Difficult, $search: String, $perPage: Int, $page: Int, $lang: ProgrammingLang) {\n    findCodeChallenges(difficult: $difficult, search: $search, perPage: $perPage, page: $page, lang: $lang){\n        data {\n            id\n            title\n            description\n            difficult\n        }\n       pageInfo {\n        currentPage\n        totalPages\n        hasNextPage\n        hasNextPage\n      }\n    }\n  }\n"): typeof import('./graphql').FindCodeChallngesDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query FindSubmissionInfoByChallenge($codeChallengeId: String!) {\n    getSubmissionsInfoByChallenge(codeChallengeId: $codeChallengeId){\n      lang\n      runtime\n      createdAt\n      updatedAt\n        user {\n            id\n            username\n        }\n    }\n  }\n"): typeof import('./graphql').FindSubmissionInfoByChallengeDocument;
 
 
 export function graphql(source: string) {

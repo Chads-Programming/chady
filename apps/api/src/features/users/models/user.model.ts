@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, OmitType } from '@nestjs/graphql';
 
 @ObjectType()
 export class User {
@@ -20,3 +20,10 @@ export class User {
   @Field(() => [String])
   roles: string[];
 }
+
+@ObjectType()
+export class SimpleUser extends OmitType(User, [
+  'roles',
+  'avatar',
+  'discriminator',
+]) {}
