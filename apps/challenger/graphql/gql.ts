@@ -14,7 +14,7 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n  }\n": types.ProfileDocument,
+    "\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n    getScore\n  }\n": types.ProfileDocument,
     "\n    mutation RefreshToken{\n        refreshToken{\n          __typename\n        }\n    }\n  ": types.RefreshTokenDocument,
     "\n    query LeaderboardQuery {\n        findSubmissionsLeaderboard {\n            user {\n                id\n                avatarUrl\n                username\n            }\n            totalScore\n        }\n    }": types.LeaderboardQueryDocument,
     "\n    query GetUserSubmissionQuery($codeChallengeId: String!, $programmingLang: ProgrammingLang!){\n      getUserSubmission(codeChallengeId: $codeChallengeId, programmingLang: $programmingLang){\n        id\n        runtime\n        score\n        solutionCode\n        lang\n        status\n        createdAt\n        updatedAt\n      }\n    }\n  ": types.GetUserSubmissionQueryDocument,
@@ -28,7 +28,7 @@ const documents = {
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n  }\n"): typeof import('./graphql').ProfileDocument;
+export function graphql(source: "\n  query Profile {\n    findProfile {\n      id\n      username\n      avatarUrl\n      roles {\n        id\n        name\n        imageUrl\n        color\n      }\n    }\n    getScore\n  }\n"): typeof import('./graphql').ProfileDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

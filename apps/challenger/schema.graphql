@@ -93,6 +93,7 @@ type Query {
   findProfile: UserDetail!
   findSubmissionsLeaderboard: [UserScoreModel!]!
   getCodeChallenge(id: String!): CodeChallenge!
+  getScore: Int!
   getSubmissionsInfoByChallenge(codeChallengeId: String!): [SubmissionInfo!]!
   getUserSubmission(codeChallengeId: String!, programmingLang: ProgrammingLang!): Submission!
   getUserSubmissions: [Submission!]!

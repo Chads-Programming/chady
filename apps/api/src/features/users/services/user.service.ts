@@ -58,4 +58,24 @@ export class UserService {
 
     return roles.map((role) => roleMappings.fromDiscordRole(role));
   }
+
+  async findUserScore(userId: string): Promise<number> {
+    const wrappedScore = await this.prisma.submission.groupBy({
+      by: ['userId'],
+      _sum: {
+        score: true,
+      },
+      where: {
+        userId,
+      },
+      orderBy: {
+        _sum: {
+          score: 'desc',
+        },
+      },
+      take: 1,
+    });
+
+    return wrappedScore.pop()._sum.score;
+  }
 }

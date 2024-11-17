@@ -3,18 +3,19 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
+  Badge,
   Button,
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@repo/ui'
-import { Loader, LogOut } from 'lucide-react'
+import { BadgeIcon, Loader, LogOut, Medal } from 'lucide-react'
 import { useAuth } from '../hooks/use-auth'
 import { LoginButton } from './login-button'
 import { Role } from './role'
 
 export const ProfileBanner = () => {
-  const { profile, isLoading, logout } = useAuth()
+  const { profile, score, isLoading, logout } = useAuth()
 
   if (!profile) {
     return <LoginButton />
@@ -32,8 +33,18 @@ export const ProfileBanner = () => {
             <AvatarFallback>{profile.username.charAt(0)}</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
-        <PopoverContent className="flex flex-col gap-2 w-80">
-          <h3 className="text-sm font-semibold text-pretty">Discord badges:</h3>
+        <PopoverContent className="flex flex-col gap-3">
+          <header className="flex gap-2 items-center">
+            <Medal className="w-5" />
+            <h3 className="font-semibold text-pretty">My score:</h3>
+            <Badge variant="outline" className="flex items-center gap-2 w-fit">
+              {score} pts
+            </Badge>
+          </header>
+          <header className="flex gap-2 items-center">
+            <BadgeIcon className="w-5" />
+            <h3 className="font-semibold text-pretty">Discord badges:</h3>
+          </header>
 
           <ul className="inline-flex flex-wrap gap-2">
             {profile.roles.map(({ id, color, imageUrl, name }) => (
