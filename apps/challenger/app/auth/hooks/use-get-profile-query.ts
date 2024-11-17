@@ -19,6 +19,7 @@ const ProfileQuery = graphql(`
         color
       }
     }
+    getScore
   }
 `)
 

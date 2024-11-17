@@ -126,6 +126,7 @@ export type Query = {
   findProfile: UserDetail;
   findSubmissionsLeaderboard: Array<UserScoreModel>;
   getCodeChallenge: CodeChallenge;
+  getScore: Scalars['Int']['output'];
   getSubmissionsInfoByChallenge: Array<SubmissionInfo>;
   getUserSubmission: Submission;
   getUserSubmissions: Array<Submission>;
@@ -254,7 +255,7 @@ export type UserScoreModel = {
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProfileQuery = { __typename?: 'Query', findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
+export type ProfileQuery = { __typename?: 'Query', getScore: number, findProfile: { __typename?: 'UserDetail', id: string, username: string, avatarUrl: string, roles: Array<{ __typename?: 'RoleDetail', id: string, name: string, imageUrl: string, color: number }> } };
 
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -341,6 +342,7 @@ export const ProfileDocument = new TypedDocumentString(`
       color
     }
   }
+  getScore
 }
     `) as unknown as TypedDocumentString<ProfileQuery, ProfileQueryVariables>;
 export const RefreshTokenDocument = new TypedDocumentString(`

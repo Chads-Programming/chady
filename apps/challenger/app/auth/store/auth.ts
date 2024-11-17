@@ -3,11 +3,14 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { devtools } from 'zustand/middleware'
 
+type Profile = ProfileQuery['findProfile']
+
 interface AutState {
-  profile?: ProfileQuery['findProfile']
+  profile?: Profile
+  score?: number
 
   clearProfile(): void
-  setProfile(profile: ProfileQuery['findProfile']): void
+  setProfile(profile: Profile, score: number): void
 }
 
 export const useAuthStore = create<AutState>()(
@@ -21,11 +24,12 @@ export const useAuthStore = create<AutState>()(
             }
           })
         },
-        setProfile: (profile) => {
+        setProfile: (profile, score) => {
           setStore((state) => {
             return {
               ...state,
               profile,
+              score,
             }
           })
         },

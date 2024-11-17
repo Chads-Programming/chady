@@ -13,7 +13,12 @@ export const useAuth = () => {
     error,
     refetch: refetchProfile,
   } = useGetProfileQuery()
-  const { setProfile, profile: storedProfile, clearProfile } = useAuthStore()
+  const {
+    setProfile,
+    profile: storedProfile,
+    clearProfile,
+    score,
+  } = useAuthStore()
   const { mutate: refreshSession } = useRefreshTokenMutation()
 
   useEffect(() => {
@@ -36,7 +41,9 @@ export const useAuth = () => {
       return
     }
 
-    setProfile(profileResult.findProfile)
+    const { findProfile, getScore } = profileResult
+
+    setProfile(findProfile, getScore)
   }, [profileResult, setProfile])
 
   const logout = () => {
@@ -46,6 +53,7 @@ export const useAuth = () => {
 
   return {
     profile: storedProfile,
+    score,
     logout,
     isLoading: isLoadingProfile,
   }

@@ -6,7 +6,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gql:gen": "npx graphql-codegen --config codegen.ts --watch"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
