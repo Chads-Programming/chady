@@ -1,6 +1,6 @@
 # Chady
 
-A powerful and user-friendly platform inspired by [LeetCode](https://leetcode.com/) and [TypeHero](https://typehero.dev/), designed to help developers enhance their skills through programming challenges. Users can submit solutions, earn points, and track their progress.
+A minimalist and user-friendly platform inspired by [LeetCode](https://leetcode.com/) and [TypeHero](https://typehero.dev/), designed to help developers enhance their skills through programming challenges. Users can submit solutions, earn points, and track their progress.
 
 
 ## Table of Contents
