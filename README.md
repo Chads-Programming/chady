@@ -2,7 +2,6 @@
 
 A powerful and user-friendly platform inspired by [LeetCode](https://leetcode.com/) and [TypeHero](https://typehero.dev/), designed to help developers enhance their skills through programming challenges. Users can submit solutions, earn points, and track their progress.
 
----
 
 ## Table of Contents
 
@@ -13,7 +12,6 @@ A powerful and user-friendly platform inspired by [LeetCode](https://leetcode.co
 3. [Run the Development Environment](#run-the-development-environment)
 4. [Notes](#notes)
 
----
 
 ## Features
 
@@ -25,7 +23,6 @@ A powerful and user-friendly platform inspired by [LeetCode](https://leetcode.co
 
 > **Note**: The login process validates that users are members of the specified Discord server.
 
----
 
 ## Installation
 
@@ -45,7 +42,6 @@ Ensure the following tools are installed on your system:
 - [PostgreSQL](https://www.postgresql.org/download/) (for the API database)
 - [Docker](https://www.docker.com/) (optional, for running services like the database)
 
----
 
 ### Steps to Set Up
 
